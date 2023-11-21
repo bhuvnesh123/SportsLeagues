@@ -1,0 +1,80 @@
+plugins {
+    id 'kotlin-kapt'
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.example.sports_data'
+    compileSdk Versions.compilesdk
+
+    defaultConfig {
+        minSdk Versions.minsdk
+        targetSdk Versions.targetsdk
+        versionCode App.versionCode
+        versionName App.versionName
+
+        testInstrumentationRunner TestDependencies.instrumentation_runner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtensionVersion
+    }
+}
+
+dependencies {
+
+    implementation project(':common')
+    implementation project(':sports_domain')
+
+    //Android Dependencies
+    implementation Dependencies.appcompat
+    implementation Dependencies.google_material
+
+    // Kotlin dependencies
+    implementation Dependencies.core_ktx
+    implementation Dependencies.kotlin_standard_library
+    implementation Dependencies.kotlin_reflect
+    implementation Dependencies.kotlin_coroutines_core
+    implementation Dependencies.kotlin_coroutines_android
+    implementation Dependencies.viewmodel_ktx
+
+    // Networking
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofit_gson
+    implementation Dependencies.logging_interceptor
+
+//    //DI
+    implementation Dependencies.hilt
+    implementation Dependencies.hilt_navigation_compose
+    kapt Dependencies.hilt_compiler
+
+
+    // Test dependencies
+    testImplementation TestDependencies.ext_junit
+    androidTestImplementation TestDependencies.espresso_core
+    testImplementation TestDependencies.junit
+    testImplementation TestDependencies.mockk
+    testImplementation TestDependencies.core_testing
+    testImplementation TestDependencies.jupiter_api
+    testImplementation TestDependencies.jupiter_params
+    testImplementation TestDependencies.coroutines_test
+}
