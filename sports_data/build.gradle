@@ -62,7 +62,7 @@ dependencies {
     implementation Dependencies.retrofit_gson
     implementation Dependencies.logging_interceptor
 
-//    //DI
+    //DI
     implementation Dependencies.hilt
     implementation Dependencies.hilt_navigation_compose
     kapt Dependencies.hilt_compiler

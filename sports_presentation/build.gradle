@@ -1,6 +1,8 @@
 plugins {
+    id 'kotlin-kapt'
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -39,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation project(':sports_domain')
 
     //Android Dependencies
     implementation Dependencies.appcompat
@@ -57,10 +60,10 @@ dependencies {
     implementation Dependencies.retrofit_gson
     implementation Dependencies.logging_interceptor
 
-//    //DI
-//    implementation Dependencies.hilt
-//    implementation Dependencies.hilt_navigation_compose
-//    kapt Dependencies.hilt_compiler
+    //DI
+    implementation Dependencies.hilt
+    implementation Dependencies.hilt_navigation_compose
+    kapt Dependencies.hilt_compiler
 
     //Compose
     implementation platform(Dependencies.compose_bom)
