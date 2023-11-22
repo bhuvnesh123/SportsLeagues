@@ -1,4 +1,4 @@
-package com.example.common
+package com.example.sports_data.utils
 
 object NetworkConstants {
 

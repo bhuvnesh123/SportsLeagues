@@ -1,6 +1,6 @@
-package com.example.sports_data.dto.countryLeagues
+package com.example.sports_data.dto.countryleagues
 
-data class League(
+data class LeagueDTO(
     val idLeague: String,
     val idSoccerXML: String?,
     val idAPIfootball: String?,
