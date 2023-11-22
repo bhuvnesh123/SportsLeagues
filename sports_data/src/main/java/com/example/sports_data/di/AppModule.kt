@@ -9,6 +9,10 @@ import com.example.sports_data.repository.SportsRepositoryImpl
 import com.example.sports_data.service.SportsService
 import com.example.sports_data.service.SportsServiceImpl
 import com.example.sports_domain.SportsRepository
+import com.example.sports_domain.usecase.CountryLeaguesUseCase
+import com.example.sports_domain.usecase.CountryLeaguesUseCaseImpl
+import com.example.sports_domain.usecase.CountryListUseCase
+import com.example.sports_domain.usecase.CountryListUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,5 +67,16 @@ object AppModule {
         return SportsRepositoryImpl(sportsService = sportsService)
     }
 
+    @Singleton
+    @Provides
+    fun providesCountryLeaguesUseCase(sportsRepository: SportsRepository) : CountryLeaguesUseCase {
+        return CountryLeaguesUseCaseImpl(sportsRepository = sportsRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesCountryListUseCase(sportsRepository: SportsRepository) : CountryListUseCase {
+        return CountryListUseCaseImpl(sportsRepository = sportsRepository)
+    }
 
 }
