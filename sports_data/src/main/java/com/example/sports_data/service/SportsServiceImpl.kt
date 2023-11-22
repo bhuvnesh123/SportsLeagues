@@ -1,30 +1,36 @@
 package com.example.sports_data.service
 
 import com.example.sports_data.api.SportsApi
-import com.example.common.ApiResult
-import com.example.common.map
-import com.example.common.safeApiCall
-import com.example.sports_domain.domainModels.allCountries.CountriesListModel
-import com.example.sports_domain.domainModels.countryLeagues.LeagueListModel
 import com.example.sports_data.mappers.CountriesListMapper
 import com.example.sports_data.mappers.LeaguesListMapper
+import com.example.sports_data.utils.safeApiCall
+import com.example.sports_domain.ApiResult
+import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
+import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class SportsServiceImpl @Inject constructor(private val sportsApi: SportsApi, private val countriesListMapperImpl: CountriesListMapper, private val leaguesListMapperImpl: LeaguesListMapper) : SportsService {
+class SportsServiceImpl @Inject constructor(
+    private val sportsApi: SportsApi,
+    private val countriesListMapper: CountriesListMapper,
+    private val leaguesListMapper: LeaguesListMapper
+) : SportsService {
 
     override fun getAllCountries(): Flow<ApiResult<CountriesListModel?>> =
         flow {
-            val response = safeApiCall { sportsApi.getAllCountries() }
-            emit(response.map { countriesResponse -> countriesResponse?.let { countriesListMapperImpl.map(it) }})
+            val response = safeApiCall({ sportsApi.getAllCountries() }, countriesListMapper::map)
+            emit(response)
         }
 
 
     override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel?>> =
         flow {
-            val response = safeApiCall { sportsApi.searchLeaguesByCountry(countryName = countryName) }
-            response.map { leaguesResponse -> leaguesResponse?.let {leaguesListMapperImpl.map(leaguesResponse) }}
+            val response = safeApiCall(
+                { sportsApi.searchLeaguesByCountry(countryName = countryName) },
+                leaguesListMapper::map
+            )
+            emit(response)
         }
 
 }

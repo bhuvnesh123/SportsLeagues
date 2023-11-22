@@ -1,4 +1,4 @@
-package com.example.sports_domain.domainModels.countryLeagues
+package com.example.sports_domain.domainmodels.countryleagues
 
 data class LeagueModel(
     val idLeague: String,

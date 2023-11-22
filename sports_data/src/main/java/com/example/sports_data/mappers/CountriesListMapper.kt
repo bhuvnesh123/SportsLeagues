@@ -1,8 +1,16 @@
 package com.example.sports_data.mappers
 
-import com.example.sports_domain.domainModels.allCountries.CountriesListModel
-import com.example.sports_data.dto.allCountries.CountriesResponse
+import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
+import com.example.sports_data.dto.allcountries.CountriesResponseDTO
+import javax.inject.Inject
 
-interface CountriesListMapper {
-    fun map(input: CountriesResponse): CountriesListModel
+class CountriesListMapper @Inject constructor(private val countryMapper: CountryMapper){
+
+    fun map(input: CountriesResponseDTO): CountriesListModel {
+        return with(input) {
+            val countriesList = countries.map { countryMapper.map(it) }
+            CountriesListModel(countriesList)
+        }
+
+    }
 }
