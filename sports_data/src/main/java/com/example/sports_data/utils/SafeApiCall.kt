@@ -2,6 +2,7 @@ package com.example.sports_data.utils
 
 import com.example.sports_data.utils.NetworkConstants.NETWORK_TIMEOUT
 import com.example.sports_data.utils.NetworkErrors.ERROR_UNKNOWN
+import com.example.sports_data.utils.NetworkErrors.NETWORK_ERROR
 import com.example.sports_data.utils.NetworkErrors.NETWORK_ERROR_TIMEOUT
 import com.example.sports_data.utils.NetworkErrors.NETWORK_ERROR_UNKNOWN
 import com.example.sports_domain.ApiResult
@@ -37,7 +38,7 @@ suspend fun <T, R> safeApiCall(
                 ApiResult.GenericError(code, NETWORK_ERROR_TIMEOUT)
             }
             is IOException -> {
-                ApiResult.NetworkError
+                ApiResult.NetworkError(NETWORK_ERROR)
             }
             is HttpException -> {
                 val code = throwable.code()

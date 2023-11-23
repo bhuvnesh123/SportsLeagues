@@ -9,7 +9,7 @@ sealed class ApiResult<out T> {
         val errorMessage: String? = null
     ) : ApiResult<Nothing>()
 
-    object NetworkError : ApiResult<Nothing>()
+    data class NetworkError(val errorMessage: String) : ApiResult<Nothing>()
 }
 
 
