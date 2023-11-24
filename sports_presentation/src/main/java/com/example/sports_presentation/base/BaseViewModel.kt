@@ -11,7 +11,7 @@ abstract class BaseViewModel<VS : ViewState, VI : ViewIntent, SI : SideEffect> :
     private val initialState: VS by lazy { createInitialState() }
     abstract fun createInitialState(): VS
 
-    protected val _state = MutableStateFlow<VS>(initialState)
+    protected val _state = MutableStateFlow(initialState)
     val viewState: StateFlow<VS> get() = _state      // StateFlow always have a state.We always want to receive last view state when UI become visible.
 
     protected val _sideEffect = Channel<SI>()

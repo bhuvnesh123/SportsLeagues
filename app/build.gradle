@@ -43,6 +43,7 @@ android {
 }
 
 dependencies {
+    implementation project(':sports_data')
     implementation project(':sports_presentation')
     implementation project(':common')
 

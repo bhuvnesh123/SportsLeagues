@@ -50,11 +50,6 @@ dependencies {
     implementation Dependencies.kotlin_coroutines_android
     implementation Dependencies.viewmodel_ktx
 
-    // Networking
-    implementation Dependencies.retrofit
-    implementation Dependencies.retrofit_gson
-    implementation Dependencies.logging_interceptor
-
     //DI
     implementation Dependencies.hilt
     kapt Dependencies.hilt_compiler

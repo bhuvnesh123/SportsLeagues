@@ -1,14 +1,16 @@
-package com.example.sports_presentation.countieslist
+package com.example.sports_presentation.screens.countieslist
 
 import androidx.lifecycle.viewModelScope
 import com.example.sports_domain.ApiResult
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.usecase.CountryListUseCase
 import com.example.sports_presentation.base.BaseViewModel
+import com.example.sports_presentation.mappers.CountryPresentationListMapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-class CountryListViewModel @Inject constructor(private val countryListUseCase: CountryListUseCase) :
+@HiltViewModel
+class CountryListViewModel @Inject constructor(private val countryListUseCase: CountryListUseCase, private val countryPresentationListMapper : CountryPresentationListMapper) :
     BaseViewModel<CountryListViewState, CountryListViewIntent, CountryListSideEffect>() {
 
     override fun createInitialState(): CountryListViewState {
@@ -36,7 +38,8 @@ class CountryListViewModel @Inject constructor(private val countryListUseCase: C
     }
 
     private fun onResponse(response: CountriesListModel) {
-        _state.value = CountryListViewState.Success(response.countries)
+        val mappedResponse = countryPresentationListMapper.map(response)
+        _state.value = CountryListViewState.Success(mappedResponse.countries)
     }
 
     private fun navigateToDetails(countryName : String) {
