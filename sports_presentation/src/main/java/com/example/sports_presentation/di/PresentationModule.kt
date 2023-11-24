@@ -17,9 +17,10 @@ object PresentationModule {
     fun provideCountryPresentationMapper(): CountryPresentationMapper {
         return CountryPresentationMapper()
     }
+
     @Singleton
     @Provides
     fun provideCountryListPresentationMapper(countryPresentationMapper: CountryPresentationMapper): CountryPresentationListMapper {
-        return CountryPresentationListMapper(countryPresentationMapper= countryPresentationMapper)
+        return CountryPresentationListMapper(countryPresentationMapper = countryPresentationMapper)
     }
 }

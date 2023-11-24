@@ -9,8 +9,12 @@ import com.example.sports_presentation.mappers.CountryPresentationListMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
-class CountryListViewModel @Inject constructor(private val countryListUseCase: CountryListUseCase, private val countryPresentationListMapper : CountryPresentationListMapper) :
+class CountryListViewModel @Inject constructor(
+    private val countryListUseCase: CountryListUseCase,
+    private val countryPresentationListMapper: CountryPresentationListMapper
+) :
     BaseViewModel<CountryListViewState, CountryListViewIntent, CountryListSideEffect>() {
 
     override fun createInitialState(): CountryListViewState {
@@ -42,7 +46,7 @@ class CountryListViewModel @Inject constructor(private val countryListUseCase: C
         _state.value = CountryListViewState.Success(mappedResponse.countries)
     }
 
-    private fun navigateToDetails(countryName : String) {
+    private fun navigateToDetails(countryName: String) {
         viewModelScope.launch {
             _sideEffect.send(CountryListSideEffect.NavigateToDetails(countryName = countryName))
         }

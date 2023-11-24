@@ -8,14 +8,16 @@ import com.example.sports_presentation.models.allCountries.CountryPresentationMo
 sealed interface CountryListViewState : ViewState {
     object Loading :
         CountryListViewState     // An object is a singleton instance of a class, and in this case, it represents the loading state of the view. Since loading is a single state and doesn't require any additional data, it can be represented as an object.
+
     class Success(val countriesList: List<CountryPresentationModel>) :
         CountryListViewState  // This class represent the success state of the view. It can hold additional data such as the list of countries in the case of Success .
+
     class Error(val errorMessage: String) : CountryListViewState
 }
 
 sealed interface CountryListViewIntent : ViewIntent {
     object LoadData : CountryListViewIntent
-    class OnCountryClicked(val countryName : String) : CountryListViewIntent
+    class OnCountryClicked(val countryName: String) : CountryListViewIntent
 }
 
 sealed interface CountryListSideEffect : SideEffect {
