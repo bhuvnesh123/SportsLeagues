@@ -5,7 +5,7 @@ import com.example.sports_domain.ApiResult
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.usecase.CountryListUseCase
 import com.example.sports_presentation.base.BaseViewModel
-import com.example.sports_presentation.mappers.CountryPresentationListMapper
+import com.example.sports_presentation.mappers.allcountries.CountryPresentationListMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

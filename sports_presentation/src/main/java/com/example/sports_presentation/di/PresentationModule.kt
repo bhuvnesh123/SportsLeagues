@@ -1,7 +1,7 @@
 package com.example.sports_presentation.di
 
-import com.example.sports_presentation.mappers.CountryPresentationListMapper
-import com.example.sports_presentation.mappers.CountryPresentationMapper
+import com.example.sports_presentation.mappers.allcountries.CountryPresentationListMapper
+import com.example.sports_presentation.mappers.allcountries.CountryPresentationMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

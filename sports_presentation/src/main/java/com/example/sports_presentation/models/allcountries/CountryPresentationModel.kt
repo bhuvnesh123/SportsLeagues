@@ -1,4 +1,4 @@
-package com.example.sports_presentation.models.allCountries
+package com.example.sports_presentation.models.allcountries
 
 data class CountryPresentationModel(
     val countryName: String

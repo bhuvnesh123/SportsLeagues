@@ -1,7 +1,7 @@
-package com.example.sports_presentation.mappers
+package com.example.sports_presentation.mappers.allcountries
 
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
-import com.example.sports_presentation.models.allCountries.CountriesListPresentationModel
+import com.example.sports_presentation.models.allcountries.CountriesListPresentationModel
 import javax.inject.Inject
 
 class CountryPresentationListMapper @Inject constructor(private val countryPresentationMapper: CountryPresentationMapper) {

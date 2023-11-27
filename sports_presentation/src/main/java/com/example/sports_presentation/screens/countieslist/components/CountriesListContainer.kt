@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.common.component.Dimens
-import com.example.sports_presentation.models.allCountries.CountryPresentationModel
+import com.example.sports_presentation.models.allcountries.CountryPresentationModel
 
 @Composable
 fun CountriesListContainer(

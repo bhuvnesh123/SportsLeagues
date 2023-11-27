@@ -1,7 +1,7 @@
-package com.example.sports_presentation.mappers
+package com.example.sports_presentation.mappers.allcountries
 
 import com.example.sports_domain.domainmodels.allcountries.CountryModel
-import com.example.sports_presentation.models.allCountries.CountryPresentationModel
+import com.example.sports_presentation.models.allcountries.CountryPresentationModel
 
 class CountryPresentationMapper {
 

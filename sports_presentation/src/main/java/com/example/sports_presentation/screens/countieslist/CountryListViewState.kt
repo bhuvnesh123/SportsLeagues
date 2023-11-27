@@ -3,7 +3,7 @@ package com.example.sports_presentation.screens.countieslist
 import com.example.sports_presentation.base.SideEffect
 import com.example.sports_presentation.base.ViewIntent
 import com.example.sports_presentation.base.ViewState
-import com.example.sports_presentation.models.allCountries.CountryPresentationModel
+import com.example.sports_presentation.models.allcountries.CountryPresentationModel
 
 sealed interface CountryListViewState : ViewState {
     object Loading :
