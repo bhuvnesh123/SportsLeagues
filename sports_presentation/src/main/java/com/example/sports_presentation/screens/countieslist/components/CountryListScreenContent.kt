@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.sports_presentation.customcomposables.CircularProgressBarIndicator
-import com.example.sports_presentation.customcomposables.FailureScreen
+import com.example.sports_presentation.customcomposables.MessageScreen
 import com.example.sports_presentation.screens.countieslist.CountryListViewIntent
 import com.example.sports_presentation.screens.countieslist.CountryListViewModel
 import com.example.sports_presentation.screens.countieslist.CountryListViewState
@@ -33,7 +33,7 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
         is CountryListViewState.Error -> {
             val errorMessage =
                 (countryListViewState.value as CountryListViewState.Error).errorMessage
-            FailureScreen(errorMessage = errorMessage)
+            MessageScreen(errorMessage = errorMessage)
         }
     }
 }

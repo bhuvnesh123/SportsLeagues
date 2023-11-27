@@ -6,9 +6,11 @@ import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_presentation.base.BaseViewModel
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CountryLeaguesViewModel @Inject constructor(
     private val countryLeaguesUseCase: CountryLeaguesUseCase,
     private val leaguesListPresentationMapper: LeaguesListPresentationMapper
@@ -36,7 +38,10 @@ class CountryLeaguesViewModel @Inject constructor(
 
     private fun onResponse(response: LeagueListModel) {
         val mappedResponse = leaguesListPresentationMapper.map(response)
-        _state.value = CountryLeaguesViewState.Success(mappedResponse.countries)
+        _state.value =
+            if (mappedResponse.countries.isEmpty()) CountryLeaguesViewState.NoDataFound else CountryLeaguesViewState.Success(
+                mappedResponse.countries
+            )
     }
 
     override fun sendIntent(vi: CountryLeaguesViewIntent) {

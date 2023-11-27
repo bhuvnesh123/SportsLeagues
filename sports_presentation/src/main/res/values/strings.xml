@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="country_list_screen_title">"Countries"</string>
+    <string name="country_details_screen_title">"Leagues"</string>
+    <string name="no_leagues_found">"No leagues found for this country"</string>
+    <string name="sport">Sport : %s</string>
+    <string name="formed_year">Formed Year: %s</string>
+    <string name="current_season">Current Season: %s</string>
+    <string name="tv_rights">TV Rights: %s</string>
 </resources>

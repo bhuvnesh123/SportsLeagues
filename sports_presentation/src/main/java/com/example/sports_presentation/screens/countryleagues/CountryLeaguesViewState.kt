@@ -13,6 +13,8 @@ sealed interface CountryLeaguesViewState : ViewState {
         CountryLeaguesViewState  // This class represent the success state of the view. It can hold additional data such as the list of countries in the case of Success .
 
     class Error(val errorMessage: String) : CountryLeaguesViewState
+
+    object NoDataFound : CountryLeaguesViewState
 }
 
 sealed interface CountryLeaguesViewIntent : ViewIntent {

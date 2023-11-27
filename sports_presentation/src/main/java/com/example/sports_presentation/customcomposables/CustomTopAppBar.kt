@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopAppBar(title: String) {
+fun CustomTopAppBar(title: String, onBack: () -> Unit) {
 
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -30,7 +30,7 @@ fun CustomTopAppBar(title: String) {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /* do something */ }) {
+            IconButton(onClick = { onBack() }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "Back"
@@ -44,5 +44,5 @@ fun CustomTopAppBar(title: String) {
 @Preview(showBackground = true)
 @Composable
 fun CustomTopAppBarPreview() {
-    CustomTopAppBar(title = "Countries")
+    CustomTopAppBar(title = "Countries", onBack = {})
 }

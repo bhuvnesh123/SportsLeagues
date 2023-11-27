@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.example.sports_presentation.common.component.Dimens
 
 @Composable
-fun FailureScreen(errorMessage: String) {
+fun MessageScreen(errorMessage: String) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -38,5 +38,5 @@ fun FailureScreen(errorMessage: String) {
 @Preview(showBackground = true)
 @Composable
 fun ErrorScreenPreview() {
-    FailureScreen("Apologies, there seems to be a problem with the network connection. Please ensure you are connected to the internet and try again")
+    MessageScreen("Apologies, there seems to be a problem with the network connection. Please ensure you are connected to the internet and try again")
 }

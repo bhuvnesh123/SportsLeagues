@@ -1,8 +1,8 @@
 package com.example.sports_data.service
 
 import com.example.sports_data.api.SportsApi
-import com.example.sports_data.mappers.CountriesListMapper
-import com.example.sports_data.mappers.LeaguesListMapper
+import com.example.sports_data.mappers.allcountries.CountriesListMapper
+import com.example.sports_data.mappers.countryleagues.LeaguesListMapper
 import com.example.sports_data.utils.safeApiCall
 import com.example.sports_domain.ApiResult
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel

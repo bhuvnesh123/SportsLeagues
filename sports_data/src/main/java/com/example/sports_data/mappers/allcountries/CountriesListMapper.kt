@@ -1,4 +1,4 @@
-package com.example.sports_data.mappers
+package com.example.sports_data.mappers.allcountries
 
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_data.dto.allcountries.CountriesResponseDTO

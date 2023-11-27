@@ -1,4 +1,4 @@
-package com.example.sports_data.mappers
+package com.example.sports_data.mappers.countryleagues
 
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_data.dto.countryleagues.LeagueResponseDTO
@@ -8,8 +8,8 @@ class LeaguesListMapper  @Inject constructor(private val leaguesMapper: LeaguesM
 
     fun map(input: LeagueResponseDTO): LeagueListModel {
         return with(input) {
-            val leaguesList = countries.map { leaguesMapper.map(it) }
-            LeagueListModel(countries = leaguesList)
+            val leaguesList = countries?.map { leaguesMapper.map(it) }
+            LeagueListModel(countries = leaguesList?: listOf())
         }
     }
 }
