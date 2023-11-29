@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.common.component.Dimens
-
+/**
+ * This composable represents an item of the list.
+ */
 @Composable
 fun CountriesListItem(countryName: String, onClick: (countryName: String) -> Unit) {
 

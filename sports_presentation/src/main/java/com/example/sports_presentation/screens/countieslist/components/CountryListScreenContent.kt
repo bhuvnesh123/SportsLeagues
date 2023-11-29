@@ -10,7 +10,9 @@ import com.example.sports_presentation.screens.countieslist.CountryListViewInten
 import com.example.sports_presentation.screens.countieslist.CountryListViewModel
 import com.example.sports_presentation.screens.countieslist.CountryListViewState
 
-
+/**
+ * This composable represents the screen content, which collects the view state of the view model to load the appropriate composable based on the view state.
+ */
 @Composable
 fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
     val viewModel: CountryListViewModel = hiltViewModel()

@@ -17,7 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.R
 import com.example.sports_presentation.common.component.Dimens
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
-
+/**
+ * This composable represents an item of the list.
+ */
 @Composable
 fun LeaguesListItem(league: LeaguesPresentationModel) {
 

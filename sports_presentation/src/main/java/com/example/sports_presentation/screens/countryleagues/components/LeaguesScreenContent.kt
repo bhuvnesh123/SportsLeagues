@@ -11,7 +11,9 @@ import com.example.sports_presentation.customcomposables.MessageScreen
 import com.example.sports_presentation.screens.countryleagues.CountryLeaguesViewIntent
 import com.example.sports_presentation.screens.countryleagues.CountryLeaguesViewModel
 import com.example.sports_presentation.screens.countryleagues.CountryLeaguesViewState
-
+/**
+ * This composable represents the screen content, which collects the view state of the view model to load the appropriate composable based on the view state.
+ */
 @Composable
 fun LeaguesScreenContent(countryName: String) {
     val viewModel: CountryLeaguesViewModel = hiltViewModel()

@@ -9,7 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.common.component.Dimens
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
-
+/**
+ * This composable represents the list container, which consists of a [LazyColumn] to hold the list.
+ */
 @Composable
 fun LeaguesContainer(leaguesList: List<LeaguesPresentationModel>) {
     LazyColumn(
