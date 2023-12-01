@@ -70,11 +70,9 @@ dependencies {
 
     // Test dependencies
     testImplementation TestDependencies.ext_junit
-    androidTestImplementation TestDependencies.espresso_core
     testImplementation TestDependencies.junit
     testImplementation TestDependencies.mockk
     testImplementation TestDependencies.core_testing
-    testImplementation TestDependencies.jupiter_api
-    testImplementation TestDependencies.jupiter_params
+    testImplementation TestDependencies.jupiter
     testImplementation TestDependencies.coroutines_test
 }

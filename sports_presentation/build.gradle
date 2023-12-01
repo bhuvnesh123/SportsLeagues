@@ -38,6 +38,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtensionVersion
     }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -79,11 +85,9 @@ dependencies {
 
     // Test dependencies
     testImplementation TestDependencies.ext_junit
-    androidTestImplementation TestDependencies.espresso_core
     testImplementation TestDependencies.junit
     testImplementation TestDependencies.mockk
     testImplementation TestDependencies.core_testing
-    testImplementation TestDependencies.jupiter_api
-    testImplementation TestDependencies.jupiter_params
     testImplementation TestDependencies.coroutines_test
+    testImplementation TestDependencies.jupiter
 }

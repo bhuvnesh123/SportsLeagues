@@ -8,7 +8,7 @@ import com.example.sports_data.mappers.countryleagues.LeaguesMapper
 import com.example.sports_data.repository.SportsRepositoryImpl
 import com.example.sports_data.service.SportsService
 import com.example.sports_data.service.SportsServiceImpl
-import com.example.sports_domain.SportsRepository
+import com.example.sports_domain.repository.SportsRepository
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_domain.usecase.CountryLeaguesUseCaseImpl
 import com.example.sports_domain.usecase.CountryListUseCase

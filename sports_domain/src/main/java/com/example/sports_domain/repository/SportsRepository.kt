@@ -1,5 +1,6 @@
-package com.example.sports_domain
+package com.example.sports_domain.repository
 
+import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import kotlinx.coroutines.flow.Flow

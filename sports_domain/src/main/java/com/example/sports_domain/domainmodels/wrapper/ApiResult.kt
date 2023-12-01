@@ -1,4 +1,4 @@
-package com.example.sports_domain
+package com.example.sports_domain.domainmodels.wrapper
 
 sealed class ApiResult<out T> {
 

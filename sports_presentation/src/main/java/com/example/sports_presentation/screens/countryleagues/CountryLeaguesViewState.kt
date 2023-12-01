@@ -9,10 +9,11 @@ sealed interface CountryLeaguesViewState : ViewState {
     object Loading :
         CountryLeaguesViewState     // An object is a singleton instance of a class, and in this case, it represents the loading state of the view. Since loading is a single state and doesn't require any additional data, it can be represented as an object.
 
-    class Success(val leaguesList: List<LeaguesPresentationModel>) :
+    data class Success(val leaguesList: List<LeaguesPresentationModel>) :
         CountryLeaguesViewState  // This class represent the success state of the view. It can hold additional data such as the list of countries in the case of Success .
 
-    class Error(val errorMessage: String) : CountryLeaguesViewState
+
+    data class Error(val errorMessage: String) : CountryLeaguesViewState
 
     object NoDataFound : CountryLeaguesViewState
 }

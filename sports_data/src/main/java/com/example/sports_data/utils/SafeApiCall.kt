@@ -5,7 +5,7 @@ import com.example.sports_data.utils.NetworkErrors.ERROR_UNKNOWN
 import com.example.sports_data.utils.NetworkErrors.NETWORK_ERROR
 import com.example.sports_data.utils.NetworkErrors.NETWORK_ERROR_TIMEOUT
 import com.example.sports_data.utils.NetworkErrors.NETWORK_ERROR_UNKNOWN
-import com.example.sports_domain.ApiResult
+import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withTimeout
 import retrofit2.HttpException

@@ -4,7 +4,7 @@ import com.example.sports_data.api.SportsApi
 import com.example.sports_data.mappers.allcountries.CountriesListMapper
 import com.example.sports_data.mappers.countryleagues.LeaguesListMapper
 import com.example.sports_data.utils.safeApiCall
-import com.example.sports_domain.ApiResult
+import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import kotlinx.coroutines.flow.Flow

@@ -1,7 +1,7 @@
 package com.example.sports_presentation.screens.countryleagues
 
 import androidx.lifecycle.viewModelScope
-import com.example.sports_domain.ApiResult
+import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_presentation.base.BaseViewModel

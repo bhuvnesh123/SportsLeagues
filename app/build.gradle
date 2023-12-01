@@ -57,41 +57,10 @@ dependencies {
     implementation Dependencies.core_ktx
     implementation Dependencies.kotlin_standard_library
     implementation Dependencies.kotlin_reflect
-    implementation Dependencies.kotlin_coroutines_core
-    implementation Dependencies.kotlin_coroutines_android
-    implementation Dependencies.viewmodel_ktx
-
-    // Networking
-    implementation Dependencies.retrofit
-    implementation Dependencies.retrofit_gson
-    implementation Dependencies.logging_interceptor
 
     //DI
     implementation Dependencies.hilt
     implementation Dependencies.hilt_navigation_compose
     kapt Dependencies.hilt_compiler
-
-    //Compose
-    implementation platform(Dependencies.compose_bom)
-    implementation Dependencies.compose_foundation
-    implementation Dependencies.compose_ui
-    implementation Dependencies.compose_preview
-    implementation Dependencies.compose_tooling
-    implementation Dependencies.compose_livedata
-    implementation Dependencies.compose_material
-    implementation Dependencies.coil_compose
-    implementation Dependencies.coil_svg
-    implementation Dependencies.navigation_compose
-
-    // Test dependencies
-    testImplementation TestDependencies.ext_junit
-    androidTestImplementation TestDependencies.espresso_core
-    testImplementation TestDependencies.junit
-    testImplementation TestDependencies.mockk
-    testImplementation TestDependencies.core_testing
-    testImplementation TestDependencies.jupiter_api
-    testImplementation TestDependencies.jupiter_params
-    testImplementation TestDependencies.coroutines_test
-    testRuntimeOnly TestDependencies.jupiter_engine
 
 }
