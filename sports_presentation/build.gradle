@@ -61,11 +61,6 @@ dependencies {
     implementation Dependencies.kotlin_coroutines_android
     implementation Dependencies.viewmodel_ktx
 
-    // Networking
-    implementation Dependencies.retrofit
-    implementation Dependencies.retrofit_gson
-    implementation Dependencies.logging_interceptor
-
     //DI
     implementation Dependencies.hilt
     implementation Dependencies.hilt_navigation_compose
@@ -84,10 +79,8 @@ dependencies {
     implementation Dependencies.navigation_compose
 
     // Test dependencies
-    testImplementation TestDependencies.ext_junit
     testImplementation TestDependencies.junit
     testImplementation TestDependencies.mockk
-    testImplementation TestDependencies.core_testing
     testImplementation TestDependencies.coroutines_test
     testImplementation TestDependencies.jupiter
     androidTestImplementation TestDependencies.compose_ui

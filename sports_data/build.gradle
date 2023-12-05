@@ -47,7 +47,6 @@ android {
 
 dependencies {
 
-    implementation project(':common')
     implementation project(':sports_domain')
 
     //Android Dependencies
@@ -74,10 +73,8 @@ dependencies {
 
 
     // Test dependencies
-    testImplementation TestDependencies.ext_junit
     testImplementation TestDependencies.junit
     testImplementation TestDependencies.mockk
-    testImplementation TestDependencies.core_testing
     testImplementation TestDependencies.jupiter
     testImplementation TestDependencies.coroutines_test
 }

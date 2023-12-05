@@ -28,6 +28,7 @@ The project utilizes the following technologies:
 # Features
 
 View a list of countries
+
 Select a country to view its associated leagues
 
 
