@@ -36,10 +36,10 @@ fun LeaguesScreenContent(countryName: String) {
         is CountryLeaguesViewState.Error -> {
             val errorMessage =
                 (leaguesViewState.value as CountryLeaguesViewState.Error).errorMessage
-            MessageScreen(errorMessage = errorMessage)
+            MessageScreen(message = errorMessage)
         }
         is CountryLeaguesViewState.NoDataFound -> {
-            MessageScreen(errorMessage = stringResource(id = R.string.no_leagues_found))
+            MessageScreen(message = stringResource(id = R.string.no_leagues_found))
         }
     }
 }

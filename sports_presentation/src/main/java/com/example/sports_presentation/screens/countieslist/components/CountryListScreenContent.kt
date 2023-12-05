@@ -35,7 +35,7 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
         is CountryListViewState.Error -> {
             val errorMessage =
                 (countryListViewState.value as CountryListViewState.Error).errorMessage
-            MessageScreen(errorMessage = errorMessage)
+            MessageScreen(message = errorMessage)
         }
     }
 }

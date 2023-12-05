@@ -17,14 +17,14 @@ import androidx.compose.ui.unit.sp
 import com.example.sports_presentation.common.component.Dimens
 
 @Composable
-fun MessageScreen(errorMessage: String) {
+fun MessageScreen(message: String) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
         Text(
-            text = errorMessage,
+            text = message,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(Dimens.grid_2)

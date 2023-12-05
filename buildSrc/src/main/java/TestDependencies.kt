@@ -7,5 +7,7 @@ object TestDependencies {
  val core_testing = "androidx.arch.core:core-testing:${Versions.core_testing}"
  val jupiter = "org.junit.jupiter:junit-jupiter"
  val coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_test}"
+ val compose_ui = "androidx.compose.ui:ui-test-junit4"
+ val compose_ui_manifest = "androidx.compose.ui:ui-test-manifest"
 }
 

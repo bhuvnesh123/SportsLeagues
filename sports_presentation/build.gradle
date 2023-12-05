@@ -90,4 +90,6 @@ dependencies {
     testImplementation TestDependencies.core_testing
     testImplementation TestDependencies.coroutines_test
     testImplementation TestDependencies.jupiter
+    androidTestImplementation TestDependencies.compose_ui
+    debugImplementation TestDependencies.compose_ui_manifest
 }
