@@ -3,13 +3,13 @@ package com.example.sports_presentation.screens.countryleagues.fakes
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import com.example.sports_domain.usecase.CountryLeaguesUseCase
+import com.example.sports_domain.usecase.UseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakesCountryLeaguesUseCase : CountryLeaguesUseCase {
-    override fun invoke(countryName: String): Flow<ApiResult<LeagueListModel?>> =
-        when (countryName) {
+class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
+    override fun invoke(params: String): Flow<ApiResult<LeagueListModel?>> =
+        when (params) {
             "India" -> {
                 val leagueModel = LeagueModel(
                     idLeague = "4460",

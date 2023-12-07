@@ -8,11 +8,12 @@ import com.example.sports_data.mappers.countryleagues.LeaguesMapper
 import com.example.sports_data.repository.SportsRepositoryImpl
 import com.example.sports_data.service.SportsService
 import com.example.sports_data.service.SportsServiceImpl
+import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
+import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.repository.SportsRepository
-import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_domain.usecase.CountryLeaguesUseCaseImpl
-import com.example.sports_domain.usecase.CountryListUseCase
 import com.example.sports_domain.usecase.CountryListUseCaseImpl
+import com.example.sports_domain.usecase.UseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -65,13 +66,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesCountryLeaguesUseCase(sportsRepository: SportsRepository): CountryLeaguesUseCase =
+    fun providesCountryLeaguesUseCase(sportsRepository: SportsRepository): UseCase<String, LeagueListModel> =
         CountryLeaguesUseCaseImpl(sportsRepository = sportsRepository)
 
 
     @Singleton
     @Provides
-    fun providesCountryListUseCase(sportsRepository: SportsRepository): CountryListUseCase =
+    fun providesCountryListUseCase(sportsRepository: SportsRepository): UseCase<Unit,CountriesListModel> =
         CountryListUseCaseImpl(sportsRepository = sportsRepository)
 
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.UIText
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import com.example.sports_domain.usecase.CountryListUseCase
+import com.example.sports_domain.usecase.UseCase
 import com.example.sports_presentation.base.BaseViewModel
 import com.example.sports_presentation.mappers.allcountries.CountryPresentationListMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountryListViewModel @Inject constructor(
-    private val countryListUseCase: CountryListUseCase,
+    private val countryListUseCase: UseCase<Unit, CountriesListModel>,
     private val countryPresentationListMapper: CountryPresentationListMapper
 ) :
     BaseViewModel<CountryListViewState, CountryListViewIntent, CountryListSideEffect>() {
@@ -23,7 +23,7 @@ class CountryListViewModel @Inject constructor(
 
     private fun getCountryList() {
         viewModelScope.launch {
-            countryListUseCase().collect { result ->
+            countryListUseCase(params = Unit).collect { result ->
                 when (result) {
                     is ApiResult.Success -> {
                         result.value?.let { response ->

@@ -26,7 +26,7 @@ internal class CountryListUseCaseImplTest {
     fun `GIVEN query list of countries WHEN use case invoked THEN verify repository called`() {
         coEvery { sportsRepository.getAllCountries() } returns flow { emit(ApiResult.Success(mockk())) }
 
-        countryListUseCaseImpl.invoke()
+        countryListUseCaseImpl.invoke(params = Unit)
 
         coVerify {
             sportsRepository.getAllCountries()

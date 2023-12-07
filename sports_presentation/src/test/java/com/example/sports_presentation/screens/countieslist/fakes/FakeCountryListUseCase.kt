@@ -3,12 +3,12 @@ package com.example.sports_presentation.screens.countieslist.fakes
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.allcountries.CountryModel
-import com.example.sports_domain.usecase.CountryListUseCase
+import com.example.sports_domain.usecase.UseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeCountryListUseCase : CountryListUseCase {
-    override fun invoke(): Flow<ApiResult<CountriesListModel?>> {
+class FakeCountryListUseCase : UseCase<Unit, CountriesListModel> {
+    override fun invoke(params: Unit): Flow<ApiResult<CountriesListModel?>> {
         val countriesList = listOf(
             CountryModel(name_en = "United States"),
             CountryModel(name_en = "Canada"),

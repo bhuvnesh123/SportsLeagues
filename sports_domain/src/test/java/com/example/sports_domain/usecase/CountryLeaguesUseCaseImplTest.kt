@@ -35,7 +35,7 @@ internal class CountryLeaguesUseCaseImplTest {
         }
 
 
-        countryLeaguesUseCaseImpl.invoke(countryName = countryName)
+        countryLeaguesUseCaseImpl.invoke(params = countryName)
 
         coVerify {
             sportsRepository.searchLeaguesByCountry(countryName = countryName)

@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.UIText
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import com.example.sports_domain.usecase.CountryLeaguesUseCase
+import com.example.sports_domain.usecase.UseCase
 import com.example.sports_presentation.base.BaseViewModel
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountryLeaguesViewModel @Inject constructor(
-    private val countryLeaguesUseCase: CountryLeaguesUseCase,
+    private val countryLeaguesUseCase: UseCase<String, LeagueListModel>,
     private val leaguesListPresentationMapper: LeaguesListPresentationMapper
 ) : BaseViewModel<CountryLeaguesViewState, CountryLeaguesViewIntent, CountryLeaguesSideEffect>() {
 
@@ -22,7 +22,7 @@ class CountryLeaguesViewModel @Inject constructor(
 
     private fun getCountryLeagues(countryName: String) {
         viewModelScope.launch {
-            countryLeaguesUseCase(countryName = countryName).collect { result ->
+            countryLeaguesUseCase(params = countryName).collect { result ->
                 when (result) {
                     is ApiResult.Success -> result.value?.let { onResponse(response = it) }
                     is ApiResult.GenericError -> result.errorMessage?.let { onFailure(message = it) }

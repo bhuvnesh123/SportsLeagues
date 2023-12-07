@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CountryLeaguesUseCaseImpl @Inject constructor(private val sportsRepository: SportsRepository) :
-    CountryLeaguesUseCase {
+    UseCase<String, LeagueListModel> {
 
-    override operator fun invoke(countryName: String): Flow<ApiResult<LeagueListModel?>> =
-        sportsRepository.searchLeaguesByCountry(countryName = countryName)
+    override operator fun invoke(params: String): Flow<ApiResult<LeagueListModel?>> =
+        sportsRepository.searchLeaguesByCountry(countryName = params)
 
 }
