@@ -12,6 +12,8 @@ import java.io.IOException
  * Reference: https://medium.com/@douglas.iacovelli/how-to-handle-errors-with-retrofit-and-coroutines-33e7492a912
  */
 
+private const val TIMEOUT_ERROR_CODE = 408
+
 suspend fun <T, R> safeApiCall(
     apiCall: suspend () -> T?,
     mapper: (T) -> R
@@ -29,7 +31,7 @@ suspend fun <T, R> safeApiCall(
     throwable.printStackTrace()
     when (throwable) {
         is TimeoutCancellationException -> {
-            val code = 408 // timeout error code
+            val code = TIMEOUT_ERROR_CODE // timeout error code
             ApiResult.GenericError(
                 code = code,
                 errorMessage = UIText.StringResource(id = com.example.common.R.string.network_timeout)
