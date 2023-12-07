@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.R
 import com.example.sports_presentation.common.component.Dimens
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
+
 /**
  * This composable represents an item of the list.
  */
@@ -26,30 +27,45 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(Dimens.grid_4),
+            .padding(all = Dimens.grid_4),
         elevation = CardDefaults.cardElevation(
-            Dimens.plane_3
+            defaultElevation = Dimens.plane_3
         )
     ) {
         Column(
-            modifier = Modifier.padding(Dimens.grid_2)
+            modifier = Modifier.padding(all = Dimens.grid_2)
         ) {
             Text(text = league.leagueName, style = MaterialTheme.typography.headlineMedium)
-            Spacer(modifier = Modifier.height(Dimens.grid_1))
-            Text(text = stringResource(id = R.string.sport).format(league.sport), style = MaterialTheme.typography.headlineSmall)
-            Spacer(modifier = Modifier.height(Dimens.grid_1))
+            Spacer(modifier = Modifier.height(height = Dimens.grid_1))
+            Text(
+                text = stringResource(id = R.string.sport).format(league.sport),
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Spacer(
+                modifier = Modifier.height(
+                    height = Dimens.grid_1
+                )
+            )
             Text(
                 text = stringResource(id = R.string.formed_year).format(league.formedYear),
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold
             )
-            Spacer(modifier = Modifier.height(Dimens.grid_1))
+            Spacer(
+                modifier = Modifier.height(
+                    height = Dimens.grid_1
+                )
+            )
             Text(
                 text = stringResource(id = R.string.current_season).format(league.currentSeason),
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold
             )
-            Spacer(modifier = Modifier.height(Dimens.grid_1))
+            Spacer(
+                modifier = Modifier.height(
+                    height = Dimens.grid_1
+                )
+            )
             if (league.tvRights.isNotEmpty()) {
                 Text(
                     text = stringResource(id = R.string.tv_rights).format(league.tvRights),
@@ -58,8 +74,15 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
                 )
             }
             if (league.leagueDescription.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(Dimens.grid_1))
-                Text(text = league.leagueDescription, style = MaterialTheme.typography.bodyMedium)
+                Spacer(
+                    modifier = Modifier.height(
+                        height = Dimens.grid_1
+                    )
+                )
+                Text(
+                    text = league.leagueDescription,
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
 
         }
@@ -69,14 +92,14 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
 
 @Preview(showBackground = true)
 @Composable
-fun LeaguesListItemPreview(){
+fun LeaguesListItemPreview() {
     val leagueItem = LeaguesPresentationModel(
-        "Premier League",
-        "Football",
-        "The Premier League is the top level of the English football league system.",
-        "1992",
-        "2021-2022",
-        "Sky Sports, BT Sport"
+        leagueName = "Premier League",
+        sport = "Football",
+        leagueDescription = "The Premier League is the top level of the English football league system.",
+        formedYear = "1992",
+        currentSeason = "2021-2022",
+        tvRights = "Sky Sports, BT Sport"
     )
     LeaguesListItem(league = leagueItem)
 }

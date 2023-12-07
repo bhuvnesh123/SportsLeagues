@@ -1,8 +1,8 @@
 package com.example.sports_presentation.screens.countryleagues
 
 import androidx.lifecycle.viewModelScope
-import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
+import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_presentation.base.BaseViewModel
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
@@ -25,7 +25,7 @@ class CountryLeaguesViewModel @Inject constructor(
                 when (result) {
                     is ApiResult.Success -> result.value?.let { onResponse(response = it) }
                     is ApiResult.GenericError -> result.errorMessage?.let { onFailure(message = it) }
-                    is ApiResult.NetworkError -> onFailure(result.errorMessage)
+                    is ApiResult.NetworkError -> onFailure(message = result.errorMessage)
                 }
             }
         }
@@ -39,7 +39,7 @@ class CountryLeaguesViewModel @Inject constructor(
         val mappedResponse = leaguesListPresentationMapper.map(response)
         _state.value =
             if (mappedResponse.countries.isEmpty()) CountryLeaguesViewState.NoDataFound else CountryLeaguesViewState.Success(
-                mappedResponse.countries
+                leaguesList = mappedResponse.countries
             )
     }
 

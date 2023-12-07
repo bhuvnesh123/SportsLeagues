@@ -12,16 +12,19 @@ internal class CustomTopAppBarTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun givenAppStarted_whenCustomTopAppBarWithTitleLeaguesDisplayed_thenTitleLeaguesShouldBeVisible()  {
+    fun givenAppStarted_whenCustomTopAppBarWithTitleLeaguesDisplayed_thenTitleLeaguesShouldBeVisible() {
         // Start the app
         composeTestRule.setContent {
             MaterialTheme {
-                CustomTopAppBar(title = "Leagues",onBack={})
+                CustomTopAppBar(
+                    title = "Leagues",
+                    onBack = {}
+                )
             }
 
         }
 
-        composeTestRule.onNodeWithText("Leagues").assertExists()
+        composeTestRule.onNodeWithText(text = "Leagues").assertExists()
 
     }
 

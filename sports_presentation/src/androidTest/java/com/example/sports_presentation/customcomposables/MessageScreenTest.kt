@@ -15,11 +15,11 @@ internal class MessageScreenTest {
         // Start the app
         composeTestRule.setContent {
             MaterialTheme {
-                MessageScreen("Something went wrong.Please try again later")
+                MessageScreen(message = "Something went wrong.Please try again later")
             }
 
         }
 
-        composeTestRule.onNodeWithText("Something went wrong.Please try again later").assertExists()
+        composeTestRule.onNodeWithText(text = "Something went wrong.Please try again later").assertExists()
     }
 }

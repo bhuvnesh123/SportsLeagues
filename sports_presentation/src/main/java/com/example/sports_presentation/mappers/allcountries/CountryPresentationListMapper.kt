@@ -7,7 +7,7 @@ import javax.inject.Inject
 class CountryPresentationListMapper @Inject constructor(private val countryPresentationMapper: CountryPresentationMapper) {
     fun map(input: CountriesListModel): CountriesListPresentationModel = with(input) {
         val countriesList = countries.map { countryPresentationMapper.map(it) }
-        CountriesListPresentationModel(countriesList)
+        CountriesListPresentationModel(countries = countriesList)
     }
 
 }

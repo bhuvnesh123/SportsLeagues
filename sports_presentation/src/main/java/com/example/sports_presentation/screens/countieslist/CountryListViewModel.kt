@@ -30,7 +30,7 @@ class CountryListViewModel @Inject constructor(
                         }
                     }
                     is ApiResult.GenericError -> result.errorMessage?.let { onFailure(message = it) }
-                    is ApiResult.NetworkError -> onFailure(result.errorMessage)
+                    is ApiResult.NetworkError -> onFailure(message = result.errorMessage)
                 }
             }
         }

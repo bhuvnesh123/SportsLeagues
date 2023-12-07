@@ -25,11 +25,11 @@ fun NavGraph(navController: NavHostController, onBackFromHome: () -> Unit) {
         navController = navController, // NavController object
         startDestination = NavigationScreens.CountryListScreen.route // Starting screen
     ) {
-        composable(NavigationScreens.CountryListScreen.route) {
+        composable(route = NavigationScreens.CountryListScreen.route) {
             // Provide dimensions to children
             ProvideDimens(dimensions = dimensions) {
                 CountryListScreenBaseLayout(callback = {
-                    navController.navigate("${NavigationScreens.CountryLeaguesScreen.route}/${it}")
+                    navController.navigate(route = "${NavigationScreens.CountryLeaguesScreen.route}/${it}")
                 }, onBack = {
                     onBackFromHome()
                 })
@@ -37,8 +37,11 @@ fun NavGraph(navController: NavHostController, onBackFromHome: () -> Unit) {
         }
 
         composable(
-            "${NavigationScreens.CountryLeaguesScreen.route}/{countryName}",
-            arguments = listOf(navArgument("countryName") { type = NavType.StringType })
+            route = "${NavigationScreens.CountryLeaguesScreen.route}/{countryName}",
+            arguments = listOf(navArgument(
+                name = "countryName"
+            )
+            { type = NavType.StringType })
         ) { backStackEntry ->
             ProvideDimens(dimensions = dimensions) {
                 backStackEntry.arguments?.getString("countryName")?.let {

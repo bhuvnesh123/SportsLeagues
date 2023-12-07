@@ -10,19 +10,19 @@ import kotlinx.coroutines.flow.flow
 class FakeCountryListUseCase : CountryListUseCase {
     override fun invoke(): Flow<ApiResult<CountriesListModel?>> {
         val countriesList = listOf(
-            CountryModel("United States"),
-            CountryModel("Canada"),
-            CountryModel("Mexico")
+            CountryModel(name_en = "United States"),
+            CountryModel(name_en = "Canada"),
+            CountryModel(name_en = "Mexico")
         )
         // Create a fake CountriesListModel object
-        val countries = CountriesListModel(countriesList)
+        val countries = CountriesListModel(countries = countriesList)
 
         // Create a fake ApiResult object with the CountriesListModel
-        val apiResult = ApiResult.Success(countries)
+        val apiResult = ApiResult.Success(value = countries)
 
         // Create a fake Flow object that emits the fake ApiResult
         return flow {
-            emit(apiResult)
+            emit(value = apiResult)
         }
     }
 }

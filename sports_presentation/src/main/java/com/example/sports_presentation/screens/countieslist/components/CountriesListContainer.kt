@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.common.component.Dimens
 import com.example.sports_presentation.models.allcountries.CountryPresentationModel
+
 /**
  * This composable represents the list container, which consists of a [LazyColumn] to hold the list.
  */
@@ -23,8 +24,11 @@ fun CountriesListContainer(
             .fillMaxWidth()
             .padding(vertical = Dimens.grid_0_5),
     ) {
-        items(countriesList) { item ->
-            CountriesListItem(countryName = item.countryName, callback)
+        items(items = countriesList) { item ->
+            CountriesListItem(
+                countryName = item.countryName,
+                onClick = callback
+            )
         }
     }
 }
@@ -33,21 +37,23 @@ fun CountriesListContainer(
 @Composable
 fun CountyListPreview() {
     val countries = listOf(
-        CountryPresentationModel("United States"),
-        CountryPresentationModel("Canada"),
-        CountryPresentationModel("Mexico"),
-        CountryPresentationModel("Brazil"),
-        CountryPresentationModel("Argentina"),
-        CountryPresentationModel("United Kingdom"),
-        CountryPresentationModel("France"),
-        CountryPresentationModel("Germany"),
-        CountryPresentationModel("Italy"),
-        CountryPresentationModel("Spain"),
-        CountryPresentationModel("Russia"),
-        CountryPresentationModel("China"),
-        CountryPresentationModel("Japan"),
-        CountryPresentationModel("India"),
-        CountryPresentationModel("Australia")
+        CountryPresentationModel(countryName = "United States"),
+        CountryPresentationModel(countryName = "Canada"),
+        CountryPresentationModel(countryName = "Mexico"),
+        CountryPresentationModel(countryName = "Brazil"),
+        CountryPresentationModel(countryName = "Argentina"),
+        CountryPresentationModel(countryName = "United Kingdom"),
+        CountryPresentationModel(countryName = "France"),
+        CountryPresentationModel(countryName = "Germany"),
+        CountryPresentationModel(countryName = "Italy"),
+        CountryPresentationModel(countryName = "Spain"),
+        CountryPresentationModel(countryName = "Russia"),
+        CountryPresentationModel(countryName = "China"),
+        CountryPresentationModel(countryName = "Japan"),
+        CountryPresentationModel(countryName = "India"),
+        CountryPresentationModel(countryName = "Australia")
     )
-    CountriesListContainer(countriesList = countries, callback = {})
+    CountriesListContainer(countriesList = countries,
+        callback = {}
+    )
 }

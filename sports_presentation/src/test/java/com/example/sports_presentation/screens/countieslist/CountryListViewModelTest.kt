@@ -22,7 +22,7 @@ internal class CountryListViewModelTest {
         countryListViewModel = CountryListViewModel(
             countryListUseCase = FakeCountryListUseCase(),
             countryPresentationListMapper = CountryPresentationListMapper(
-                CountryPresentationMapper()
+                countryPresentationMapper = CountryPresentationMapper()
             )
         )
 
@@ -36,10 +36,10 @@ internal class CountryListViewModelTest {
 
             assertEquals(
                 countryListViewModel.viewState.value, CountryListViewState.Success(
-                    listOf(
-                        CountryPresentationModel("United States"),
-                        CountryPresentationModel("Canada"),
-                        CountryPresentationModel("Mexico")
+                    countriesList = listOf(
+                        CountryPresentationModel(countryName = "United States"),
+                        CountryPresentationModel(countryName = "Canada"),
+                        CountryPresentationModel(countryName = "Mexico")
                     )
                 )
             )

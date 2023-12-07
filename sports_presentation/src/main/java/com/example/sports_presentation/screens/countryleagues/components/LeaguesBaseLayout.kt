@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.example.sports_presentation.R
 import com.example.sports_presentation.customcomposables.CustomTopAppBar
+
 /**
  * This composable represents the base layout of the screen, which consists of a [Scaffold] to hold the screen content and app bar.
  */
@@ -17,7 +18,9 @@ fun LeaguesBaseLayout(countryName: String, onBack: () -> Unit) {
     Scaffold(
         topBar = {
             CustomTopAppBar(
-                title = stringResource(id = R.string.country_details_screen_title),
+                title = stringResource(
+                    id = R.string.country_details_screen_title
+                ),
                 onBack = onBack
             )
         },

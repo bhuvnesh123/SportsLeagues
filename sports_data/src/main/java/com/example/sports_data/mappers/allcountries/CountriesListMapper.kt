@@ -8,7 +8,7 @@ class CountriesListMapper @Inject constructor(private val countryMapper: Country
 
     fun map(input: CountriesResponseDTO): CountriesListModel = with(input) {
         val countriesList = countries.map { countryMapper.map(it) }
-        CountriesListModel(countriesList)
+        CountriesListModel(countries = countriesList)
     }
 
 

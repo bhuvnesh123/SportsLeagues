@@ -19,7 +19,7 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
     val countryListViewState = viewModel.viewState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.sendIntent(CountryListViewIntent.LoadData)
+        viewModel.sendIntent(vi = CountryListViewIntent.LoadData)
     }
 
     when (countryListViewState.value) {
@@ -29,7 +29,10 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
         is CountryListViewState.Success -> {
             val countriesList =
                 (countryListViewState.value as CountryListViewState.Success).countriesList
-            CountriesListContainer(countriesList = countriesList, callback = callback)
+            CountriesListContainer(
+                countriesList = countriesList,
+                callback = callback
+            )
 
         }
         is CountryListViewState.Error -> {

@@ -28,7 +28,7 @@ internal class CountryLeaguesUseCaseImplTest {
     @Test
     fun `GIVEN query country name WHEN use case invoked THEN verify repository called`() = runTest {
         val countryName = "India"
-        coEvery { sportsRepository.searchLeaguesByCountry(countryName) } returns flow {
+        coEvery { sportsRepository.searchLeaguesByCountry(countryName = countryName) } returns flow {
             ApiResult.Success(
                 mockk<LeagueListModel>()
             )
@@ -38,7 +38,7 @@ internal class CountryLeaguesUseCaseImplTest {
         countryLeaguesUseCaseImpl.invoke(countryName = countryName)
 
         coVerify {
-            sportsRepository.searchLeaguesByCountry(countryName)
+            sportsRepository.searchLeaguesByCountry(countryName = countryName)
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.common.component.Dimens
+
 /**
  * This composable represents an item of the list.
  */
@@ -22,7 +23,10 @@ fun CountriesListItem(countryName: String, onClick: (countryName: String) -> Uni
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
     ),
         modifier = Modifier
-            .padding(vertical = Dimens.grid_0_5, horizontal = Dimens.grid_1)
+            .padding(
+                vertical = Dimens.grid_0_5,
+                horizontal = Dimens.grid_1
+            )
             .clickable { onClick(countryName) }
     ) {
         Row(
@@ -42,5 +46,8 @@ fun CountriesListItem(countryName: String, onClick: (countryName: String) -> Uni
 @Preview(showBackground = true)
 @Composable
 fun CountryListItemPreview() {
-    CountriesListItem(countryName = "India", onClick = {})
+    CountriesListItem(
+        countryName = "India",
+        onClick = {}
+    )
 }

@@ -20,12 +20,12 @@ suspend fun <T, R> safeApiCall(
     mapper: (T) -> R
 ): ApiResult<R?> = try {
     // throws TimeoutCancellationException
-    withTimeout(NETWORK_TIMEOUT) {
+    withTimeout(timeMillis = NETWORK_TIMEOUT) {
         val response = apiCall.invoke()
         if (response != null) {
-            ApiResult.Success(mapper(response))
+            ApiResult.Success(value = mapper(response))
         } else {
-            ApiResult.Success(null)
+            ApiResult.Success()
         }
     }
 } catch (throwable: Throwable) {
@@ -33,23 +33,25 @@ suspend fun <T, R> safeApiCall(
     when (throwable) {
         is TimeoutCancellationException -> {
             val code = 408 // timeout error code
-            ApiResult.GenericError(code, NETWORK_ERROR_TIMEOUT)
+            ApiResult.GenericError(
+                code = code,
+                errorMessage = NETWORK_ERROR_TIMEOUT
+            )
         }
         is IOException -> {
-            ApiResult.NetworkError(NETWORK_ERROR)
+            ApiResult.NetworkError(errorMessage = NETWORK_ERROR)
         }
         is HttpException -> {
             val code = throwable.code()
-            val errorResponse = convertErrorBody(throwable)
+            val errorResponse = convertErrorBody(throwable = throwable)
             ApiResult.GenericError(
-                code,
-                errorResponse
+                code = code,
+                errorMessage = errorResponse
             )
         }
         else -> {
             ApiResult.GenericError(
-                null,
-                NETWORK_ERROR_UNKNOWN
+                errorMessage = NETWORK_ERROR_UNKNOWN
             )
         }
     }

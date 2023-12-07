@@ -15,7 +15,10 @@ fun ProvideDimens(
 ) {
     val dimensionSet = remember { dimensions } // Remember the dimensions parameter
     // Provide the dimensions parameter to the LocalAppDimens key
-    CompositionLocalProvider(LocalAppDimens provides dimensionSet, content = content)
+    CompositionLocalProvider(
+        LocalAppDimens provides dimensionSet,
+        content = content
+    )
 }
 
 // LocalComposition that provides default dimensions

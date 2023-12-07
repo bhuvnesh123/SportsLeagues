@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.common.component.Dimens
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
+
 /**
  * This composable represents the list container, which consists of a [LazyColumn] to hold the list.
  */
@@ -20,7 +21,7 @@ fun LeaguesContainer(leaguesList: List<LeaguesPresentationModel>) {
             .fillMaxWidth()
             .padding(vertical = Dimens.grid_0_5),
     ) {
-        items(leaguesList) { item ->
+        items(items = leaguesList) { item ->
             LeaguesListItem(league = item)
         }
     }
@@ -28,32 +29,32 @@ fun LeaguesContainer(leaguesList: List<LeaguesPresentationModel>) {
 
 @Preview(showBackground = true)
 @Composable
-fun LeaguesContainerPreview(){
+fun LeaguesContainerPreview() {
 
     val leaguesList = listOf(
         LeaguesPresentationModel(
-            "Premier League",
-            "Football",
-            "The Premier League is the top level of the English football league system.",
-            "1992",
-            "2021-2022",
-            "Sky Sports, BT Sport"
+            leagueName = "Premier League",
+            sport = "Football",
+            leagueDescription = "The Premier League is the top level of the English football league system.",
+            formedYear = "1992",
+            currentSeason = "2021-2022",
+            tvRights = "Sky Sports, BT Sport"
         ),
         LeaguesPresentationModel(
-            "NBA",
-            "Basketball",
-            "The National Basketball Association is a men's professional basketball league in North America.",
-            "1946",
-            "2021-2022",
-            "ABC, ESPN, TNT"
+            leagueName = "NBA",
+            sport = "Basketball",
+            leagueDescription = "The National Basketball Association is a men's professional basketball league in North America.",
+            formedYear = "1946",
+            currentSeason = "2021-2022",
+            tvRights = "ABC, ESPN, TNT"
         ),
         LeaguesPresentationModel(
-            "MLB",
-            "Baseball",
-            "Major League Baseball is a professional baseball organization and the oldest of the major professional sports leagues in the United States and Canada.",
-            "1903",
-            "2021",
-            "ESPN, Fox, TBS"
+            leagueName = "MLB",
+            sport = "Baseball",
+            leagueDescription = "Major League Baseball is a professional baseball organization and the oldest of the major professional sports leagues in the United States and Canada.",
+            formedYear = "1903",
+            currentSeason = "2021",
+            tvRights = "ESPN, Fox, TBS"
         )
     )
     LeaguesContainer(leaguesList = leaguesList)

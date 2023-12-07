@@ -21,15 +21,15 @@ fun MessageScreen(message: String) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(color = Color.White)
     ) {
         Text(
             text = message,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(Dimens.grid_2)
+                .padding(all = Dimens.grid_2)
                 .wrapContentSize()
-                .align(Alignment.Center),
+                .align(alignment = Alignment.Center),
             style = TextStyle(fontSize = 16.sp)
         )
     }

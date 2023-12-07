@@ -60,13 +60,13 @@ class FakesCountryLeaguesUseCase : CountryLeaguesUseCase {
                     strComplete = "yes",
                     strLocked = "unlocked"
                 )
-                val leagueListModel = LeagueListModel(listOf(leagueModel))
+                val leagueListModel = LeagueListModel(countries = listOf(leagueModel))
                 // Create a fake ApiResult object with the leagueListModel
-                val apiResult = ApiResult.Success(leagueListModel)
+                val apiResult = ApiResult.Success(value = leagueListModel)
 
                 // Create a fake Flow object that emits the fake ApiResult
                 flow {
-                    emit(apiResult)
+                    emit(value = apiResult)
                 }
 
             }
@@ -169,24 +169,24 @@ class FakesCountryLeaguesUseCase : CountryLeaguesUseCase {
                     strComplete = "yes",
                     strLocked = "unlocked"
                 )
-                val leagueListModel = LeagueListModel(listOf(leagueModel, leagueModel2))
+                val leagueListModel = LeagueListModel(countries = listOf(leagueModel, leagueModel2))
                 // Create a fake ApiResult object with the leagueListModel
-                val apiResult = ApiResult.Success(leagueListModel)
+                val apiResult = ApiResult.Success(value = leagueListModel)
 
                 // Create a fake Flow object that emits the fake ApiResult
                 flow {
-                    emit(apiResult)
+                    emit(value = apiResult)
                 }
 
             }
             else -> {
-                val leagueListModel = LeagueListModel(listOf())
+                val leagueListModel = LeagueListModel(countries = listOf())
                 // Create a fake ApiResult object with the leagueListModel
-                val apiResult = ApiResult.Success(leagueListModel)
+                val apiResult = ApiResult.Success(value = leagueListModel)
 
                 // Create a fake Flow object that emits the fake ApiResult
                 flow {
-                    emit(apiResult)
+                    emit(value = apiResult)
                 }
             }
 

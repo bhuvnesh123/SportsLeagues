@@ -24,7 +24,7 @@ fun CustomTopAppBar(title: String, onBack: () -> Unit) {
         ),
         title = {
             Text(
-                title,
+                text = title,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
