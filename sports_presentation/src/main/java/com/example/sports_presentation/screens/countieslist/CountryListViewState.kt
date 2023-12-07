@@ -1,5 +1,6 @@
 package com.example.sports_presentation.screens.countieslist
 
+import com.example.common.UIText
 import com.example.sports_presentation.base.SideEffect
 import com.example.sports_presentation.base.ViewIntent
 import com.example.sports_presentation.base.ViewState
@@ -13,7 +14,7 @@ sealed interface CountryListViewState : ViewState {
         CountryListViewState // This class represent the success state of the view. It can hold additional data such as the list of countries in the case of Success .
 
 
-    data class Error(val errorMessage: String) : CountryListViewState
+    data class Error(val errorMessage: UIText) : CountryListViewState
 }
 
 sealed interface CountryListViewIntent : ViewIntent {

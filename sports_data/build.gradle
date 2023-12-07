@@ -47,6 +47,7 @@ android {
 
 dependencies {
 
+    implementation project(':common')
     implementation project(':sports_domain')
 
     //Android Dependencies

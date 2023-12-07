@@ -1,6 +1,7 @@
 package com.example.sports_presentation.screens.countryleagues
 
 import androidx.lifecycle.viewModelScope
+import com.example.common.UIText
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
@@ -31,7 +32,7 @@ class CountryLeaguesViewModel @Inject constructor(
         }
     }
 
-    private fun onFailure(message: String) {
+    private fun onFailure(message: UIText) {
         _state.value = CountryLeaguesViewState.Error(errorMessage = message)
     }
 
