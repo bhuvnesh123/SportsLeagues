@@ -1,8 +1,8 @@
 package com.example.sports_presentation.screens.countieslist
 
 import androidx.lifecycle.viewModelScope
-import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
+import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryListUseCase
 import com.example.sports_presentation.base.BaseViewModel
 import com.example.sports_presentation.mappers.allcountries.CountryPresentationListMapper
@@ -17,9 +17,8 @@ class CountryListViewModel @Inject constructor(
 ) :
     BaseViewModel<CountryListViewState, CountryListViewIntent, CountryListSideEffect>() {
 
-    override fun createInitialState(): CountryListViewState {
-        return CountryListViewState.Loading
-    }
+    override fun createInitialState(): CountryListViewState = CountryListViewState.Loading
+
 
     private fun getCountryList() {
         viewModelScope.launch {
@@ -52,14 +51,13 @@ class CountryListViewModel @Inject constructor(
         }
     }
 
-    override fun sendIntent(vi: CountryListViewIntent) {
-        when (vi) {
-            is CountryListViewIntent.LoadData -> {
-                getCountryList()
-            }
-            is CountryListViewIntent.OnCountryClicked -> {
-                navigateToDetails(vi.countryName)
-            }
+    override fun sendIntent(vi: CountryListViewIntent) = when (vi) {
+        is CountryListViewIntent.LoadData -> {
+            getCountryList()
+        }
+        is CountryListViewIntent.OnCountryClicked -> {
+            navigateToDetails(vi.countryName)
         }
     }
+
 }

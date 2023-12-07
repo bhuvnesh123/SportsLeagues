@@ -4,9 +4,8 @@ import com.example.sports_data.dto.allcountries.CountryDTO
 import com.example.sports_domain.domainmodels.allcountries.CountryModel
 
 class CountryMapper {
-    fun map(input: CountryDTO): CountryModel {
-        return with(input){
-            CountryModel(name_en)
-        }
+    fun map(input: CountryDTO): CountryModel = with(input) {
+        CountryModel(name_en)
     }
+
 }

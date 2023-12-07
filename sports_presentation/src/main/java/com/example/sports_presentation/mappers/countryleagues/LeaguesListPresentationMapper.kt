@@ -5,10 +5,9 @@ import com.example.sports_presentation.models.countryleagues.LeagueListPresentat
 import javax.inject.Inject
 
 class LeaguesListPresentationMapper @Inject constructor(private val leaguesPresentationMapper: LeaguesPresentationMapper) {
-    fun map(input: LeagueListModel): LeagueListPresentationModel {
-        return with(input) {
-            val leaguesList = countries.map { leaguesPresentationMapper.map(it) }
-            LeagueListPresentationModel(leaguesList)
-        }
+    fun map(input: LeagueListModel): LeagueListPresentationModel = with(input) {
+        val leaguesList = countries.map { leaguesPresentationMapper.map(it) }
+        LeagueListPresentationModel(leaguesList)
     }
+
 }

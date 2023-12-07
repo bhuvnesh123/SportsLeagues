@@ -25,27 +25,24 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCountriesMapper(): CountryMapper {
-        return CountryMapper()
-    }
+    fun provideCountriesMapper(): CountryMapper = CountryMapper()
+
 
     @Singleton
     @Provides
-    fun provideCountriesListMapper(countryMapper: CountryMapper): CountriesListMapper {
-        return CountriesListMapper(countryMapper = countryMapper)
-    }
+    fun provideCountriesListMapper(countryMapper: CountryMapper): CountriesListMapper =
+        CountriesListMapper(countryMapper = countryMapper)
+
 
     @Singleton
     @Provides
-    fun provideLeaguesMapper(): LeaguesMapper {
-        return LeaguesMapper()
-    }
+    fun provideLeaguesMapper(): LeaguesMapper = LeaguesMapper()
 
     @Singleton
     @Provides
-    fun provideLeaguesListMapper(leaguesMapper: LeaguesMapper): LeaguesListMapper {
-        return LeaguesListMapper(leaguesMapper = leaguesMapper)
-    }
+    fun provideLeaguesListMapper(leaguesMapper: LeaguesMapper): LeaguesListMapper =
+        LeaguesListMapper(leaguesMapper = leaguesMapper)
+
 
     @Singleton
     @Provides
@@ -53,30 +50,29 @@ object AppModule {
         sportsApi: SportsApi,
         countriesListMapper: CountriesListMapper,
         leaguesListMapper: LeaguesListMapper
-    ): SportsService {
-        return SportsServiceImpl(
-            sportsApi = sportsApi,
-            countriesListMapper = countriesListMapper,
-            leaguesListMapper = leaguesListMapper
-        )
-    }
+    ): SportsService = SportsServiceImpl(
+        sportsApi = sportsApi,
+        countriesListMapper = countriesListMapper,
+        leaguesListMapper = leaguesListMapper
+    )
+
 
     @Singleton
     @Provides
-    fun providesSportsRepository(sportsService: SportsService): SportsRepository {
-        return SportsRepositoryImpl(sportsService = sportsService)
-    }
+    fun providesSportsRepository(sportsService: SportsService): SportsRepository =
+        SportsRepositoryImpl(sportsService = sportsService)
+
 
     @Singleton
     @Provides
-    fun providesCountryLeaguesUseCase(sportsRepository: SportsRepository) : CountryLeaguesUseCase {
-        return CountryLeaguesUseCaseImpl(sportsRepository = sportsRepository)
-    }
+    fun providesCountryLeaguesUseCase(sportsRepository: SportsRepository): CountryLeaguesUseCase =
+        CountryLeaguesUseCaseImpl(sportsRepository = sportsRepository)
+
 
     @Singleton
     @Provides
-    fun providesCountryListUseCase(sportsRepository: SportsRepository) : CountryListUseCase {
-        return CountryListUseCaseImpl(sportsRepository = sportsRepository)
-    }
+    fun providesCountryListUseCase(sportsRepository: SportsRepository): CountryListUseCase =
+        CountryListUseCaseImpl(sportsRepository = sportsRepository)
+
 
 }

@@ -29,6 +29,5 @@ fun CircularProgressBarIndicator() {
 
 @Preview(showBackground = true)
 @Composable
-fun CircularProgressBarIndicatorPreview() {
-    CircularProgressBarIndicator()
-}
+fun CircularProgressBarIndicatorPreview() = CircularProgressBarIndicator()
+

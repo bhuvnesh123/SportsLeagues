@@ -1,16 +1,16 @@
 package com.example.sports_presentation.screens.countryleagues.fakes
 
-import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueModel
+import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakesCountryLeaguesUseCase: CountryLeaguesUseCase {
-    override fun invoke(countryName: String): Flow<ApiResult<LeagueListModel?>> {
-        when(countryName){
-            "India" ->{
+class FakesCountryLeaguesUseCase : CountryLeaguesUseCase {
+    override fun invoke(countryName: String): Flow<ApiResult<LeagueListModel?>> =
+        when (countryName) {
+            "India" -> {
                 val leagueModel = LeagueModel(
                     idLeague = "4460",
                     idSoccerXML = "",
@@ -60,17 +60,17 @@ class FakesCountryLeaguesUseCase: CountryLeaguesUseCase {
                     strComplete = "yes",
                     strLocked = "unlocked"
                 )
-                val leagueListModel =LeagueListModel(listOf(leagueModel))
+                val leagueListModel = LeagueListModel(listOf(leagueModel))
                 // Create a fake ApiResult object with the leagueListModel
                 val apiResult = ApiResult.Success(leagueListModel)
 
                 // Create a fake Flow object that emits the fake ApiResult
-                return flow {
+                flow {
                     emit(apiResult)
                 }
 
             }
-            "United States" ->{
+            "United States" -> {
                 val leagueModel = LeagueModel(
                     idLeague = "4867",
                     idSoccerXML = "",
@@ -140,7 +140,8 @@ class FakesCountryLeaguesUseCase: CountryLeaguesUseCase {
                     strTwitter = "twitter.com/ipl",
                     strYoutube = "www.youtube.com/ipl",
                     strRSS = "http://www.espncricinfo.com/rss/content/story/feeds/6.xml",
-                    strDescriptionEN = "IMSA Prototype Challenge presented by Mazda (formerly IMSA Prototype Lites, Cooper Tires Prototype Lites, Mazda Prototype Lites) is a racing series featuring two classes of single-seat prototype cars racing simultaneously. The series is sanctioned by the International Motor Sports Association (IMSA). Most races are held in support of the WeatherTech SportsCar Championship. The L1 class features Élan Motorsport Technologies DP02 carbon tub cars powered by a 2.0 L Mazda MZR engine. In 2013 the L2 class switched to the same Elan DP02 tub of the L1, but fitted with the car's previous generation 2.3 L Mazda engine. Each class has an overall championship, a master’s championship for drivers at least 40 years of age, and a team championship. Each race is usually 30–45 minutes.",                    strDescriptionDE = "",
+                    strDescriptionEN = "IMSA Prototype Challenge presented by Mazda (formerly IMSA Prototype Lites, Cooper Tires Prototype Lites, Mazda Prototype Lites) is a racing series featuring two classes of single-seat prototype cars racing simultaneously. The series is sanctioned by the International Motor Sports Association (IMSA). Most races are held in support of the WeatherTech SportsCar Championship. The L1 class features Élan Motorsport Technologies DP02 carbon tub cars powered by a 2.0 L Mazda MZR engine. In 2013 the L2 class switched to the same Elan DP02 tub of the L1, but fitted with the car's previous generation 2.3 L Mazda engine. Each class has an overall championship, a master’s championship for drivers at least 40 years of age, and a team championship. Each race is usually 30–45 minutes.",
+                    strDescriptionDE = "",
                     strDescriptionFR = "",
                     strDescriptionIT = "",
                     strDescriptionCN = "",
@@ -168,28 +169,28 @@ class FakesCountryLeaguesUseCase: CountryLeaguesUseCase {
                     strComplete = "yes",
                     strLocked = "unlocked"
                 )
-                val leagueListModel =LeagueListModel(listOf(leagueModel,leagueModel2))
+                val leagueListModel = LeagueListModel(listOf(leagueModel, leagueModel2))
                 // Create a fake ApiResult object with the leagueListModel
                 val apiResult = ApiResult.Success(leagueListModel)
 
                 // Create a fake Flow object that emits the fake ApiResult
-                return flow {
+                flow {
                     emit(apiResult)
                 }
 
             }
             else -> {
-                val leagueListModel =LeagueListModel(listOf())
+                val leagueListModel = LeagueListModel(listOf())
                 // Create a fake ApiResult object with the leagueListModel
                 val apiResult = ApiResult.Success(leagueListModel)
 
                 // Create a fake Flow object that emits the fake ApiResult
-                return flow {
+                flow {
                     emit(apiResult)
                 }
             }
 
 
         }
-    }
+
 }

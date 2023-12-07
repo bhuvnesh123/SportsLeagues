@@ -18,52 +18,46 @@ import java.io.IOException
 suspend fun <T, R> safeApiCall(
     apiCall: suspend () -> T?,
     mapper: (T) -> R
-): ApiResult<R?> {
-
-    return try {
-        // throws TimeoutCancellationException
-        withTimeout(NETWORK_TIMEOUT) {
-            val response = apiCall.invoke()
-            if (response != null) {
-                ApiResult.Success(mapper(response))
-            } else {
-                ApiResult.Success(null)
-            }
-        }
-    } catch (throwable: Throwable) {
-        throwable.printStackTrace()
-        when (throwable) {
-            is TimeoutCancellationException -> {
-                val code = 408 // timeout error code
-                ApiResult.GenericError(code, NETWORK_ERROR_TIMEOUT)
-            }
-            is IOException -> {
-                ApiResult.NetworkError(NETWORK_ERROR)
-            }
-            is HttpException -> {
-                val code = throwable.code()
-                val errorResponse = convertErrorBody(throwable)
-                ApiResult.GenericError(
-                    code,
-                    errorResponse
-                )
-            }
-            else -> {
-                ApiResult.GenericError(
-                    null,
-                    NETWORK_ERROR_UNKNOWN
-                )
-            }
+): ApiResult<R?> = try {
+    // throws TimeoutCancellationException
+    withTimeout(NETWORK_TIMEOUT) {
+        val response = apiCall.invoke()
+        if (response != null) {
+            ApiResult.Success(mapper(response))
+        } else {
+            ApiResult.Success(null)
         }
     }
-
+} catch (throwable: Throwable) {
+    throwable.printStackTrace()
+    when (throwable) {
+        is TimeoutCancellationException -> {
+            val code = 408 // timeout error code
+            ApiResult.GenericError(code, NETWORK_ERROR_TIMEOUT)
+        }
+        is IOException -> {
+            ApiResult.NetworkError(NETWORK_ERROR)
+        }
+        is HttpException -> {
+            val code = throwable.code()
+            val errorResponse = convertErrorBody(throwable)
+            ApiResult.GenericError(
+                code,
+                errorResponse
+            )
+        }
+        else -> {
+            ApiResult.GenericError(
+                null,
+                NETWORK_ERROR_UNKNOWN
+            )
+        }
+    }
 }
 
 
-private fun convertErrorBody(throwable: HttpException): String? {
-    return try {
-        throwable.response()?.errorBody()?.string()
-    } catch (exception: Exception) {
-        ERROR_UNKNOWN
-    }
+private fun convertErrorBody(throwable: HttpException): String? = try {
+    throwable.response()?.errorBody()?.string()
+} catch (exception: Exception) {
+    ERROR_UNKNOWN
 }

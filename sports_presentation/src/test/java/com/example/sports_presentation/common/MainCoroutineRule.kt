@@ -14,11 +14,9 @@ class MainCoroutineRule : BeforeEachCallback, AfterEachCallback {
 
     private val testDispatcher = UnconfinedTestDispatcher()
 
-    override fun beforeEach(context: ExtensionContext?) {
-        Dispatchers.setMain(testDispatcher)
-    }
+    override fun beforeEach(context: ExtensionContext?) = Dispatchers.setMain(testDispatcher)
 
-    override fun afterEach(context: ExtensionContext?) {
-        Dispatchers.resetMain()
-    }
+
+    override fun afterEach(context: ExtensionContext?) = Dispatchers.resetMain()
+
 }

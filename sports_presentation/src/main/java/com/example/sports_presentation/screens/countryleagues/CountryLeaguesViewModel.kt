@@ -16,9 +16,8 @@ class CountryLeaguesViewModel @Inject constructor(
     private val leaguesListPresentationMapper: LeaguesListPresentationMapper
 ) : BaseViewModel<CountryLeaguesViewState, CountryLeaguesViewIntent, CountryLeaguesSideEffect>() {
 
-    override fun createInitialState(): CountryLeaguesViewState {
-        return CountryLeaguesViewState.Loading
-    }
+    override fun createInitialState(): CountryLeaguesViewState = CountryLeaguesViewState.Loading
+
 
     private fun getCountryLeagues(countryName: String) {
         viewModelScope.launch {

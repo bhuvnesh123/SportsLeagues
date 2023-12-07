@@ -10,11 +10,11 @@ import javax.inject.Inject
 
 class SportsRepositoryImpl @Inject constructor(private val sportsService: SportsService) :
     SportsRepository {
-    override fun getAllCountries(): Flow<ApiResult<CountriesListModel?>> {
-        return sportsService.getAllCountries()
-    }
+    override fun getAllCountries(): Flow<ApiResult<CountriesListModel?>> =
+        sportsService.getAllCountries()
 
-    override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel?>> {
-        return sportsService.searchLeaguesByCountry(countryName = countryName)
-    }
+
+    override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel?>> =
+        sportsService.searchLeaguesByCountry(countryName = countryName)
+
 }

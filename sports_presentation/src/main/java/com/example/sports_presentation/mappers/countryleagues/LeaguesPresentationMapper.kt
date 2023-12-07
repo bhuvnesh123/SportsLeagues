@@ -5,16 +5,15 @@ import com.example.sports_presentation.models.countryleagues.LeaguesPresentation
 
 class LeaguesPresentationMapper {
 
-    fun map(input: LeagueModel): LeaguesPresentationModel {
-        return with(input) {
-            LeaguesPresentationModel(
-                leagueName = strLeague,
-                sport = strSport,
-                leagueDescription = strDescriptionEN,
-                formedYear = intFormedYear,
-                currentSeason = strCurrentSeason,
-                tvRights = strTvRights
-            )
-        }
+    fun map(input: LeagueModel): LeaguesPresentationModel = with(input) {
+        LeaguesPresentationModel(
+            leagueName = strLeague,
+            sport = strSport,
+            leagueDescription = strDescriptionEN,
+            formedYear = intFormedYear,
+            currentSeason = strCurrentSeason,
+            tvRights = strTvRights
+        )
     }
+
 }

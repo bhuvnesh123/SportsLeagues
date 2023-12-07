@@ -16,25 +16,23 @@ object PresentationModule {
 
     @Singleton
     @Provides
-    fun provideCountryPresentationMapper(): CountryPresentationMapper {
-        return CountryPresentationMapper()
-    }
+    fun provideCountryPresentationMapper(): CountryPresentationMapper = CountryPresentationMapper()
+
 
     @Singleton
     @Provides
-    fun provideCountryListPresentationMapper(countryPresentationMapper: CountryPresentationMapper): CountryPresentationListMapper {
-        return CountryPresentationListMapper(countryPresentationMapper = countryPresentationMapper)
-    }
+    fun provideCountryListPresentationMapper(countryPresentationMapper: CountryPresentationMapper): CountryPresentationListMapper =
+        CountryPresentationListMapper(countryPresentationMapper = countryPresentationMapper)
+
 
     @Singleton
     @Provides
-    fun provideLeaguesPresentationMapper(): LeaguesPresentationMapper {
-        return LeaguesPresentationMapper()
-    }
+    fun provideLeaguesPresentationMapper(): LeaguesPresentationMapper = LeaguesPresentationMapper()
+
 
     @Singleton
     @Provides
-    fun provideLeaguesListPresentationMapper(leaguesPresentationMapper: LeaguesPresentationMapper): LeaguesListPresentationMapper {
-        return LeaguesListPresentationMapper(leaguesPresentationMapper = leaguesPresentationMapper)
-    }
+    fun provideLeaguesListPresentationMapper(leaguesPresentationMapper: LeaguesPresentationMapper): LeaguesListPresentationMapper =
+        LeaguesListPresentationMapper(leaguesPresentationMapper = leaguesPresentationMapper)
+
 }
