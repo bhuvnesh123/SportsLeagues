@@ -8,7 +8,7 @@ class LeaguesListMapper @Inject constructor(private val leaguesMapper: LeaguesMa
 
     fun map(input: LeagueResponseDTO): LeagueListModel = with(input) {
         val leaguesList = countries?.map { leaguesMapper.map(it) }
-        LeagueListModel(countries = leaguesList ?: listOf())
+        LeagueListModel(countries = leaguesList.orEmpty())
     }
 
 }
