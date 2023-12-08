@@ -32,10 +32,10 @@ internal class CountryListViewModelTest {
     @Test
     fun `GIVE Country list data WHEN LoadData ViewIntent sent THEN viewState contains list of countries`() =
         runTest {
-            countryListViewModel.sendIntent(CountryListViewIntent.LoadData)
+            countryListViewModel.sendIntent(CountryListContract.ViewIntent.LoadData)
 
             assertEquals(
-                countryListViewModel.viewState.value, CountryListViewState.Success(
+                countryListViewModel.viewState.value, CountryListContract.ViewState.Success(
                     countriesList = listOf(
                         CountryPresentationModel(countryName = "United States"),
                         CountryPresentationModel(countryName = "Canada"),

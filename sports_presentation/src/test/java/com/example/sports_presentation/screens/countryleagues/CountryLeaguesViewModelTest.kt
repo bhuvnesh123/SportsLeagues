@@ -30,7 +30,7 @@ internal class CountryLeaguesViewModelTest {
     fun `GIVEN query country WHEN LoadData ViewIntent sent THEN viewState contains list of leagues of that country`(
         input: String
     ) {
-        countryLeaguesViewModel.sendIntent(vi = CountryLeaguesViewIntent.LoadData(input))
+        countryLeaguesViewModel.sendIntent(vi = CountryLeaguesContract.ViewIntent.LoadData(input))
 
         expectedViewStateForInput(input = input)
 
@@ -39,7 +39,7 @@ internal class CountryLeaguesViewModelTest {
     private fun expectedViewStateForInput(input: String) {
         // Define the expected ViewState for each input parameter
         val expectedViewStateMap = mapOf(
-            "United States" to CountryLeaguesViewState.Success(
+            "United States" to CountryLeaguesContract.ViewState.Success(
                 leaguesList = listOf(
                     LeaguesPresentationModel(
                         leagueName = "Game Changer Wrestling",
@@ -59,7 +59,7 @@ internal class CountryLeaguesViewModelTest {
                     )
                 )
             ),
-            "India" to CountryLeaguesViewState.Success(
+            "India" to CountryLeaguesContract.ViewState.Success(
                 listOf(
                     LeaguesPresentationModel(
                         leagueName = "Indian Premier League",
@@ -71,7 +71,7 @@ internal class CountryLeaguesViewModelTest {
                     )
                 )
             ),
-            "Antartica" to CountryLeaguesViewState.NoDataFound
+            "Antartica" to CountryLeaguesContract.ViewState.NoDataFound
         )
         val expectedViewState = expectedViewStateMap[input]
         assertEquals(expectedViewState, countryLeaguesViewModel.viewState.value)
