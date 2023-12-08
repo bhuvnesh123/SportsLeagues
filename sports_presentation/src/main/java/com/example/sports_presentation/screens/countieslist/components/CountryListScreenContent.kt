@@ -8,9 +8,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.common.UIText
 import com.example.sports_presentation.customcomposables.CircularProgressBarIndicator
 import com.example.sports_presentation.customcomposables.MessageScreen
-import com.example.sports_presentation.screens.countieslist.CountryListViewIntent
+import com.example.sports_presentation.screens.countieslist.CountryListContract
 import com.example.sports_presentation.screens.countieslist.CountryListViewModel
-import com.example.sports_presentation.screens.countieslist.CountryListViewState
 
 /**
  * This composable represents the screen content, which collects the view state of the view model to load the appropriate composable based on the view state.
@@ -21,25 +20,37 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
     val countryListViewState = viewModel.viewState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.sendIntent(vi = CountryListViewIntent.LoadData)
+        viewModel.sendIntent(vi = CountryListContract.ViewIntent.LoadData)
+        viewModel.sideEffect.collect {
+            if (it is CountryListContract.SideEffect.NavigateToDetails) {
+                val countryName = it.countryName
+                callback(countryName)
+            }
+        }
     }
 
     when (countryListViewState.value) {
-        is CountryListViewState.Loading -> {
+        is CountryListContract.ViewState.Loading -> {
             CircularProgressBarIndicator()
         }
-        is CountryListViewState.Success -> {
+        is CountryListContract.ViewState.Success -> {
             val countriesList =
-                (countryListViewState.value as CountryListViewState.Success).countriesList
+                (countryListViewState.value as CountryListContract.ViewState.Success).countriesList
             CountriesListContainer(
                 countriesList = countriesList,
-                callback = callback
+                callback = { countryName ->
+                    viewModel.sendIntent(
+                        CountryListContract.ViewIntent.OnCountryClicked(
+                            countryName = countryName
+                        )
+                    )
+                }
             )
 
         }
-        is CountryListViewState.Error -> {
+        is CountryListContract.ViewState.Error -> {
             val errorMessage =
-                (countryListViewState.value as CountryListViewState.Error).errorMessage
+                (countryListViewState.value as CountryListContract.ViewState.Error).errorMessage
             MessageScreen(
                 message = UIText.getText(
                     uiText = errorMessage,

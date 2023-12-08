@@ -1,13 +1,19 @@
 package com.example.sports_presentation.screens.countryleagues
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.UIText
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.UseCase
-import com.example.sports_presentation.base.BaseViewModel
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,10 +21,20 @@ import javax.inject.Inject
 class CountryLeaguesViewModel @Inject constructor(
     private val countryLeaguesUseCase: UseCase<String, LeagueListModel>,
     private val leaguesListPresentationMapper: LeaguesListPresentationMapper
-) : BaseViewModel<CountryLeaguesViewState, CountryLeaguesViewIntent, CountryLeaguesSideEffect>() {
+) : ViewModel(), CountryLeaguesContract {
 
-    override fun createInitialState(): CountryLeaguesViewState = CountryLeaguesViewState.Loading
 
+    override fun createInitialState(): CountryLeaguesContract.ViewState =
+        CountryLeaguesContract.ViewState.Loading
+
+    private val _state = MutableStateFlow(value = createInitialState())
+    private val _sideEffect = Channel<CountryLeaguesContract.SideEffect>()
+
+    override val viewState: StateFlow<CountryLeaguesContract.ViewState>
+        get() = _state.asStateFlow()
+
+    override val sideEffect: Flow<CountryLeaguesContract.SideEffect>
+        get() = _sideEffect.consumeAsFlow()
 
     private fun getCountryLeagues(countryName: String) {
         viewModelScope.launch {
@@ -33,20 +49,20 @@ class CountryLeaguesViewModel @Inject constructor(
     }
 
     private fun onFailure(message: UIText) {
-        _state.value = CountryLeaguesViewState.Error(errorMessage = message)
+        _state.value = CountryLeaguesContract.ViewState.Error(errorMessage = message)
     }
 
     private fun onResponse(response: LeagueListModel) {
-        val mappedResponse = leaguesListPresentationMapper.map(response)
+        val mappedResponse = leaguesListPresentationMapper.map(input = response)
         _state.value =
-            if (mappedResponse.countries.isEmpty()) CountryLeaguesViewState.NoDataFound else CountryLeaguesViewState.Success(
+            if (mappedResponse.countries.isEmpty()) CountryLeaguesContract.ViewState.NoDataFound else CountryLeaguesContract.ViewState.Success(
                 leaguesList = mappedResponse.countries
             )
     }
 
-    override fun sendIntent(vi: CountryLeaguesViewIntent) {
+    override fun sendIntent(vi: CountryLeaguesContract.ViewIntent) {
         when (vi) {
-            is CountryLeaguesViewIntent.LoadData -> getCountryLeagues(countryName = vi.countryName)
+            is CountryLeaguesContract.ViewIntent.LoadData -> getCountryLeagues(countryName = vi.countryName)
         }
     }
 }
