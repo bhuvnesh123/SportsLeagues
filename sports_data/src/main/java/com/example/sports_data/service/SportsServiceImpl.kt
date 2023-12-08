@@ -17,7 +17,7 @@ class SportsServiceImpl @Inject constructor(
     private val leaguesListMapper: LeaguesListMapper
 ) : SportsService {
 
-    override fun getAllCountries(): Flow<ApiResult<CountriesListModel?>> =
+    override fun getAllCountries(): Flow<ApiResult<CountriesListModel>> =
         flow {
             emit(
                 safeApiCall(
@@ -28,7 +28,7 @@ class SportsServiceImpl @Inject constructor(
         }
 
 
-    override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel?>> =
+    override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel>> =
         flow {
             emit(
                 safeApiCall(

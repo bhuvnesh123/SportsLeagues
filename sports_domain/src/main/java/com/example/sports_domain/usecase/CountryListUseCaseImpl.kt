@@ -9,7 +9,7 @@ import javax.inject.Inject
 class CountryListUseCaseImpl @Inject constructor(private val sportsRepository: SportsRepository) :
     UseCase<Unit, CountriesListModel> {
 
-    override operator fun invoke(params: Unit): Flow<ApiResult<CountriesListModel?>> =
+    override operator fun invoke(params: Unit): Flow<ApiResult<CountriesListModel>> =
         sportsRepository.getAllCountries()
 
 }

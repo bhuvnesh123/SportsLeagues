@@ -15,9 +15,9 @@ import java.io.IOException
 private const val TIMEOUT_ERROR_CODE = 408
 
 suspend fun <T, R> safeApiCall(
-    apiCall: suspend () -> T?,
+    apiCall: suspend () -> T,
     mapper: (T) -> R
-): ApiResult<R?> = try {
+): ApiResult<R> = try {
     // throws TimeoutCancellationException
     withTimeout(timeMillis = NETWORK_TIMEOUT) {
         val response = apiCall()

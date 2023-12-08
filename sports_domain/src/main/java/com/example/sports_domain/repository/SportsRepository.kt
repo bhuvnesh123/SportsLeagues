@@ -6,6 +6,6 @@ import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import kotlinx.coroutines.flow.Flow
 
 interface SportsRepository {
-    fun getAllCountries(): Flow<ApiResult<CountriesListModel?>>
-    fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel?>>
+    fun getAllCountries(): Flow<ApiResult<CountriesListModel>>
+    fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel>>
 }
