@@ -17,15 +17,19 @@ internal class CustomTopAppBarTest {
         composeTestRule.setContent {
             MaterialTheme {
                 CustomTopAppBar(
-                    title = "Leagues",
+                    title = LEAGUES,
                     onBack = {}
                 )
             }
 
         }
 
-        composeTestRule.onNodeWithText(text = "Leagues").assertExists()
+        composeTestRule.onNodeWithText(text = LEAGUES).assertExists()
 
+    }
+
+    private companion object {
+        const val LEAGUES = "Leagues"
     }
 
 }

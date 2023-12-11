@@ -11,15 +11,19 @@ internal class MessageScreenTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun givenAppStarted_whenMessageScreenWithErrorDisplayed_thenErrorShouldBeVisible()  {
+    fun givenAppStarted_whenMessageScreenWithErrorDisplayed_thenErrorShouldBeVisible() {
         // Start the app
         composeTestRule.setContent {
             MaterialTheme {
-                MessageScreen(message = "Something went wrong.Please try again later")
+                MessageScreen(message = SOMETHING_WENT_WRONG)
             }
 
         }
 
-        composeTestRule.onNodeWithText(text = "Something went wrong.Please try again later").assertExists()
+        composeTestRule.onNodeWithText(text = SOMETHING_WENT_WRONG).assertExists()
+    }
+
+    private companion object {
+        const val SOMETHING_WENT_WRONG = "Something went wrong.Please try again later"
     }
 }

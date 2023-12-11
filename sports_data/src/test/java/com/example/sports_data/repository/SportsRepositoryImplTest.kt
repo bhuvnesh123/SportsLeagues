@@ -55,7 +55,7 @@ internal class SportsRepositoryImplTest {
             coEvery { sportsService.getAllCountries() } returns flow {
                 emit(
                     ApiResult.GenericError(
-                        400, UIText.DynamicString(input = "Bad Request")
+                        400, UIText.DynamicString(input = BAD_REQUEST)
                     )
                 )
             }
@@ -64,7 +64,7 @@ internal class SportsRepositoryImplTest {
 
             assertEquals(
                 ApiResult.GenericError(
-                    400, UIText.DynamicString(input = "Bad Request")
+                    400, UIText.DynamicString(input = BAD_REQUEST)
                 ), firstItem
             )
 
@@ -77,7 +77,7 @@ internal class SportsRepositoryImplTest {
             coEvery { sportsService.getAllCountries() } returns flow {
                 emit(
                     ApiResult.NetworkError(
-                        UIText.DynamicString(input = "Please check your internet connection")
+                        UIText.DynamicString(input = CHECK_INTERNET_CONNECTION)
                     )
                 )
             }
@@ -86,7 +86,7 @@ internal class SportsRepositoryImplTest {
 
             assertEquals(
                 ApiResult.NetworkError(
-                    UIText.DynamicString(input = "Please check your internet connection")
+                    UIText.DynamicString(input = CHECK_INTERNET_CONNECTION)
                 ), firstItem
             )
 
@@ -125,7 +125,7 @@ internal class SportsRepositoryImplTest {
             coEvery { sportsService.searchLeaguesByCountry(countryName = countryName) } returns flow {
                 emit(
                     ApiResult.GenericError(
-                        400, UIText.DynamicString(input = "Bad Request")
+                        400, UIText.DynamicString(input = BAD_REQUEST)
                     )
                 )
             }
@@ -135,7 +135,7 @@ internal class SportsRepositoryImplTest {
 
             assertEquals(
                 ApiResult.GenericError(
-                    400, UIText.DynamicString(input = "Bad Request")
+                    400, UIText.DynamicString(input = BAD_REQUEST)
                 ), firstItem
             )
 
@@ -149,7 +149,7 @@ internal class SportsRepositoryImplTest {
             coEvery { sportsService.searchLeaguesByCountry(countryName = countryName) } returns flow {
                 emit(
                     ApiResult.NetworkError(
-                        UIText.DynamicString(input = "Please check your internet connection")
+                        UIText.DynamicString(input = CHECK_INTERNET_CONNECTION)
                     )
                 )
             }
@@ -159,9 +159,14 @@ internal class SportsRepositoryImplTest {
 
             assertEquals(
                 ApiResult.NetworkError(
-                    UIText.DynamicString(input = "Please check your internet connection")
+                    UIText.DynamicString(input = CHECK_INTERNET_CONNECTION)
                 ), firstItem
             )
 
         }
+
+    private companion object {
+        const val CHECK_INTERNET_CONNECTION = "Please check your internet connection"
+        const val BAD_REQUEST = "Bad Request"
+    }
 }
