@@ -69,11 +69,10 @@ class CountryListViewModel @Inject constructor(
         }
     }
 
-    override fun sendIntent(vi: CountryListContract.ViewIntent) = when (vi) {
-        is CountryListContract.ViewIntent.LoadData -> {
+    override fun sendIntent(vi: CountryListContract.ViewIntent) {
+        if (vi is CountryListContract.ViewIntent.LoadData) {
             getCountryList()
-        }
-        is CountryListContract.ViewIntent.OnCountryClicked -> {
+        } else if (vi is CountryListContract.ViewIntent.OnCountryClicked) {
             navigateToDetails(vi.countryName)
         }
     }

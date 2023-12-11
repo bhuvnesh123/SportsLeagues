@@ -61,8 +61,8 @@ class CountryLeaguesViewModel @Inject constructor(
     }
 
     override fun sendIntent(vi: CountryLeaguesContract.ViewIntent) {
-        when (vi) {
-            is CountryLeaguesContract.ViewIntent.LoadData -> getCountryLeagues(countryName = vi.countryName)
+        if (vi is CountryLeaguesContract.ViewIntent.LoadData) {
+            getCountryLeagues(countryName = vi.countryName)
         }
     }
 }
