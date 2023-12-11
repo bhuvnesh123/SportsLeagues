@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.R
 import com.example.sports_presentation.common.component.Dimens
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
@@ -88,18 +87,4 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
         }
 
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LeaguesListItemPreview() {
-    val leagueItem = LeaguesPresentationModel(
-        leagueName = "Premier League",
-        sport = "Football",
-        leagueDescription = "The Premier League is the top level of the English football league system.",
-        formedYear = "1992",
-        currentSeason = "2021-2022",
-        tvRights = "Sky Sports, BT Sport"
-    )
-    LeaguesListItem(league = leagueItem)
 }

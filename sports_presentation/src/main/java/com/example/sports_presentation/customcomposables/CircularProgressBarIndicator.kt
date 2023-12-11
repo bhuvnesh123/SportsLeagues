@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.common.component.Dimens
 
 @Composable
@@ -26,8 +25,3 @@ fun CircularProgressBarIndicator() {
         )
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun CircularProgressBarIndicatorPreview() = CircularProgressBarIndicator()
-

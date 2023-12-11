@@ -10,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.sports_presentation.common.component.Dimens
 
 /**
@@ -41,13 +40,4 @@ fun CountriesListItem(countryName: String, onClick: (countryName: String) -> Uni
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CountryListItemPreview() {
-    CountriesListItem(
-        countryName = "India",
-        onClick = {}
-    )
 }
