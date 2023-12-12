@@ -7,30 +7,25 @@ import com.example.sports_presentation.mappers.countryleagues.LeaguesPresentatio
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 @Module
 object PresentationModule {
 
-    @Singleton
     @Provides
     fun provideCountryPresentationMapper(): CountryPresentationMapper = CountryPresentationMapper()
 
 
-    @Singleton
     @Provides
     fun provideCountryListPresentationMapper(countryPresentationMapper: CountryPresentationMapper): CountryPresentationListMapper =
         CountryPresentationListMapper(countryPresentationMapper = countryPresentationMapper)
 
 
-    @Singleton
     @Provides
     fun provideLeaguesPresentationMapper(): LeaguesPresentationMapper = LeaguesPresentationMapper()
 
 
-    @Singleton
     @Provides
     fun provideLeaguesListPresentationMapper(leaguesPresentationMapper: LeaguesPresentationMapper): LeaguesListPresentationMapper =
         LeaguesListPresentationMapper(leaguesPresentationMapper = leaguesPresentationMapper)

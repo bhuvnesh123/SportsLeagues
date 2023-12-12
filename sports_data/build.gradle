@@ -31,13 +31,7 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
-    buildFeatures {
-        compose = true
-    }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtensionVersion
-    }
     testOptions {
         unitTests.all {
             useJUnitPlatform()
@@ -69,7 +63,6 @@ dependencies {
 
     //DI
     implementation Dependencies.hilt
-    implementation Dependencies.hilt_navigation_compose
     kapt Dependencies.hilt_compiler
 
 

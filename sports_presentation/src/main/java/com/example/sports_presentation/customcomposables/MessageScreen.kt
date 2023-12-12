@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
 import com.example.sports_presentation.common.component.Dimens
 
 @Composable
@@ -29,7 +28,7 @@ fun MessageScreen(message: String) {
                 .padding(all = Dimens.grid_2)
                 .wrapContentSize()
                 .align(alignment = Alignment.Center),
-            style = TextStyle(fontSize = 16.sp)
+            style = TextStyle(fontSize = Dimens.text_medium)
         )
     }
 }
