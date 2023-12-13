@@ -9,7 +9,6 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,10 +29,9 @@ internal class CountryLeaguesUseCaseImplTest {
         val countryName = "India"
         coEvery { sportsRepository.searchLeaguesByCountry(countryName = countryName) } returns flow {
             ApiResult.Success(
-                mockk<LeagueListModel>()
+                mockk<LeagueListModel>(),
             )
         }
-
 
         countryLeaguesUseCaseImpl.invoke(params = countryName)
 

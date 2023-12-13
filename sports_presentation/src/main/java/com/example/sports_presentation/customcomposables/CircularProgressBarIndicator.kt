@@ -16,12 +16,12 @@ fun CircularProgressBarIndicator() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(color = Color.White),
     ) {
         CircularProgressIndicator(
             modifier = Modifier
                 .size(size = Dimens.grid_8)
-                .align(alignment = Alignment.Center)
+                .align(alignment = Alignment.Center),
         )
     }
 }

@@ -17,7 +17,6 @@ internal class MessageScreenTest {
             MaterialTheme {
                 MessageScreen(message = SOMETHING_WENT_WRONG)
             }
-
         }
 
         composeTestRule.onNodeWithText(text = SOMETHING_WENT_WRONG).assertExists()

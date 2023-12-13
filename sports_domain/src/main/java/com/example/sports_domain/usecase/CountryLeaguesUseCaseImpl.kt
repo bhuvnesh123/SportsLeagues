@@ -11,5 +11,4 @@ class CountryLeaguesUseCaseImpl @Inject constructor(private val sportsRepository
 
     override operator fun invoke(params: String): Flow<ApiResult<LeagueListModel>> =
         sportsRepository.searchLeaguesByCountry(countryName = params)
-
 }

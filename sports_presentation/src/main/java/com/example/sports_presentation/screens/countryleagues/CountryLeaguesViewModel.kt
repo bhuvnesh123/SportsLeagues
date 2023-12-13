@@ -20,9 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CountryLeaguesViewModel @Inject constructor(
     private val countryLeaguesUseCase: UseCase<String, LeagueListModel>,
-    private val leaguesListPresentationMapper: LeaguesListPresentationMapper
+    private val leaguesListPresentationMapper: LeaguesListPresentationMapper,
 ) : ViewModel(), CountryLeaguesContract {
-
 
     override fun createInitialState(): CountryLeaguesContract.ViewState =
         CountryLeaguesContract.ViewState.Loading
@@ -55,9 +54,13 @@ class CountryLeaguesViewModel @Inject constructor(
     private fun onResponse(response: LeagueListModel) {
         val mappedResponse = leaguesListPresentationMapper.map(input = response)
         _state.value =
-            if (mappedResponse.countries.isEmpty()) CountryLeaguesContract.ViewState.NoDataFound else CountryLeaguesContract.ViewState.Success(
-                leaguesList = mappedResponse.countries
-            )
+            if (mappedResponse.countries.isEmpty()) {
+                CountryLeaguesContract.ViewState.NoDataFound
+            } else {
+                CountryLeaguesContract.ViewState.Success(
+                    leaguesList = mappedResponse.countries,
+                )
+            }
     }
 
     override fun sendIntent(vi: CountryLeaguesContract.ViewIntent) {

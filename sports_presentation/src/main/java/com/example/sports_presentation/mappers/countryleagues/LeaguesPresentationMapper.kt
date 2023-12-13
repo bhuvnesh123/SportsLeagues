@@ -12,8 +12,7 @@ class LeaguesPresentationMapper {
             leagueDescription = strDescriptionEN,
             formedYear = intFormedYear,
             currentSeason = strCurrentSeason,
-            tvRights = strTvRights
+            tvRights = strTvRights,
         )
     }
-
 }

@@ -22,69 +22,66 @@ import com.example.sports_presentation.models.countryleagues.LeaguesPresentation
  */
 @Composable
 fun LeaguesListItem(league: LeaguesPresentationModel) {
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(all = Dimens.grid_4),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = Dimens.plane_3
-        )
+            defaultElevation = Dimens.plane_3,
+        ),
     ) {
         Column(
-            modifier = Modifier.padding(all = Dimens.grid_2)
+            modifier = Modifier.padding(all = Dimens.grid_2),
         ) {
             Text(text = league.leagueName, style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(height = Dimens.grid_1))
             Text(
                 text = stringResource(id = R.string.sport).format(league.sport),
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineSmall,
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.grid_1
-                )
+                    height = Dimens.grid_1,
+                ),
             )
             Text(
                 text = stringResource(id = R.string.formed_year).format(league.formedYear),
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.grid_1
-                )
+                    height = Dimens.grid_1,
+                ),
             )
             Text(
                 text = stringResource(id = R.string.current_season).format(league.currentSeason),
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.grid_1
-                )
+                    height = Dimens.grid_1,
+                ),
             )
             if (league.tvRights.isNotEmpty()) {
                 Text(
                     text = stringResource(id = R.string.tv_rights).format(league.tvRights),
                     style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
             }
             if (league.leagueDescription.isNotEmpty()) {
                 Spacer(
                     modifier = Modifier.height(
-                        height = Dimens.grid_1
-                    )
+                        height = Dimens.grid_1,
+                    ),
                 )
                 Text(
                     text = league.leagueDescription,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
-
         }
-
     }
 }

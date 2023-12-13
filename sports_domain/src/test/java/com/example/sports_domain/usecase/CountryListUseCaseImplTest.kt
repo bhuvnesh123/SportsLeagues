@@ -7,7 +7,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flow
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -31,7 +30,5 @@ internal class CountryListUseCaseImplTest {
         coVerify {
             sportsRepository.getAllCountries()
         }
-
     }
-
 }

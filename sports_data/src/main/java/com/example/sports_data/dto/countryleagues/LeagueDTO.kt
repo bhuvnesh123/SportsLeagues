@@ -47,7 +47,5 @@ data class LeagueDTO(
     val strTrophy: String?,
     val strNaming: String?,
     val strComplete: String?,
-    val strLocked: String?
+    val strLocked: String?,
 )
-
-

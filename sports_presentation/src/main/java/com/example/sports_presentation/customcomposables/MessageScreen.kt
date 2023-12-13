@@ -19,7 +19,7 @@ fun MessageScreen(message: String) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(color = Color.White),
     ) {
         Text(
             text = message,
@@ -28,8 +28,7 @@ fun MessageScreen(message: String) {
                 .padding(all = Dimens.grid_2)
                 .wrapContentSize()
                 .align(alignment = Alignment.Center),
-            style = TextStyle(fontSize = Dimens.text_medium)
+            style = TextStyle(fontSize = Dimens.text_medium),
         )
     }
 }
-

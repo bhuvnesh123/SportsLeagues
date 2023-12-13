@@ -58,7 +58,7 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
                     strTrophy = "https://www.thesportsdb.com/images/media/league/trophy/n40cna1684417361.png",
                     strNaming = "{strHomeTeam} vs {strAwayTeam}",
                     strComplete = "yes",
-                    strLocked = "unlocked"
+                    strLocked = "unlocked",
                 )
                 val leagueListModel = LeagueListModel(countries = listOf(leagueModel))
                 // Create a fake ApiResult object with the leagueListModel
@@ -68,7 +68,6 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
                 flow {
                     emit(value = apiResult)
                 }
-
             }
             "United States" -> {
                 val leagueModel = LeagueModel(
@@ -118,7 +117,7 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
                     strTrophy = "https://www.thesportsdb.com/images/media/league/trophy/n40cna1684417361.png",
                     strNaming = "{strHomeTeam} vs {strAwayTeam}",
                     strComplete = "yes",
-                    strLocked = "unlocked"
+                    strLocked = "unlocked",
                 )
                 val leagueModel2 = LeagueModel(
                     idLeague = "4868",
@@ -167,7 +166,7 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
                     strTrophy = "https://www.thesportsdb.com/images/media/league/trophy/n40cna1684417361.png",
                     strNaming = "{strHomeTeam} vs {strAwayTeam}",
                     strComplete = "yes",
-                    strLocked = "unlocked"
+                    strLocked = "unlocked",
                 )
                 val leagueListModel = LeagueListModel(countries = listOf(leagueModel, leagueModel2))
                 // Create a fake ApiResult object with the leagueListModel
@@ -177,7 +176,6 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
                 flow {
                     emit(value = apiResult)
                 }
-
             }
             else -> {
                 val leagueListModel = LeagueListModel(countries = listOf())
@@ -189,8 +187,5 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
                     emit(value = apiResult)
                 }
             }
-
-
         }
-
 }

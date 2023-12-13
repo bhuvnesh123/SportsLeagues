@@ -11,5 +11,4 @@ class CountryListUseCaseImpl @Inject constructor(private val sportsRepository: S
 
     override operator fun invoke(params: Unit): Flow<ApiResult<CountriesListModel>> =
         sportsRepository.getAllCountries()
-
 }

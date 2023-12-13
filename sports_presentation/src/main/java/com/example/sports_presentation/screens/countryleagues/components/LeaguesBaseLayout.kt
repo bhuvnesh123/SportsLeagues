@@ -19,9 +19,9 @@ fun LeaguesBaseLayout(countryName: String, onBack: () -> Unit) {
         topBar = {
             CustomTopAppBar(
                 title = stringResource(
-                    id = R.string.country_details_screen_title
+                    id = R.string.country_details_screen_title,
                 ),
-                onBack = onBack
+                onBack = onBack,
             )
         },
     ) {

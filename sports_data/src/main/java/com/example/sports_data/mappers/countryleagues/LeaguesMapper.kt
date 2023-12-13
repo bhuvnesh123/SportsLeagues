@@ -51,9 +51,7 @@ class LeaguesMapper {
             strTrophy = strTrophy.orEmpty(),
             strNaming = strNaming.orEmpty(),
             strComplete = strComplete.orEmpty(),
-            strLocked = strLocked.orEmpty()
+            strLocked = strLocked.orEmpty(),
         )
     }
-
-
 }

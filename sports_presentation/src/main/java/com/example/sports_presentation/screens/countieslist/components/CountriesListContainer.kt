@@ -15,7 +15,7 @@ import com.example.sports_presentation.models.allcountries.CountryPresentationMo
 @Composable
 fun CountriesListContainer(
     countriesList: List<CountryPresentationModel>,
-    callback: (countryName: String) -> Unit
+    callback: (countryName: String) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -26,9 +26,8 @@ fun CountriesListContainer(
         items(items = countriesList) { item ->
             CountriesListItem(
                 countryName = item.countryName,
-                onClick = callback
+                onClick = callback,
             )
         }
     }
 }
-

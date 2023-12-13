@@ -11,13 +11,13 @@ import com.example.sports_presentation.common.smallDimensions
 @Composable
 fun ProvideDimens(
     dimensions: Dimensions, // Dimensions parameter that is passed to children
-    content: @Composable () -> Unit // Lambda that returns a composable function
+    content: @Composable () -> Unit, // Lambda that returns a composable function
 ) {
     val dimensionSet = remember { dimensions } // Remember the dimensions parameter
     // Provide the dimensions parameter to the LocalAppDimens key
     CompositionLocalProvider(
         LocalAppDimens provides dimensionSet,
-        content = content
+        content = content,
     )
 }
 
@@ -25,7 +25,6 @@ fun ProvideDimens(
 private val LocalAppDimens = staticCompositionLocalOf {
     smallDimensions // Default dimensions
 }
-
 
 // Object that defines the app theme
 object AppTheme {

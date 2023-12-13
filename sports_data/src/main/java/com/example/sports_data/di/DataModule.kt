@@ -22,11 +22,9 @@ abstract class DataModule {
         @Provides
         fun provideCountriesMapper(): CountryMapper = CountryMapper()
 
-
         @Provides
         fun provideCountriesListMapper(countryMapper: CountryMapper): CountriesListMapper =
             CountriesListMapper(countryMapper = countryMapper)
-
 
         @Provides
         fun provideLeaguesMapper(): LeaguesMapper = LeaguesMapper()
@@ -34,7 +32,6 @@ abstract class DataModule {
         @Provides
         fun provideLeaguesListMapper(leaguesMapper: LeaguesMapper): LeaguesListMapper =
             LeaguesListMapper(leaguesMapper = leaguesMapper)
-
     }
 
     @Binds
@@ -42,5 +39,4 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindSportsRepository(sportsRepositoryImpl: SportsRepositoryImpl): SportsRepository
-
 }

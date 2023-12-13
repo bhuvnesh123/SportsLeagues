@@ -6,5 +6,5 @@ data class LeaguesPresentationModel(
     val leagueDescription: String,
     val formedYear: String,
     val currentSeason: String,
-    val tvRights: String
+    val tvRights: String,
 )

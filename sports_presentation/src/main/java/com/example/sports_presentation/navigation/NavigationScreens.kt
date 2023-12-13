@@ -1,6 +1,5 @@
 package com.example.sports_presentation.navigation
 
-
 private const val COUNTRY_LIST_ROUTE = " country_list"
 private const val COUNTRY_LEAGUES_ROUTE = "country_leagues"
 

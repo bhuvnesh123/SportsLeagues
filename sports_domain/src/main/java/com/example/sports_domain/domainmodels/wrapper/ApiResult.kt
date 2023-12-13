@@ -8,10 +8,8 @@ sealed class ApiResult<out T> {
 
     data class GenericError(
         val code: Int? = null,
-        val errorMessage: UIText? = null
+        val errorMessage: UIText? = null,
     ) : ApiResult<Nothing>()
 
     data class NetworkError(val errorMessage: UIText) : ApiResult<Nothing>()
 }
-
-

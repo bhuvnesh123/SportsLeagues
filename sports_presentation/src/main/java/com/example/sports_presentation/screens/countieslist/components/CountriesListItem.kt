@@ -17,26 +17,26 @@ import com.example.sports_presentation.common.component.Dimens
  */
 @Composable
 fun CountriesListItem(countryName: String, onClick: (countryName: String) -> Unit) {
-
-    Card(colors = CardDefaults.cardColors(
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-    ),
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ),
         modifier = Modifier
             .padding(
                 vertical = Dimens.grid_0_5,
-                horizontal = Dimens.grid_1
+                horizontal = Dimens.grid_1,
             )
-            .clickable { onClick(countryName) }
+            .clickable { onClick(countryName) },
     ) {
         Row(
             modifier = Modifier
                 .padding(Dimens.grid_1_5)
-                .fillMaxWidth()
+                .fillMaxWidth(),
         ) {
             Text(
                 text = countryName,
                 color = MaterialTheme.colorScheme.onSurface,
-                fontSize = Dimens.text_medium
+                fontSize = Dimens.text_medium,
             )
         }
     }

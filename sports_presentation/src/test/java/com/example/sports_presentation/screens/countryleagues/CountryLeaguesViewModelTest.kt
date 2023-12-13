@@ -5,7 +5,7 @@ import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresent
 import com.example.sports_presentation.mappers.countryleagues.LeaguesPresentationMapper
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
 import com.example.sports_presentation.screens.countryleagues.fakes.FakesCountryLeaguesUseCase
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
@@ -20,20 +20,19 @@ internal class CountryLeaguesViewModelTest {
         countryLeaguesViewModel = CountryLeaguesViewModel(
             countryLeaguesUseCase = FakesCountryLeaguesUseCase(),
             leaguesListPresentationMapper = LeaguesListPresentationMapper(
-                leaguesPresentationMapper = LeaguesPresentationMapper()
-            )
+                leaguesPresentationMapper = LeaguesPresentationMapper(),
+            ),
         )
     }
 
     @ParameterizedTest
     @ValueSource(strings = ["United States", "India", "Antartica"])
     fun `GIVEN query country WHEN LoadData ViewIntent sent THEN viewState contains list of leagues of that country`(
-        input: String
+        input: String,
     ) {
         countryLeaguesViewModel.sendIntent(vi = CountryLeaguesContract.ViewIntent.LoadData(input))
 
         expectedViewStateForInput(input = input)
-
     }
 
     private fun expectedViewStateForInput(input: String) {
@@ -47,7 +46,7 @@ internal class CountryLeaguesViewModelTest {
                         leagueDescription = "Game Changer Wrestling (GCW) is a professional wrestling promotion based in New Jersey. The league originally closed in 2004, but started hosting events again in 2013 as the successor to Liberty States Wrestling .",
                         formedYear = "2008",
                         currentSeason = "2023",
-                        tvRights = ""
+                        tvRights = "",
                     ),
                     LeaguesPresentationModel(
                         leagueName = "IMSA Prototype Challenge Series",
@@ -55,9 +54,9 @@ internal class CountryLeaguesViewModelTest {
                         leagueDescription = "IMSA Prototype Challenge presented by Mazda (formerly IMSA Prototype Lites, Cooper Tires Prototype Lites, Mazda Prototype Lites) is a racing series featuring two classes of single-seat prototype cars racing simultaneously. The series is sanctioned by the International Motor Sports Association (IMSA). Most races are held in support of the WeatherTech SportsCar Championship. The L1 class features Élan Motorsport Technologies DP02 carbon tub cars powered by a 2.0 L Mazda MZR engine. In 2013 the L2 class switched to the same Elan DP02 tub of the L1, but fitted with the car's previous generation 2.3 L Mazda engine. Each class has an overall championship, a master’s championship for drivers at least 40 years of age, and a team championship. Each race is usually 30–45 minutes.",
                         currentSeason = "2023",
                         formedYear = "2008",
-                        tvRights = ""
-                    )
-                )
+                        tvRights = "",
+                    ),
+                ),
             ),
             "India" to CountryLeaguesContract.ViewState.Success(
                 listOf(
@@ -68,10 +67,10 @@ internal class CountryLeaguesViewModelTest {
                         formedYear = "2008",
                         currentSeason = "2023",
                         tvRights = "US (Linear) - Willow [2017-2021]\r\nUS (Streaming) - ESPN+ [2021-2022]\r\nZA (Streaming) - SuperSport [2017-2023]\r\nUK (Streaming) - Sky Sports [2017-2023]",
-                    )
-                )
+                    ),
+                ),
             ),
-            "Antartica" to CountryLeaguesContract.ViewState.NoDataFound
+            "Antartica" to CountryLeaguesContract.ViewState.NoDataFound,
         )
         val expectedViewState = expectedViewStateMap[input]
         assertEquals(expectedViewState, countryLeaguesViewModel.viewState.value)

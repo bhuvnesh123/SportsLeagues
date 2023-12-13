@@ -13,8 +13,6 @@ class SportsRepositoryImpl @Inject constructor(private val sportsService: Sports
     override fun getAllCountries(): Flow<ApiResult<CountriesListModel>> =
         sportsService.getAllCountries()
 
-
     override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel>> =
         sportsService.searchLeaguesByCountry(countryName = countryName)
-
 }

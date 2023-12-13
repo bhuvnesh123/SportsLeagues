@@ -30,7 +30,6 @@ fun LeaguesScreenContent(countryName: String) {
 
 @Composable
 fun LeaguesViewState(viewState: CountryLeaguesContract.ViewState) {
-
     when (viewState) {
         is CountryLeaguesContract.ViewState.Loading -> {
             CircularProgressBarIndicator()
@@ -38,16 +37,14 @@ fun LeaguesViewState(viewState: CountryLeaguesContract.ViewState) {
         is CountryLeaguesContract.ViewState.Success -> {
             val leaguesList = viewState.leaguesList
             LeaguesContainer(leaguesList = leaguesList)
-
-
         }
         is CountryLeaguesContract.ViewState.Error -> {
             val errorMessage = viewState.errorMessage
             MessageScreen(
                 message = UIText.getText(
                     uiText = errorMessage,
-                    context = LocalContext.current
-                )
+                    context = LocalContext.current,
+                ),
             )
         }
         is CountryLeaguesContract.ViewState.NoDataFound -> {
@@ -60,7 +57,7 @@ fun LeaguesViewState(viewState: CountryLeaguesContract.ViewState) {
 @Composable
 fun LeaguesLoadingStatePreview() {
     LeaguesViewState(
-        viewState = CountryLeaguesContract.ViewState.Loading
+        viewState = CountryLeaguesContract.ViewState.Loading,
     )
 }
 
@@ -74,7 +71,7 @@ fun LeaguesSuccessStatePreview() {
             leagueDescription = "The Premier League is the top level of the English football league system.",
             formedYear = "1992",
             currentSeason = "2021-2022",
-            tvRights = "Sky Sports, BT Sport"
+            tvRights = "Sky Sports, BT Sport",
         ),
         LeaguesPresentationModel(
             leagueName = "NBA",
@@ -82,7 +79,7 @@ fun LeaguesSuccessStatePreview() {
             leagueDescription = "The National Basketball Association is a men's professional basketball league in North America.",
             formedYear = "1946",
             currentSeason = "2021-2022",
-            tvRights = "ABC, ESPN, TNT"
+            tvRights = "ABC, ESPN, TNT",
         ),
         LeaguesPresentationModel(
             leagueName = "MLB",
@@ -90,11 +87,11 @@ fun LeaguesSuccessStatePreview() {
             leagueDescription = "Major League Baseball is a professional baseball organization and the oldest of the major professional sports leagues in the United States and Canada.",
             formedYear = "1903",
             currentSeason = "2021",
-            tvRights = "ESPN, Fox, TBS"
-        )
+            tvRights = "ESPN, Fox, TBS",
+        ),
     )
     LeaguesViewState(
-        viewState = CountryLeaguesContract.ViewState.Success(leaguesList = leaguesList)
+        viewState = CountryLeaguesContract.ViewState.Success(leaguesList = leaguesList),
     )
 }
 
@@ -104,8 +101,8 @@ fun LeaguesErrorStatePreview() {
     LeaguesViewState(
         viewState = CountryLeaguesContract.ViewState.Error(
             errorMessage = UIText.DynamicString(
-                "No leagues found for this country"
-            )
-        )
+                "No leagues found for this country",
+            ),
+        ),
     )
 }

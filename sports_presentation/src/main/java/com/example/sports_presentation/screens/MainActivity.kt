@@ -14,8 +14,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            NavGraph(navController = navController,
-                onBackFromHome = { finish() })
+            NavGraph(
+                navController = navController,
+                onBackFromHome = { finish() },
+            )
         }
     }
 }

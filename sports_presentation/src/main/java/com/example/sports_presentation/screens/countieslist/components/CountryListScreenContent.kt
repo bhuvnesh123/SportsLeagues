@@ -33,8 +33,8 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
     CountryListViewState(viewState = countryListViewState.value, callback = { countryName ->
         viewModel.sendIntent(
             CountryListContract.ViewIntent.OnCountryClicked(
-                countryName = countryName
-            )
+                countryName = countryName,
+            ),
         )
     })
 }
@@ -42,7 +42,7 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
 @Composable
 fun CountryListViewState(
     viewState: CountryListContract.ViewState,
-    callback: (countryName: String) -> Unit
+    callback: (countryName: String) -> Unit,
 ) {
     when (viewState) {
         is CountryListContract.ViewState.Loading -> {
@@ -52,17 +52,16 @@ fun CountryListViewState(
             val countriesList = viewState.countriesList
             CountriesListContainer(
                 countriesList = countriesList,
-                callback = callback
+                callback = callback,
             )
-
         }
         is CountryListContract.ViewState.Error -> {
             val errorMessage = viewState.errorMessage
             MessageScreen(
                 message = UIText.getText(
                     uiText = errorMessage,
-                    context = LocalContext.current
-                )
+                    context = LocalContext.current,
+                ),
             )
         }
     }
@@ -73,9 +72,9 @@ fun CountryListViewState(
 fun CountryListLoadingStatePreview() {
     CountryListViewState(
         viewState = CountryListContract.ViewState.Loading,
-        callback = {})
+        callback = {},
+    )
 }
-
 
 @Preview(showBackground = true)
 @Composable
@@ -95,23 +94,19 @@ fun CountryListSuccessStatePreview() {
         CountryPresentationModel(countryName = "China"),
         CountryPresentationModel(countryName = "Japan"),
         CountryPresentationModel(countryName = "India"),
-        CountryPresentationModel(countryName = "Australia")
+        CountryPresentationModel(countryName = "Australia"),
     )
     CountryListViewState(
         viewState = CountryListContract.ViewState.Success(countriesList = countries),
-        callback = {})
+        callback = {},
+    )
 }
-
 
 @Preview(showBackground = true)
 @Composable
 fun CountryListErrorStatePreview() {
     CountryListViewState(
         viewState = CountryListContract.ViewState.Error(errorMessage = UIText.DynamicString("Apologies, there seems to be a problem with the network connection. Please ensure you are connected to the internet and try again")),
-        callback = {})
+        callback = {},
+    )
 }
-
-
-
-
-

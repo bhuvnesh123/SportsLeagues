@@ -16,18 +16,15 @@ internal class CountryListViewModelTest {
 
     private lateinit var countryListViewModel: CountryListViewModel
 
-
     @BeforeEach
     fun setUp() {
         countryListViewModel = CountryListViewModel(
             countryListUseCase = FakeCountryListUseCase(),
             countryPresentationListMapper = CountryPresentationListMapper(
-                countryPresentationMapper = CountryPresentationMapper()
-            )
+                countryPresentationMapper = CountryPresentationMapper(),
+            ),
         )
-
     }
-
 
     @Test
     fun `GIVE Country list data WHEN LoadData ViewIntent sent THEN viewState contains list of countries`() =
@@ -35,13 +32,14 @@ internal class CountryListViewModelTest {
             countryListViewModel.sendIntent(CountryListContract.ViewIntent.LoadData)
 
             assertEquals(
-                countryListViewModel.viewState.value, CountryListContract.ViewState.Success(
+                countryListViewModel.viewState.value,
+                CountryListContract.ViewState.Success(
                     countriesList = listOf(
                         CountryPresentationModel(countryName = "United States"),
                         CountryPresentationModel(countryName = "Canada"),
-                        CountryPresentationModel(countryName = "Mexico")
-                    )
-                )
+                        CountryPresentationModel(countryName = "Mexico"),
+                    ),
+                ),
             )
         }
 }

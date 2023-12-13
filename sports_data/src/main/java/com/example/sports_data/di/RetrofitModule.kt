@@ -10,7 +10,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 @InstallIn(SingletonComponent::class)
 @Module
 object RetrofitModule {
@@ -21,13 +20,11 @@ object RetrofitModule {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-
     @Provides
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(interceptor = loggingInterceptor)
             .build()
-
 
     @Provides
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
@@ -36,8 +33,6 @@ object RetrofitModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-
     @Provides
     fun providesSportsApi(retrofit: Retrofit): SportsApi = retrofit.create(SportsApi::class.java)
-
 }

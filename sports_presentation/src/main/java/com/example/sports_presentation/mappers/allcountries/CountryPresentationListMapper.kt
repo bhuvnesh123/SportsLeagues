@@ -9,5 +9,4 @@ class CountryPresentationListMapper @Inject constructor(private val countryPrese
         val countriesList = countries.map { countryPresentationMapper.map(it) }
         CountriesListPresentationModel(countries = countriesList)
     }
-
 }

@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CountryListViewModel @Inject constructor(
     private val countryListUseCase: UseCase<Unit, CountriesListModel>,
-    private val countryPresentationListMapper: CountryPresentationListMapper
+    private val countryPresentationListMapper: CountryPresentationListMapper,
 ) :
     ViewModel(), CountryListContract {
 
@@ -35,7 +35,6 @@ class CountryListViewModel @Inject constructor(
 
     override val sideEffect: Flow<CountryListContract.SideEffect>
         get() = _sideEffect.receiveAsFlow()
-
 
     private fun getCountryList() {
         viewModelScope.launch {
@@ -76,5 +75,4 @@ class CountryListViewModel @Inject constructor(
             navigateToDetails(vi.countryName)
         }
     }
-
 }

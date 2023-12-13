@@ -19,9 +19,9 @@ fun CountryListScreenBaseLayout(callback: (countryName: String) -> Unit, onBack:
         topBar = {
             CustomTopAppBar(
                 title = stringResource(
-                    id = R.string.country_list_screen_title
+                    id = R.string.country_list_screen_title,
                 ),
-                onBack = onBack
+                onBack = onBack,
             )
         },
     ) {

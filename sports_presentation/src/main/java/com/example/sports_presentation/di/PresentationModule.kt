@@ -16,18 +16,14 @@ object PresentationModule {
     @Provides
     fun provideCountryPresentationMapper(): CountryPresentationMapper = CountryPresentationMapper()
 
-
     @Provides
     fun provideCountryListPresentationMapper(countryPresentationMapper: CountryPresentationMapper): CountryPresentationListMapper =
         CountryPresentationListMapper(countryPresentationMapper = countryPresentationMapper)
 
-
     @Provides
     fun provideLeaguesPresentationMapper(): LeaguesPresentationMapper = LeaguesPresentationMapper()
-
 
     @Provides
     fun provideLeaguesListPresentationMapper(leaguesPresentationMapper: LeaguesPresentationMapper): LeaguesListPresentationMapper =
         LeaguesListPresentationMapper(leaguesPresentationMapper = leaguesPresentationMapper)
-
 }

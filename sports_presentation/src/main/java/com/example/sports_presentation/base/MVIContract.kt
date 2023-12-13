@@ -12,5 +12,4 @@ interface MVIContract<VS, VI, SI> {
     val viewState: StateFlow<VS>
 
     val sideEffect: Flow<SI>
-
 }

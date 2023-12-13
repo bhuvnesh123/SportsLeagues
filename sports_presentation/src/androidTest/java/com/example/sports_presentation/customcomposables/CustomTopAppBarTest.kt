@@ -6,7 +6,6 @@ import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.Test
 
-
 internal class CustomTopAppBarTest {
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -18,18 +17,15 @@ internal class CustomTopAppBarTest {
             MaterialTheme {
                 CustomTopAppBar(
                     title = LEAGUES,
-                    onBack = {}
+                    onBack = {},
                 )
             }
-
         }
 
         composeTestRule.onNodeWithText(text = LEAGUES).assertExists()
-
     }
 
     private companion object {
         const val LEAGUES = "Leagues"
     }
-
 }

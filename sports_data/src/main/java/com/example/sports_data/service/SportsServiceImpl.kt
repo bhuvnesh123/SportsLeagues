@@ -14,7 +14,7 @@ import javax.inject.Inject
 class SportsServiceImpl @Inject constructor(
     private val sportsApi: SportsApi,
     private val countriesListMapper: CountriesListMapper,
-    private val leaguesListMapper: LeaguesListMapper
+    private val leaguesListMapper: LeaguesListMapper,
 ) : SportsService {
 
     override fun getAllCountries(): Flow<ApiResult<CountriesListModel>> =
@@ -22,20 +22,18 @@ class SportsServiceImpl @Inject constructor(
             emit(
                 safeApiCall(
                     apiCall = { sportsApi.getAllCountries() },
-                    mapper = countriesListMapper::map
-                )
+                    mapper = countriesListMapper::map,
+                ),
             )
         }
-
 
     override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel>> =
         flow {
             emit(
                 safeApiCall(
                     apiCall = { sportsApi.searchLeaguesByCountry(countryName = countryName) },
-                    mapper = leaguesListMapper::map
-                )
+                    mapper = leaguesListMapper::map,
+                ),
             )
         }
-
 }
