@@ -13,8 +13,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 
 @ExtendWith(MainCoroutineRule::class)
 internal class SportsRepositoryImplTest {
@@ -26,81 +27,34 @@ internal class SportsRepositoryImplTest {
         sportsRepositoryImpl = SportsRepositoryImpl(sportsService = sportsService)
     }
 
-    @Test
-    fun `GIVEN success response WHEN getAllCountries called THEN emit SUCCESS`() = runTest {
-        val countriesListModel = CountriesListModel(countries = mockk())
-        coEvery { sportsService.getAllCountries() } returns flow {
-            emit(
-                ApiResult.Success(
-                    countriesListModel,
-                ),
-            )
-        }
-
-        val firstItem = sportsRepositoryImpl.getAllCountries().first()
-
-        assertEquals(
-            ApiResult.Success(
-                countriesListModel,
-            ),
-            firstItem,
-        )
-    }
-
-    @Test
-    fun `GIVEN generic error response WHEN getAllCountries called THEN emit GenericError`() =
+    @ParameterizedTest(name = "GIVEN response {0} WHEN getAllCountries called THEN emit {0}")
+    @MethodSource("countryListTestResponse")
+    fun `GIVEN response WHEN getAllCountries called THEN emit expected result`(apiResult: ApiResult<CountriesListModel>) =
         runTest {
             coEvery { sportsService.getAllCountries() } returns flow {
                 emit(
-                    ApiResult.GenericError(
-                        400,
-                        UIText.DynamicString(input = BAD_REQUEST),
-                    ),
+                    apiResult,
                 )
             }
 
             val firstItem = sportsRepositoryImpl.getAllCountries().first()
 
             assertEquals(
-                ApiResult.GenericError(
-                    400,
-                    UIText.DynamicString(input = BAD_REQUEST),
-                ),
+                apiResult,
                 firstItem,
             )
         }
 
-    @Test
-    fun `GIVEN network error response WHEN getAllCountries called THEN emit NetworkError`() =
+    @ParameterizedTest(name = "GIVEN a country name and response {0} WHEN searchLeaguesByCountry called THEN emit {0}")
+    @MethodSource("searchLeaguesTestResponse")
+    fun `GIVEN a country name and response WHEN searchLeaguesByCountry called THEN emit expected result`(
+        apiResult: ApiResult<LeagueListModel>,
+    ) =
         runTest {
-            coEvery { sportsService.getAllCountries() } returns flow {
-                emit(
-                    ApiResult.NetworkError(
-                        UIText.DynamicString(input = CHECK_INTERNET_CONNECTION),
-                    ),
-                )
-            }
-
-            val firstItem = sportsRepositoryImpl.getAllCountries().first()
-
-            assertEquals(
-                ApiResult.NetworkError(
-                    UIText.DynamicString(input = CHECK_INTERNET_CONNECTION),
-                ),
-                firstItem,
-            )
-        }
-
-    @Test
-    fun `GIVEN a country name and success response WHEN searchLeaguesByCountry called THEN emit SUCCESS`() =
-        runTest {
-            val leagueListModel = LeagueListModel(countries = mockk())
             val countryName = "India"
             coEvery { sportsService.searchLeaguesByCountry(countryName = countryName) } returns flow {
                 emit(
-                    ApiResult.Success(
-                        leagueListModel,
-                    ),
+                    apiResult,
                 )
             }
 
@@ -108,57 +62,7 @@ internal class SportsRepositoryImplTest {
                 sportsRepositoryImpl.searchLeaguesByCountry(countryName = countryName).first()
 
             assertEquals(
-                ApiResult.Success(
-                    leagueListModel,
-                ),
-                firstItem,
-            )
-        }
-
-    @Test
-    fun `GIVEN a country name and generic error response WHEN searchLeaguesByCountry called THEN emit GenericError`() =
-        runTest {
-            val countryName = "India"
-            coEvery { sportsService.searchLeaguesByCountry(countryName = countryName) } returns flow {
-                emit(
-                    ApiResult.GenericError(
-                        400,
-                        UIText.DynamicString(input = BAD_REQUEST),
-                    ),
-                )
-            }
-
-            val firstItem =
-                sportsRepositoryImpl.searchLeaguesByCountry(countryName = countryName).first()
-
-            assertEquals(
-                ApiResult.GenericError(
-                    400,
-                    UIText.DynamicString(input = BAD_REQUEST),
-                ),
-                firstItem,
-            )
-        }
-
-    @Test
-    fun `GIVEN a country name and network error response WHEN searchLeaguesByCountry called THEN emit NetworkError`() =
-        runTest {
-            val countryName = "India"
-            coEvery { sportsService.searchLeaguesByCountry(countryName = countryName) } returns flow {
-                emit(
-                    ApiResult.NetworkError(
-                        UIText.DynamicString(input = CHECK_INTERNET_CONNECTION),
-                    ),
-                )
-            }
-
-            val firstItem =
-                sportsRepositoryImpl.searchLeaguesByCountry(countryName = countryName).first()
-
-            assertEquals(
-                ApiResult.NetworkError(
-                    UIText.DynamicString(input = CHECK_INTERNET_CONNECTION),
-                ),
+                apiResult,
                 firstItem,
             )
         }
@@ -166,5 +70,34 @@ internal class SportsRepositoryImplTest {
     private companion object {
         const val CHECK_INTERNET_CONNECTION = "Please check your internet connection"
         const val BAD_REQUEST = "Bad Request"
+
+        @JvmStatic
+        fun countryListTestResponse() = listOf(
+            ApiResult.Success(
+                CountriesListModel(countries = mockk()),
+            ),
+            ApiResult.GenericError(
+                400,
+                UIText.DynamicString(input = BAD_REQUEST),
+            ),
+            ApiResult.NetworkError(
+                UIText.DynamicString(input = CHECK_INTERNET_CONNECTION),
+            ),
+
+        )
+
+        @JvmStatic
+        fun searchLeaguesTestResponse() = listOf(
+            ApiResult.Success(
+                LeagueListModel(countries = mockk()),
+            ),
+            ApiResult.GenericError(
+                400,
+                UIText.DynamicString(input = BAD_REQUEST),
+            ),
+            ApiResult.NetworkError(
+                UIText.DynamicString(input = CHECK_INTERNET_CONNECTION),
+            ),
+        )
     }
 }
