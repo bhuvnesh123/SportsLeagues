@@ -19,9 +19,9 @@ fun CountriesListContainer(
 ) {
     LazyColumn(
         modifier = Modifier
-            .padding(top = Dimens.grid_0_5)
+            .padding(top = Dimens.dimen_4)
             .fillMaxWidth()
-            .padding(vertical = Dimens.grid_0_5),
+            .padding(vertical = Dimens.dimen_4),
     ) {
         items(items = countriesList) { item ->
             CountriesListItem(

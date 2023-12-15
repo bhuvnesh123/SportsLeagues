@@ -23,14 +23,14 @@ fun CountriesListItem(countryName: String, onClick: (countryName: String) -> Uni
         ),
         modifier = Modifier
             .padding(
-                vertical = Dimens.grid_0_5,
-                horizontal = Dimens.grid_1,
+                vertical = Dimens.dimen_4,
+                horizontal = Dimens.diment_8,
             )
             .clickable { onClick(countryName) },
     ) {
         Row(
             modifier = Modifier
-                .padding(Dimens.grid_1_5)
+                .padding(Dimens.dimen_12)
                 .fillMaxWidth(),
         ) {
             Text(

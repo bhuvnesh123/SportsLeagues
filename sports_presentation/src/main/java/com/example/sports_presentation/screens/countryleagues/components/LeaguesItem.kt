@@ -25,23 +25,23 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(all = Dimens.grid_4),
+            .padding(all = Dimens.dimen_32),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = Dimens.plane_3,
+            defaultElevation = Dimens.plane_4,
         ),
     ) {
         Column(
-            modifier = Modifier.padding(all = Dimens.grid_2),
+            modifier = Modifier.padding(all = Dimens.dimen_16),
         ) {
             Text(text = league.leagueName, style = MaterialTheme.typography.headlineMedium)
-            Spacer(modifier = Modifier.height(height = Dimens.grid_1))
+            Spacer(modifier = Modifier.height(height = Dimens.diment_8))
             Text(
                 text = stringResource(id = R.string.sport).format(league.sport),
                 style = MaterialTheme.typography.headlineSmall,
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.grid_1,
+                    height = Dimens.diment_8,
                 ),
             )
             Text(
@@ -51,7 +51,7 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.grid_1,
+                    height = Dimens.diment_8,
                 ),
             )
             Text(
@@ -61,7 +61,7 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.grid_1,
+                    height = Dimens.diment_8,
                 ),
             )
             if (league.tvRights.isNotEmpty()) {
@@ -74,7 +74,7 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
             if (league.leagueDescription.isNotEmpty()) {
                 Spacer(
                     modifier = Modifier.height(
-                        height = Dimens.grid_1,
+                        height = Dimens.diment_8,
                     ),
                 )
                 Text(

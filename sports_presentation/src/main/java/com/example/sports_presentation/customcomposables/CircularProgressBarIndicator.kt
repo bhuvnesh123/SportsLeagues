@@ -20,7 +20,7 @@ fun CircularProgressBarIndicator() {
     ) {
         CircularProgressIndicator(
             modifier = Modifier
-                .size(size = Dimens.grid_8)
+                .size(size = Dimens.dimen_64)
                 .align(alignment = Alignment.Center),
         )
     }
