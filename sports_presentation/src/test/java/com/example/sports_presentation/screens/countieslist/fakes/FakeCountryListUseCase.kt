@@ -10,17 +10,16 @@ import kotlinx.coroutines.flow.flow
 
 class FakeCountryListUseCase : UseCase<Unit, CountriesListModel> {
 
-    private var shouldEmitError = false
-    private lateinit var apiError: ApiResult<CountriesListModel>
+    private var apiError: ApiResult<CountriesListModel>? = null
 
     override fun invoke(params: Unit): Flow<ApiResult<CountriesListModel?>> {
-        return if (shouldEmitError) {
+        return apiError?.let {
             flow {
                 emit(
-                    apiError,
+                    it,
                 )
             }
-        } else {
+        } ?: run {
             val countriesList = listOf(
                 CountryModel(name_en = "United States"),
                 CountryModel(name_en = "Canada"),
@@ -48,8 +47,7 @@ class FakeCountryListUseCase : UseCase<Unit, CountriesListModel> {
             ),
         ),
     ) {
-        shouldEmitError = isError
-        apiError = apiResult
+        apiError = if (isError) apiResult else null
     }
 
     private companion object {
