@@ -1,5 +1,6 @@
 package com.example.sports_presentation.screens.countryleagues
 
+import com.example.common.UIText
 import com.example.sports_presentation.common.MainCoroutineRule
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
 import com.example.sports_presentation.mappers.countryleagues.LeaguesPresentationMapper
@@ -25,8 +26,8 @@ internal class CountryLeaguesViewModelTest {
         )
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = ["United States", "India", "Antartica"])
+    @ParameterizedTest(name = "GIVEN query {0} WHEN LoadData ViewIntent sent THEN viewState contains expected result")
+    @ValueSource(strings = ["United States", "India", "Antartica", "xyz"])
     fun `GIVEN query country WHEN LoadData ViewIntent sent THEN viewState contains list of leagues of that country`(
         input: String,
     ) {
@@ -71,8 +72,13 @@ internal class CountryLeaguesViewModelTest {
                 ),
             ),
             "Antartica" to CountryLeaguesContract.ViewState.NoDataFound,
+            "xyz" to CountryLeaguesContract.ViewState.Error(UIText.DynamicString(input = BAD_REQUEST)),
         )
         val expectedViewState = expectedViewStateMap[input]
         assertEquals(expectedViewState, countryLeaguesViewModel.viewState.value)
+    }
+
+    private companion object {
+        const val BAD_REQUEST = "Bad Request"
     }
 }

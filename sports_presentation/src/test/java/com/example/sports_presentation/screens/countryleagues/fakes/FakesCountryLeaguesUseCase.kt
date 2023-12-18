@@ -1,5 +1,6 @@
 package com.example.sports_presentation.screens.countryleagues.fakes
 
+import com.example.common.UIText
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
@@ -177,6 +178,15 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
                     emit(value = apiResult)
                 }
             }
+            "xyz" -> {
+                val apiResult = ApiResult.GenericError(
+                    code = BAD_REQUEST_CODE,
+                    errorMessage = UIText.DynamicString(
+                        input = BAD_REQUEST,
+                    ),
+                )
+                flow { emit(value = apiResult) }
+            }
             else -> {
                 val leagueListModel = LeagueListModel(countries = listOf())
                 // Create a fake ApiResult object with the leagueListModel
@@ -188,4 +198,9 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
                 }
             }
         }
+
+    private companion object {
+        const val BAD_REQUEST = "Bad Request"
+        const val BAD_REQUEST_CODE = 400
+    }
 }
