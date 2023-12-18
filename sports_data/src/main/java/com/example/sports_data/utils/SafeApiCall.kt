@@ -16,7 +16,7 @@ private const val TIMEOUT_ERROR_CODE = 408
 
 suspend fun <T, R> safeApiCall(
     apiCall: suspend () -> T,
-    mapper: (T) -> R
+    mapper: (T) -> R,
 ): ApiResult<R> = try {
     // throws TimeoutCancellationException
     withTimeout(timeMillis = NETWORK_TIMEOUT) {
@@ -34,7 +34,7 @@ suspend fun <T, R> safeApiCall(
             val code = TIMEOUT_ERROR_CODE // timeout error code
             ApiResult.GenericError(
                 code = code,
-                errorMessage = UIText.StringResource(id = com.example.common.R.string.network_timeout)
+                errorMessage = UIText.StringResource(id = com.example.common.R.string.network_timeout),
             )
         }
         is IOException -> {
@@ -48,17 +48,16 @@ suspend fun <T, R> safeApiCall(
                 errorMessage = errorResponse?.let {
                     UIText.DynamicString(input = it)
                 }
-                    ?: run { UIText.StringResource(id = com.example.common.R.string.unknown_error) }
+                    ?: run { UIText.StringResource(id = com.example.common.R.string.unknown_error) },
             )
         }
         else -> {
             ApiResult.GenericError(
-                errorMessage = UIText.StringResource(id = com.example.common.R.string.unknown_network_error)
+                errorMessage = UIText.StringResource(id = com.example.common.R.string.unknown_network_error),
             )
         }
     }
 }
-
 
 private fun convertErrorBody(throwable: HttpException): String? = try {
     throwable.response()?.errorBody()?.string()

@@ -1,7 +1,6 @@
 package com.example.sports_domain.usecase
 
 import com.example.sports_domain.common.MainCoroutineRule
-import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.repository.SportsRepository
 import io.mockk.coEvery
@@ -28,8 +27,10 @@ internal class CountryLeaguesUseCaseImplTest {
     fun `GIVEN query country name WHEN use case invoked THEN verify repository called`() = runTest {
         val countryName = "India"
         coEvery { sportsRepository.searchLeaguesByCountry(countryName = countryName) } returns flow {
-            ApiResult.Success(
-                mockk<LeagueListModel>(),
+            emit(
+                ApiResult.Success(
+                    value = mockk(),
+                ),
             )
         }
 
