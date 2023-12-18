@@ -7,28 +7,23 @@ import com.example.sports_data.dto.countryleagues.LeagueDTO
 import com.example.sports_data.dto.countryleagues.LeagueResponseDTO
 
 class FakeSportsApi : SportsApi {
-    private var shouldThrowException = false
-    private var apiException = Exception()
+
+    private var apiException: Exception? = null
 
     override suspend fun getAllCountries(): CountriesResponseDTO {
-        if (shouldThrowException) {
-            throw apiException
-        } else {
-            return CountriesResponseDTO(countries = getCountriesList())
+        return apiException?.let { throw it } ?: run {
+            CountriesResponseDTO(countries = getCountriesList())
         }
     }
 
     override suspend fun searchLeaguesByCountry(countryName: String): LeagueResponseDTO {
-        if (shouldThrowException) {
-            throw apiException
-        } else {
-            return LeagueResponseDTO(countries = getLeaguesList())
+        return apiException?.let { throw it } ?: run {
+            LeagueResponseDTO(countries = getLeaguesList())
         }
     }
 
     fun setShouldThrowException(shouldThrow: Boolean, exception: Exception = Exception()) {
-        shouldThrowException = shouldThrow
-        apiException = exception
+        apiException = if (shouldThrow) exception else null
     }
 
     fun getCountriesList() = listOf(

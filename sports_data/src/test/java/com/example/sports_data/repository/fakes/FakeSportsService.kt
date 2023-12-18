@@ -11,17 +11,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeSportsService : SportsService {
-    private var shouldEmitError = false
-    private lateinit var apiError: ApiResult<Any>
+    private var apiError: ApiResult<Any>? = null
 
     override fun getAllCountries(): Flow<ApiResult<CountriesListModel>> {
-        return if (shouldEmitError) {
+        return apiError?.let {
             flow {
-                emit(
-                    apiError as ApiResult<CountriesListModel>,
-                )
+                emit(it as ApiResult<CountriesListModel>)
             }
-        } else {
+        } ?: run {
             flow {
                 emit(
                     ApiResult.Success(
@@ -33,13 +30,13 @@ class FakeSportsService : SportsService {
     }
 
     override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel>> {
-        return if (shouldEmitError) {
+        return apiError?.let {
             flow {
                 emit(
-                    apiError as ApiResult<LeagueListModel>,
+                    it as ApiResult<LeagueListModel>,
                 )
             }
-        } else {
+        } ?: run {
             flow {
                 emit(
                     ApiResult.Success(
@@ -53,14 +50,13 @@ class FakeSportsService : SportsService {
     fun <T : Any> setShouldEmitError(
         isError: Boolean,
         apiResult: ApiResult<T> = ApiResult.GenericError(
-            code = 400,
+            code = BAD_REQUEST_CODE,
             errorMessage = UIText.DynamicString(
                 input = BAD_REQUEST,
             ),
         ),
     ) {
-        shouldEmitError = isError
-        apiError = apiResult
+        apiError = if (isError) apiResult else null
     }
 
     fun getCountryList() = CountriesListModel(
@@ -176,5 +172,6 @@ class FakeSportsService : SportsService {
 
     private companion object {
         const val BAD_REQUEST = "Bad Request"
+        const val BAD_REQUEST_CODE = 400
     }
 }
