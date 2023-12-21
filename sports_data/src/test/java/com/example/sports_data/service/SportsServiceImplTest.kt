@@ -12,7 +12,9 @@ import com.example.sports_data.service.fakes.FakeSportsApi
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -23,7 +25,7 @@ import org.junit.jupiter.params.provider.MethodSource
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
-
+@OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MainCoroutineRule::class)
 internal class SportsServiceImplTest {
 
@@ -47,7 +49,7 @@ internal class SportsServiceImplTest {
         runTest {
             fakeSportsApi.setShouldThrowException(shouldThrow = false)
 
-            val result = sportsServiceImpl.getAllCountries().first()
+            val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher()).first()
 
             val expectedResponse =
                 CountriesResponseDTO(countries = fakeSportsApi.getCountriesList())
@@ -67,7 +69,7 @@ internal class SportsServiceImplTest {
             exception = exception,
         )
 
-        val result = sportsServiceImpl.getAllCountries().first()
+        val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher()).first()
 
         assertEquals(apiResult, result)
     }
@@ -78,7 +80,7 @@ internal class SportsServiceImplTest {
             fakeSportsApi.setShouldThrowException(shouldThrow = false)
 
             val result =
-                sportsServiceImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME).first()
+                sportsServiceImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME, dispatcher = UnconfinedTestDispatcher()).first()
 
             val expectedResponse = LeagueResponseDTO(countries = fakeSportsApi.getLeaguesList())
             val expectedApiResult =
@@ -94,7 +96,7 @@ internal class SportsServiceImplTest {
     ) = runTest {
         fakeSportsApi.setShouldThrowException(shouldThrow = true, exception = exception)
 
-        val result = sportsServiceImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME).first()
+        val result = sportsServiceImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME, dispatcher = UnconfinedTestDispatcher()).first()
 
         assertEquals(apiResult, result)
     }

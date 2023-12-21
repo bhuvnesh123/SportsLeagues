@@ -7,13 +7,14 @@ import com.example.sports_domain.domainmodels.allcountries.CountryModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeSportsService : SportsService {
     private var apiError: ApiResult<Any>? = null
 
-    override fun getAllCountries(): Flow<ApiResult<CountriesListModel>> {
+    override fun getAllCountries(dispatcher: CoroutineDispatcher): Flow<ApiResult<CountriesListModel>> {
         return apiError?.let {
             flow {
                 emit(it as ApiResult<CountriesListModel>)
@@ -29,7 +30,10 @@ class FakeSportsService : SportsService {
         }
     }
 
-    override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel>> {
+    override fun searchLeaguesByCountry(
+        dispatcher: CoroutineDispatcher,
+        countryName: String,
+    ): Flow<ApiResult<LeagueListModel>> {
         return apiError?.let {
             flow {
                 emit(

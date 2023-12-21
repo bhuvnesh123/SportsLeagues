@@ -6,7 +6,9 @@ import com.example.sports_data.repository.fakes.FakeSportsService
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -14,7 +16,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-
+@OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MainCoroutineRule::class)
 internal class SportsRepositoryImplTest {
     private val sportsService = FakeSportsService()
@@ -22,7 +24,7 @@ internal class SportsRepositoryImplTest {
 
     @BeforeEach
     fun setUp() {
-        sportsRepositoryImpl = SportsRepositoryImpl(sportsService = sportsService)
+        sportsRepositoryImpl = SportsRepositoryImpl(sportsService = sportsService, ioDispatcher = UnconfinedTestDispatcher())
     }
 
     @Test
