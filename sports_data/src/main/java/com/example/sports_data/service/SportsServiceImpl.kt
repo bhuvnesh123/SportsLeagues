@@ -7,6 +7,7 @@ import com.example.sports_data.utils.safeApiCall
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -17,22 +18,27 @@ class SportsServiceImpl @Inject constructor(
     private val leaguesListMapper: LeaguesListMapper,
 ) : SportsService {
 
-    override fun getAllCountries(): Flow<ApiResult<CountriesListModel>> =
+    override fun getAllCountries(dispatcher: CoroutineDispatcher): Flow<ApiResult<CountriesListModel>> =
         flow {
             emit(
                 safeApiCall(
                     apiCall = { sportsApi.getAllCountries() },
                     mapper = countriesListMapper::map,
+                    dispatcher = dispatcher,
                 ),
             )
         }
 
-    override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel>> =
+    override fun searchLeaguesByCountry(
+        dispatcher: CoroutineDispatcher,
+        countryName: String,
+    ): Flow<ApiResult<LeagueListModel>> =
         flow {
             emit(
                 safeApiCall(
                     apiCall = { sportsApi.searchLeaguesByCountry(countryName = countryName) },
                     mapper = leaguesListMapper::map,
+                    dispatcher = dispatcher,
                 ),
             )
         }
