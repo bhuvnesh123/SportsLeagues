@@ -6,6 +6,6 @@ import com.example.sports_presentation.models.allcountries.CountryPresentationMo
 class CountryPresentationMapper {
 
     fun map(input: CountryModel): CountryPresentationModel = with(input) {
-        CountryPresentationModel(countryName = name_en)
+        CountryPresentationModel(countryName = name)
     }
 }

@@ -1,5 +1,8 @@
 package com.example.sports_data.dto.allcountries
 
+import com.google.gson.annotations.SerializedName
+
 data class CountryDTO(
-    val name_en: String,
+    @SerializedName("name_en")
+    val name: String,
 )

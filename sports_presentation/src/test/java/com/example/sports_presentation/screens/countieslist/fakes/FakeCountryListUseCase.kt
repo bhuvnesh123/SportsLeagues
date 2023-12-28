@@ -21,9 +21,9 @@ class FakeCountryListUseCase : UseCase<Unit, CountriesListModel> {
             }
         } ?: run {
             val countriesList = listOf(
-                CountryModel(name_en = "United States"),
-                CountryModel(name_en = "Canada"),
-                CountryModel(name_en = "Mexico"),
+                CountryModel(name = "United States"),
+                CountryModel(name = "Canada"),
+                CountryModel(name = "Mexico"),
             )
             // Create a fake CountriesListModel object
             val countries = CountriesListModel(countries = countriesList)

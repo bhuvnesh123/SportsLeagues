@@ -65,9 +65,9 @@ class FakeSportsService : SportsService {
 
     fun getCountryList() = CountriesListModel(
         countries = listOf(
-            CountryModel(name_en = "Country 1"),
-            CountryModel(name_en = "Country 2"),
-            CountryModel(name_en = "Country 3"),
+            CountryModel(name = "Country 1"),
+            CountryModel(name = "Country 2"),
+            CountryModel(name = "Country 3"),
         ),
     )
 

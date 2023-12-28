@@ -27,9 +27,9 @@ class FakeSportsApi : SportsApi {
     }
 
     fun getCountriesList() = listOf(
-        CountryDTO(name_en = "Country 1"),
-        CountryDTO(name_en = "Country 2"),
-        CountryDTO(name_en = "Country 3"),
+        CountryDTO(name = "Country 1"),
+        CountryDTO(name = "Country 2"),
+        CountryDTO(name = "Country 3"),
     )
 
     fun getLeaguesList() =
