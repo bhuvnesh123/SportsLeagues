@@ -14,7 +14,7 @@ object Dependencies {
     val retrofit_gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit_gson}"
     val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     val hilt_compiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
-    val hilt_navigation_compose ="androidx.hilt:hilt-navigation-compose:${Versions.hilt_navigation_compos}"
+    val hilt_navigation_compose = "androidx.hilt:hilt-navigation-compose:${Versions.hilt_navigation_compos}"
     val compose_bom = "androidx.compose:compose-bom:${Versions.compose_bom}"
     val compose_foundation = "androidx.compose.foundation:foundation"
     val compose_ui = "androidx.compose.ui:ui"
@@ -25,7 +25,5 @@ object Dependencies {
     val coil_compose = "io.coil-kt:coil-compose:${Versions.coil_compose}"
     val coil_svg = "io.coil-kt:coil-svg:2.0.0"
     val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
-    val navigation_compose ="androidx.navigation:navigation-compose:${Versions.navigation_compose}"
-
-
+    val navigation_compose = "androidx.navigation:navigation-compose:${Versions.navigation_compose}"
 }
