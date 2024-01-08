@@ -8,6 +8,7 @@ import com.example.sports_presentation.mappers.allcountries.CountryPresentationL
 import com.example.sports_presentation.mappers.allcountries.CountryPresentationMapper
 import com.example.sports_presentation.models.allcountries.CountryPresentationModel
 import com.example.sports_presentation.screens.countieslist.fakes.FakeCountryListUseCase
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -70,6 +71,18 @@ internal class CountryListViewModelTest {
                         input = message,
                     ),
                 ),
+            )
+        }
+
+    @Test
+    fun `GIVEN Country name clicked WHEN OnCountryClicked ViewIntent sent THEN sideEffect contains NavigateToDetails(countryName)`() =
+        runTest {
+            val countryName = "India"
+            countryListViewModel.sendIntent(CountryListContract.ViewIntent.OnCountryClicked(countryName = countryName))
+
+            assertEquals(
+                countryListViewModel.sideEffect.first(),
+                CountryListContract.SideEffect.NavigateToDetails(countryName),
             )
         }
 

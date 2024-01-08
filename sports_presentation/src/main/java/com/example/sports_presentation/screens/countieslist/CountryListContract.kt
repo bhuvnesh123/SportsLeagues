@@ -22,6 +22,6 @@ interface CountryListContract :
     }
 
     sealed interface SideEffect {
-        class NavigateToDetails(val countryName: String) : SideEffect
+        data class NavigateToDetails(val countryName: String) : SideEffect
     }
 }
