@@ -28,7 +28,9 @@ fun MessageScreen(message: String) {
                 .padding(all = Dimens.dimen_16)
                 .wrapContentSize()
                 .align(alignment = Alignment.Center),
-            style = TextStyle(fontSize = Dimens.text_medium),
+            style = TextStyle(
+                fontSize = Dimens.text_medium,
+            ),
         )
     }
 }

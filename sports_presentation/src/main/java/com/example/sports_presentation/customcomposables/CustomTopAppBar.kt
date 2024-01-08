@@ -42,5 +42,8 @@ fun CustomTopAppBar(title: String, onBack: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun CustomTopAppBarPreview() {
-    CustomTopAppBar(title = "Countries", onBack = {})
+    CustomTopAppBar(
+        title = "Countries",
+        onBack = {},
+    )
 }

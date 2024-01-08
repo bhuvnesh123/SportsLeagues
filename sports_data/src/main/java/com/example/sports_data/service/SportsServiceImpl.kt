@@ -36,7 +36,11 @@ class SportsServiceImpl @Inject constructor(
         flow {
             emit(
                 safeApiCall(
-                    apiCall = { sportsApi.searchLeaguesByCountry(countryName = countryName) },
+                    apiCall = {
+                        sportsApi.searchLeaguesByCountry(
+                            countryName = countryName,
+                        )
+                    },
                     mapper = leaguesListMapper::map,
                     dispatcher = dispatcher,
                 ),

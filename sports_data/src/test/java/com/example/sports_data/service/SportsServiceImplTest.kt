@@ -80,7 +80,10 @@ internal class SportsServiceImplTest {
             fakeSportsApi.setShouldThrowException(shouldThrow = false)
 
             val result =
-                sportsServiceImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME, dispatcher = UnconfinedTestDispatcher()).first()
+                sportsServiceImpl.searchLeaguesByCountry(
+                    countryName = COUNTRY_NAME,
+                    dispatcher = UnconfinedTestDispatcher(),
+                ).first()
 
             val expectedResponse = LeagueResponseDTO(countries = fakeSportsApi.getLeaguesList())
             val expectedApiResult =
@@ -96,7 +99,10 @@ internal class SportsServiceImplTest {
     ) = runTest {
         fakeSportsApi.setShouldThrowException(shouldThrow = true, exception = exception)
 
-        val result = sportsServiceImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME, dispatcher = UnconfinedTestDispatcher()).first()
+        val result = sportsServiceImpl.searchLeaguesByCountry(
+            countryName = COUNTRY_NAME,
+            dispatcher = UnconfinedTestDispatcher(),
+        ).first()
 
         assertEquals(apiResult, result)
     }

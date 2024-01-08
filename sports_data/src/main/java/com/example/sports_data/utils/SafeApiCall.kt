@@ -42,7 +42,11 @@ suspend fun <T, R> safeApiCall(
                 )
             }
             is IOException -> {
-                ApiResult.NetworkError(errorMessage = UIText.StringResource(id = com.example.common.R.string.network_error))
+                ApiResult.NetworkError(
+                    errorMessage = UIText.StringResource(
+                        id = com.example.common.R.string.network_error,
+                    ),
+                )
             }
             is HttpException -> {
                 val code = throwable.code()
@@ -57,7 +61,9 @@ suspend fun <T, R> safeApiCall(
             }
             else -> {
                 ApiResult.GenericError(
-                    errorMessage = UIText.StringResource(id = com.example.common.R.string.unknown_network_error),
+                    errorMessage = UIText.StringResource(
+                        id = com.example.common.R.string.unknown_network_error,
+                    ),
                 )
             }
         }

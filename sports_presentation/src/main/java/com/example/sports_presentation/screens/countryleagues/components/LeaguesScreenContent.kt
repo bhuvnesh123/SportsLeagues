@@ -91,7 +91,9 @@ fun LeaguesSuccessStatePreview() {
         ),
     )
     LeaguesViewState(
-        viewState = CountryLeaguesContract.ViewState.Success(leaguesList = leaguesList),
+        viewState = CountryLeaguesContract.ViewState.Success(
+            leaguesList = leaguesList,
+        ),
     )
 }
 

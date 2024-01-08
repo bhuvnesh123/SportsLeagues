@@ -31,10 +31,19 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
         ),
     ) {
         Column(
-            modifier = Modifier.padding(all = Dimens.dimen_16),
+            modifier = Modifier.padding(
+                all = Dimens.dimen_16,
+            ),
         ) {
-            Text(text = league.leagueName, style = MaterialTheme.typography.headlineMedium)
-            Spacer(modifier = Modifier.height(height = Dimens.diment_8))
+            Text(
+                text = league.leagueName,
+                style = MaterialTheme.typography.headlineMedium,
+            )
+            Spacer(
+                modifier = Modifier.height(
+                    height = Dimens.diment_8,
+                ),
+            )
             Text(
                 text = stringResource(id = R.string.sport).format(league.sport),
                 style = MaterialTheme.typography.headlineSmall,
