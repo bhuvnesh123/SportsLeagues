@@ -18,7 +18,7 @@ The project utilizes the following technologies:
 
 **Networking: Retrofit**
 
-**Testing: Unit tests for View Model, Use Cases, and Repository, Compose UI tests**
+**Testing: Unit tests , Compose UI tests**
 
 **Navigation: Compose Navigation Graph**
 
