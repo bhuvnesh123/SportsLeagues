@@ -14,7 +14,7 @@ import com.example.sports_presentation.customcomposables.CustomTopAppBar
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CountryListScreenBaseLayout(callback: (countryName: String) -> Unit, onBack: () -> Unit) {
+fun CountryListScreenLayout(callback: (countryName: String) -> Unit, onBack: () -> Unit) {
     Scaffold(
         topBar = {
             CustomTopAppBar(

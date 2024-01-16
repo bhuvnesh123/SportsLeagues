@@ -41,7 +41,7 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.diment_8,
+                    height = Dimens.dimen_8,
                 ),
             )
             Text(
@@ -50,7 +50,7 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.diment_8,
+                    height = Dimens.dimen_8,
                 ),
             )
             Text(
@@ -60,7 +60,7 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.diment_8,
+                    height = Dimens.dimen_8,
                 ),
             )
             Text(
@@ -70,7 +70,7 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
             )
             Spacer(
                 modifier = Modifier.height(
-                    height = Dimens.diment_8,
+                    height = Dimens.dimen_8,
                 ),
             )
             if (league.tvRights.isNotEmpty()) {
@@ -83,7 +83,7 @@ fun LeaguesListItem(league: LeaguesPresentationModel) {
             if (league.leagueDescription.isNotEmpty()) {
                 Spacer(
                     modifier = Modifier.height(
-                        height = Dimens.diment_8,
+                        height = Dimens.dimen_8,
                     ),
                 )
                 Text(

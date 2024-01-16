@@ -4,7 +4,7 @@ import com.example.common.UIText
 
 sealed class ApiResult<out T> {
 
-    data class Success<out T>(val value: T? = null) : ApiResult<T>()
+    data class Success<out T>(val value: T) : ApiResult<T>()
 
     data class GenericError(
         val code: Int? = null,

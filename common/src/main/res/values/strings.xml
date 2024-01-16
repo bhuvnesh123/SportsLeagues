@@ -4,4 +4,5 @@
     <string name="unknown_error">"Unknown error"</string>
     <string name="network_timeout">"Network timeout"</string>
     <string name="network_error">"Apologies, there seems to be a problem with the network connection. Please ensure you are connected to the internet and try again"</string>
+    <string name="error_retrieving_data">"Error retrieving data"</string>
 </resources>

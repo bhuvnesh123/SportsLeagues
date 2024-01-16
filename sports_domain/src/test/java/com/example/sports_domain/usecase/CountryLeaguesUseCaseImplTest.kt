@@ -6,7 +6,6 @@ import com.example.sports_domain.repository.SportsRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -26,15 +25,12 @@ internal class CountryLeaguesUseCaseImplTest {
     @Test
     fun `GIVEN query country name WHEN use case invoked THEN verify repository called`() = runTest {
         val countryName = "India"
-        coEvery { sportsRepository.searchLeaguesByCountry(countryName = countryName) } returns flow {
-            emit(
-                ApiResult.Success(
-                    value = mockk(),
-                ),
+        coEvery { sportsRepository.searchLeaguesByCountry(countryName = countryName) } returns
+            ApiResult.Success(
+                value = mockk(),
             )
-        }
 
-        countryLeaguesUseCaseImpl.invoke(params = countryName)
+        countryLeaguesUseCaseImpl.invoke(countryName = countryName)
 
         coVerify {
             sportsRepository.searchLeaguesByCountry(countryName = countryName)

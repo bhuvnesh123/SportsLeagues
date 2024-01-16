@@ -4,11 +4,10 @@ import com.example.common.UIText
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import com.example.sports_domain.usecase.UseCase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.example.sports_domain.usecase.CountryLeaguesUseCase
+import kotlinx.coroutines.delay
 
-class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
+class FakesCountryLeaguesUseCase : CountryLeaguesUseCase {
 
     private val leagueModels = mapOf(
         "India" to listOf(
@@ -41,37 +40,31 @@ class FakesCountryLeaguesUseCase : UseCase<String, LeagueListModel> {
         ),
     )
 
-    override fun invoke(params: String): Flow<ApiResult<LeagueListModel?>> =
-        when (params) {
+    override suspend operator fun invoke(params: String): ApiResult<LeagueListModel> {
+        delay(1000) // Simulate a delay in the API response for 1 second
+        return when (params) {
             in leagueModels -> {
                 val leagueListModel = LeagueListModel(countries = leagueModels[params]!!)
-                val apiResult = ApiResult.Success(leagueListModel)
-                flow { emit(value = apiResult) }
+                ApiResult.Success(leagueListModel)
             }
             WRONG_COUNTRY_NAME -> {
-                val apiResult = ApiResult.GenericError(
+                ApiResult.GenericError(
                     code = BAD_REQUEST_CODE,
                     errorMessage = UIText.DynamicString(
                         input = BAD_REQUEST,
                     ),
                 )
-                flow { emit(value = apiResult) }
             }
             FAKE_NETWORK_ERROR -> {
-                val apiResult = ApiResult.NetworkError(errorMessage = UIText.DynamicString(NETWORK_ERROR_MESSAGE))
-                flow { emit(value = apiResult) }
+                ApiResult.NetworkError(errorMessage = UIText.DynamicString(NETWORK_ERROR_MESSAGE))
             }
             else -> {
                 val leagueListModel = LeagueListModel(countries = listOf())
                 // Create a fake ApiResult object with the leagueListModel
-                val apiResult = ApiResult.Success(value = leagueListModel)
-
-                // Create a fake Flow object that emits the fake ApiResult
-                flow {
-                    emit(value = apiResult)
-                }
+                ApiResult.Success(value = leagueListModel)
             }
         }
+    }
 
     private companion object {
         const val BAD_REQUEST = "Bad Request"

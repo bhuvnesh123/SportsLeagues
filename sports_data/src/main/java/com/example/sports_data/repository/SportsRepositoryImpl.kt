@@ -6,7 +6,6 @@ import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.repository.SportsRepository
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SportsRepositoryImpl @Inject constructor(
@@ -14,10 +13,10 @@ class SportsRepositoryImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher,
 ) :
     SportsRepository {
-    override fun getAllCountries(): Flow<ApiResult<CountriesListModel>> =
+    override suspend fun getAllCountries(): ApiResult<CountriesListModel> =
         sportsService.getAllCountries(dispatcher = ioDispatcher)
 
-    override fun searchLeaguesByCountry(countryName: String): Flow<ApiResult<LeagueListModel>> =
+    override suspend fun searchLeaguesByCountry(countryName: String): ApiResult<LeagueListModel> =
         sportsService.searchLeaguesByCountry(
             dispatcher = ioDispatcher,
             countryName = countryName,

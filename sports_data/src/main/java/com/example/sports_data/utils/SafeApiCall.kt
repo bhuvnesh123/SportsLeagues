@@ -28,7 +28,11 @@ suspend fun <T, R> safeApiCall(
             if (response != null) {
                 ApiResult.Success(value = mapper(response))
             } else {
-                ApiResult.Success()
+                ApiResult.GenericError(
+                    errorMessage = UIText.StringResource(
+                        id = com.example.common.R.string.error_retrieving_data,
+                    ),
+                )
             }
         }
     } catch (throwable: Throwable) {

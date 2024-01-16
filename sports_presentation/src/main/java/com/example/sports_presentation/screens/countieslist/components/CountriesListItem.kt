@@ -24,7 +24,7 @@ fun CountriesListItem(countryName: String, onClick: (countryName: String) -> Uni
         modifier = Modifier
             .padding(
                 vertical = Dimens.dimen_4,
-                horizontal = Dimens.diment_8,
+                horizontal = Dimens.dimen_8,
             )
             .clickable { onClick(countryName) },
     ) {

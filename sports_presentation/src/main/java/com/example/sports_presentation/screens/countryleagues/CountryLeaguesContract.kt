@@ -19,7 +19,7 @@ interface CountryLeaguesContract :
     }
 
     sealed interface ViewIntent {
-        class LoadData(val countryName: String) : ViewIntent
+        data class LoadData(val countryName: String) : ViewIntent
     }
 
     sealed interface SideEffect

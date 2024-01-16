@@ -6,12 +6,15 @@ import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresent
 import com.example.sports_presentation.mappers.countryleagues.LeaguesPresentationMapper
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
 import com.example.sports_presentation.screens.countryleagues.fakes.FakesCountryLeaguesUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-
+@OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MainCoroutineRule::class)
 internal class CountryLeaguesViewModelTest {
     private lateinit var countryLeaguesViewModel: CountryLeaguesViewModel
@@ -30,9 +33,9 @@ internal class CountryLeaguesViewModelTest {
     @ValueSource(strings = ["United States", "India", "Antartica", "xyz", "NetworkError"])
     fun `GIVEN query country WHEN LoadData ViewIntent sent THEN viewState contains expected state`(
         input: String,
-    ) {
+    ) = runTest {
         countryLeaguesViewModel.sendIntent(vi = CountryLeaguesContract.ViewIntent.LoadData(input))
-
+        advanceUntilIdle()
         expectedViewStateForInput(input = input)
     }
 

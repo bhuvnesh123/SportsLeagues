@@ -18,7 +18,7 @@ interface CountryListContract :
 
     sealed interface ViewIntent {
         object LoadData : ViewIntent
-        class OnCountryClicked(val countryName: String) : ViewIntent
+        data class OnCountryClicked(val countryName: String) : ViewIntent
     }
 
     sealed interface SideEffect {

@@ -22,7 +22,6 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
     val countryListViewState = viewModel.viewState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.sendIntent(vi = CountryListContract.ViewIntent.LoadData)
         viewModel.sideEffect.collect {
             if (it is CountryListContract.SideEffect.NavigateToDetails) {
                 val countryName = it.countryName

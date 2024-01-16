@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.UIText
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import com.example.sports_domain.usecase.UseCase
+import com.example.sports_domain.usecase.CountryListUseCase
 import com.example.sports_presentation.mappers.allcountries.CountryPresentationListMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -19,11 +19,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountryListViewModel @Inject constructor(
-    private val countryListUseCase: UseCase<Unit, CountriesListModel>,
+    private val countryListUseCase: CountryListUseCase,
     private val countryPresentationListMapper: CountryPresentationListMapper,
 ) :
     ViewModel(), CountryListContract {
-
+    init {
+        sendIntent(vi = CountryListContract.ViewIntent.LoadData)
+    }
     override fun createInitialState(): CountryListContract.ViewState =
         CountryListContract.ViewState.Loading
 
@@ -38,16 +40,10 @@ class CountryListViewModel @Inject constructor(
 
     private fun getCountryList() {
         viewModelScope.launch {
-            countryListUseCase(params = Unit).collect { result ->
-                when (result) {
-                    is ApiResult.Success -> {
-                        result.value?.let { response ->
-                            onResponse(response = response)
-                        }
-                    }
-                    is ApiResult.GenericError -> result.errorMessage?.let { onFailure(message = it) }
-                    is ApiResult.NetworkError -> onFailure(message = result.errorMessage)
-                }
+            when (val result = countryListUseCase()) {
+                is ApiResult.Success -> onResponse(response = result.value)
+                is ApiResult.GenericError -> result.errorMessage?.let { onFailure(message = it) }
+                is ApiResult.NetworkError -> onFailure(message = result.errorMessage)
             }
         }
     }
@@ -69,10 +65,9 @@ class CountryListViewModel @Inject constructor(
     }
 
     override fun sendIntent(vi: CountryListContract.ViewIntent) {
-        if (vi is CountryListContract.ViewIntent.LoadData) {
-            getCountryList()
-        } else if (vi is CountryListContract.ViewIntent.OnCountryClicked) {
-            navigateToDetails(vi.countryName)
+        when (vi) {
+            is CountryListContract.ViewIntent.LoadData -> getCountryList()
+            is CountryListContract.ViewIntent.OnCountryClicked -> navigateToDetails(vi.countryName)
         }
     }
 }

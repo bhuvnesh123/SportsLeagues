@@ -3,6 +3,10 @@ package com.example.sports_presentation.screens.countryleagues.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,8 +26,12 @@ import com.example.sports_presentation.screens.countryleagues.CountryLeaguesView
 fun LeaguesScreenContent(countryName: String) {
     val viewModel: CountryLeaguesViewModel = hiltViewModel()
     val leaguesViewState = viewModel.viewState.collectAsState()
-    LaunchedEffect(Unit) {
-        viewModel.sendIntent(CountryLeaguesContract.ViewIntent.LoadData(countryName = countryName))
+    var initialApiCalled by rememberSaveable { mutableStateOf(false) }
+    if (initialApiCalled.not()) {
+        LaunchedEffect(Unit) {
+            viewModel.sendIntent(CountryLeaguesContract.ViewIntent.LoadData(countryName = countryName))
+            initialApiCalled = true
+        }
     }
     LeaguesViewState(viewState = leaguesViewState.value)
 }

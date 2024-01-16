@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.UIText
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import com.example.sports_domain.usecase.UseCase
+import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountryLeaguesViewModel @Inject constructor(
-    private val countryLeaguesUseCase: UseCase<String, LeagueListModel>,
+    private val countryLeaguesUseCase: CountryLeaguesUseCase,
     private val leaguesListPresentationMapper: LeaguesListPresentationMapper,
 ) : ViewModel(), CountryLeaguesContract {
 
@@ -37,12 +37,10 @@ class CountryLeaguesViewModel @Inject constructor(
 
     private fun getCountryLeagues(countryName: String) {
         viewModelScope.launch {
-            countryLeaguesUseCase(params = countryName).collect { result ->
-                when (result) {
-                    is ApiResult.Success -> result.value?.let { onResponse(response = it) }
-                    is ApiResult.GenericError -> result.errorMessage?.let { onFailure(message = it) }
-                    is ApiResult.NetworkError -> onFailure(message = result.errorMessage)
-                }
+            when (val result = countryLeaguesUseCase(countryName = countryName)) {
+                is ApiResult.Success -> onResponse(response = result.value)
+                is ApiResult.GenericError -> result.errorMessage?.let { onFailure(message = it) }
+                is ApiResult.NetworkError -> onFailure(message = result.errorMessage)
             }
         }
     }
@@ -64,8 +62,8 @@ class CountryLeaguesViewModel @Inject constructor(
     }
 
     override fun sendIntent(vi: CountryLeaguesContract.ViewIntent) {
-        if (vi is CountryLeaguesContract.ViewIntent.LoadData) {
-            getCountryLeagues(countryName = vi.countryName)
+        when (vi) {
+            is CountryLeaguesContract.ViewIntent.LoadData -> getCountryLeagues(countryName = vi.countryName)
         }
     }
 }

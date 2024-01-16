@@ -6,7 +6,7 @@ import com.example.sports_domain.repository.SportsRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,14 +22,11 @@ internal class CountryListUseCaseImplTest {
     }
 
     @Test
-    fun `GIVEN query list of countries WHEN use case invoked THEN verify repository called`() {
-        coEvery { sportsRepository.getAllCountries() } returns flow {
-            emit(
-                ApiResult.Success(value = mockk()),
-            )
-        }
+    fun `GIVEN query list of countries WHEN use case invoked THEN verify repository called`() = runTest {
+        coEvery { sportsRepository.getAllCountries() } returns
+            ApiResult.Success(value = mockk())
 
-        countryListUseCaseImpl.invoke(params = Unit)
+        countryListUseCaseImpl.invoke()
 
         coVerify {
             sportsRepository.getAllCountries()

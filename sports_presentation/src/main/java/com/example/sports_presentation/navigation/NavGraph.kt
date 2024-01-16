@@ -11,8 +11,8 @@ import com.example.sports_presentation.common.component.ProvideDimens
 import com.example.sports_presentation.common.smallDimensions
 import com.example.sports_presentation.common.sw360Dimensions
 import com.example.sports_presentation.navigation.NavigationScreens.Companion.COUNTRY_NAME_ARG
-import com.example.sports_presentation.screens.countieslist.components.CountryListScreenBaseLayout
-import com.example.sports_presentation.screens.countryleagues.components.LeaguesBaseLayout
+import com.example.sports_presentation.screens.countieslist.components.CountryListScreenLayout
+import com.example.sports_presentation.screens.countryleagues.components.LeaguesScreenLayout
 
 // Composable function that defines the navigation graph of the app
 @Composable
@@ -29,7 +29,7 @@ fun NavGraph(navController: NavHostController, onBackFromHome: () -> Unit) {
         composable(route = NavigationScreens.CountryListScreen.route) {
             // Provide dimensions to children
             ProvideDimens(dimensions = dimensions) {
-                CountryListScreenBaseLayout(callback = {
+                CountryListScreenLayout(callback = {
                     navController.navigate(route = "${NavigationScreens.CountryLeaguesScreen.route}/$it")
                 }, onBack = {
                     onBackFromHome()
@@ -50,7 +50,7 @@ fun NavGraph(navController: NavHostController, onBackFromHome: () -> Unit) {
         ) { backStackEntry ->
             ProvideDimens(dimensions = dimensions) {
                 backStackEntry.arguments?.getString(COUNTRY_NAME_ARG)?.let {
-                    LeaguesBaseLayout(it, onBack = {
+                    LeaguesScreenLayout(it, onBack = {
                         navController.popBackStack()
                     })
                 }

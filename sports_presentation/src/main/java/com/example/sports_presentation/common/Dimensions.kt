@@ -19,7 +19,7 @@ Two instances of the `Dimensions` class are then created: `smallDimensions` and 
 class Dimensions(
     val dimen_2: Dp,
     val dimen_4: Dp,
-    val diment_8: Dp,
+    val dimen_8: Dp,
     val dimen_12: Dp,
     val dimen_16: Dp,
     val dimen_20: Dp,
@@ -49,7 +49,7 @@ class Dimensions(
 val smallDimensions = Dimensions(
     dimen_2 = 2.dp,
     dimen_4 = 4.dp,
-    diment_8 = 6.dp,
+    dimen_8 = 6.dp,
     dimen_12 = 10.dp,
     dimen_16 = 12.dp,
     dimen_20 = 15.dp,
@@ -78,7 +78,7 @@ val smallDimensions = Dimensions(
 val sw360Dimensions = Dimensions(
     dimen_2 = 2.dp,
     dimen_4 = 4.dp,
-    diment_8 = 8.dp,
+    dimen_8 = 8.dp,
     dimen_12 = 12.dp,
     dimen_16 = 16.dp,
     dimen_20 = 20.dp,

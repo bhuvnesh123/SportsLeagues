@@ -13,7 +13,6 @@ import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -49,7 +48,7 @@ internal class SportsServiceImplTest {
         runTest {
             fakeSportsApi.setShouldThrowException(shouldThrow = false)
 
-            val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher()).first()
+            val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher())
 
             val expectedResponse =
                 CountriesResponseDTO(countries = fakeSportsApi.getCountriesList())
@@ -69,7 +68,7 @@ internal class SportsServiceImplTest {
             exception = exception,
         )
 
-        val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher()).first()
+        val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher())
 
         assertEquals(apiResult, result)
     }
@@ -79,11 +78,10 @@ internal class SportsServiceImplTest {
         runTest {
             fakeSportsApi.setShouldThrowException(shouldThrow = false)
 
-            val result =
-                sportsServiceImpl.searchLeaguesByCountry(
-                    countryName = COUNTRY_NAME,
-                    dispatcher = UnconfinedTestDispatcher(),
-                ).first()
+            val result = sportsServiceImpl.searchLeaguesByCountry(
+                countryName = COUNTRY_NAME,
+                dispatcher = UnconfinedTestDispatcher(),
+            )
 
             val expectedResponse = LeagueResponseDTO(countries = fakeSportsApi.getLeaguesList())
             val expectedApiResult =
@@ -102,7 +100,7 @@ internal class SportsServiceImplTest {
         val result = sportsServiceImpl.searchLeaguesByCountry(
             countryName = COUNTRY_NAME,
             dispatcher = UnconfinedTestDispatcher(),
-        ).first()
+        )
 
         assertEquals(apiResult, result)
     }

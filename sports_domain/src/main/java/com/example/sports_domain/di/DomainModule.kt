@@ -1,10 +1,9 @@
 package com.example.sports_domain.di
 
-import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
-import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
+import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_domain.usecase.CountryLeaguesUseCaseImpl
+import com.example.sports_domain.usecase.CountryListUseCase
 import com.example.sports_domain.usecase.CountryListUseCaseImpl
-import com.example.sports_domain.usecase.UseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,8 +14,8 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class DomainModule {
 
     @Binds
-    abstract fun bindCountryLeaguesUseCase(countryLeaguesUseCaseImpl: CountryLeaguesUseCaseImpl): UseCase<String, LeagueListModel>
+    abstract fun bindCountryLeaguesUseCase(countryLeaguesUseCaseImpl: CountryLeaguesUseCaseImpl): CountryLeaguesUseCase
 
     @Binds
-    abstract fun bindCountryListUseCase(countryListUseCaseImpl: CountryListUseCaseImpl): UseCase<Unit, CountriesListModel>
+    abstract fun bindCountryListUseCase(countryListUseCaseImpl: CountryListUseCaseImpl): CountryListUseCase
 }

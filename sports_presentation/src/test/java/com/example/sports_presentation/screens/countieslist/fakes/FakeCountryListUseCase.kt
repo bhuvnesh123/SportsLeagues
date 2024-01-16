@@ -4,22 +4,16 @@ import com.example.common.UIText
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.allcountries.CountryModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import com.example.sports_domain.usecase.UseCase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.example.sports_domain.usecase.CountryListUseCase
+import kotlinx.coroutines.delay
 
-class FakeCountryListUseCase : UseCase<Unit, CountriesListModel> {
+class FakeCountryListUseCase : CountryListUseCase {
 
     private var apiError: ApiResult<CountriesListModel>? = null
 
-    override fun invoke(params: Unit): Flow<ApiResult<CountriesListModel?>> {
-        return apiError?.let {
-            flow {
-                emit(
-                    it,
-                )
-            }
-        } ?: run {
+    override suspend operator fun invoke(): ApiResult<CountriesListModel> {
+        delay(1000) // Simulate a delay in the API response for 1 second
+        return apiError ?: run {
             val countriesList = listOf(
                 CountryModel(name = "United States"),
                 CountryModel(name = "Canada"),
@@ -27,14 +21,8 @@ class FakeCountryListUseCase : UseCase<Unit, CountriesListModel> {
             )
             // Create a fake CountriesListModel object
             val countries = CountriesListModel(countries = countriesList)
-
             // Create a fake ApiResult object with the CountriesListModel
-            val apiResult = ApiResult.Success(value = countries)
-
-            // Create a fake Flow object that emits the fake ApiResult
-            flow {
-                emit(value = apiResult)
-            }
+            ApiResult.Success(value = countries)
         }
     }
 

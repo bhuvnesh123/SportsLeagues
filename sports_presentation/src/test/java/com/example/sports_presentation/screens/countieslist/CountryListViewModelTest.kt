@@ -8,7 +8,9 @@ import com.example.sports_presentation.mappers.allcountries.CountryPresentationL
 import com.example.sports_presentation.mappers.allcountries.CountryPresentationMapper
 import com.example.sports_presentation.models.allcountries.CountryPresentationModel
 import com.example.sports_presentation.screens.countieslist.fakes.FakeCountryListUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -16,7 +18,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-
+@OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MainCoroutineRule::class)
 internal class CountryListViewModelTest {
 
@@ -38,9 +40,8 @@ internal class CountryListViewModelTest {
         runTest {
             fakeCountryListUseCase.setShouldEmitError(isError = false)
             countryListViewModel.sendIntent(CountryListContract.ViewIntent.LoadData)
-
+            advanceUntilIdle()
             assertEquals(
-                countryListViewModel.viewState.value,
                 CountryListContract.ViewState.Success(
                     countriesList = listOf(
                         CountryPresentationModel(countryName = "United States"),
@@ -48,6 +49,7 @@ internal class CountryListViewModelTest {
                         CountryPresentationModel(countryName = "Mexico"),
                     ),
                 ),
+                countryListViewModel.viewState.value,
             )
         }
 
@@ -63,14 +65,14 @@ internal class CountryListViewModelTest {
                 apiResult = apiResult,
             )
             countryListViewModel.sendIntent(CountryListContract.ViewIntent.LoadData)
-
+            advanceUntilIdle()
             assertEquals(
-                countryListViewModel.viewState.value,
                 CountryListContract.ViewState.Error(
                     errorMessage = UIText.DynamicString(
                         input = message,
                     ),
                 ),
+                countryListViewModel.viewState.value,
             )
         }
 
@@ -79,10 +81,10 @@ internal class CountryListViewModelTest {
         runTest {
             val countryName = "India"
             countryListViewModel.sendIntent(CountryListContract.ViewIntent.OnCountryClicked(countryName = countryName))
-
+            advanceUntilIdle()
             assertEquals(
-                countryListViewModel.sideEffect.first(),
                 CountryListContract.SideEffect.NavigateToDetails(countryName),
+                countryListViewModel.sideEffect.first(),
             )
         }
 
