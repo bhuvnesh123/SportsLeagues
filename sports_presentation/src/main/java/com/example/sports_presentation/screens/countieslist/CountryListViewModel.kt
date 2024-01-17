@@ -8,12 +8,12 @@ import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryListUseCase
 import com.example.sports_presentation.mappers.allcountries.CountryPresentationListMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,13 +30,13 @@ class CountryListViewModel @Inject constructor(
         CountryListContract.ViewState.Loading
 
     private val _state = MutableStateFlow(value = createInitialState())
-    private val _sideEffect = Channel<CountryListContract.SideEffect>()
+    private val _sideEffect = MutableSharedFlow<CountryListContract.SideEffect>()
 
     override val viewState: StateFlow<CountryListContract.ViewState>
         get() = _state.asStateFlow()
 
-    override val sideEffect: Flow<CountryListContract.SideEffect>
-        get() = _sideEffect.receiveAsFlow()
+    override val sideEffect: SharedFlow<CountryListContract.SideEffect>
+        get() = _sideEffect.asSharedFlow()
 
     private fun getCountryList() {
         viewModelScope.launch {
@@ -60,7 +60,7 @@ class CountryListViewModel @Inject constructor(
 
     private fun navigateToDetails(countryName: String) {
         viewModelScope.launch {
-            _sideEffect.send(CountryListContract.SideEffect.NavigateToDetails(countryName = countryName))
+            _sideEffect.emit(CountryListContract.SideEffect.NavigateToDetails(countryName = countryName))
         }
     }
 

@@ -8,12 +8,12 @@ import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,13 +27,13 @@ class CountryLeaguesViewModel @Inject constructor(
         CountryLeaguesContract.ViewState.Loading
 
     private val _state = MutableStateFlow(value = createInitialState())
-    private val _sideEffect = Channel<CountryLeaguesContract.SideEffect>()
+    private val _sideEffect = MutableSharedFlow<CountryLeaguesContract.SideEffect>()
 
     override val viewState: StateFlow<CountryLeaguesContract.ViewState>
         get() = _state.asStateFlow()
 
-    override val sideEffect: Flow<CountryLeaguesContract.SideEffect>
-        get() = _sideEffect.consumeAsFlow()
+    override val sideEffect: SharedFlow<CountryLeaguesContract.SideEffect>
+        get() = _sideEffect.asSharedFlow()
 
     private fun getCountryLeagues(countryName: String) {
         viewModelScope.launch {
