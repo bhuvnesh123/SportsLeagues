@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,14 +35,5 @@ fun CustomTopAppBar(title: String, onBack: () -> Unit) {
                 )
             }
         },
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CustomTopAppBarPreview() {
-    CustomTopAppBar(
-        title = "Countries",
-        onBack = {},
     )
 }
