@@ -36,7 +36,6 @@ suspend fun <T, R> safeApiCall(
             }
         }
     } catch (throwable: Throwable) {
-        throwable.printStackTrace()
         when (throwable) {
             is TimeoutCancellationException -> {
                 val code = TIMEOUT_ERROR_CODE // timeout error code
