@@ -42,7 +42,7 @@ android {
 dependencies {
 
     implementation project(':common')
-    implementation project(':sports_domain')
+    implementation project(':domain')
 
     //Android Dependencies
     implementation Dependencies.appcompat

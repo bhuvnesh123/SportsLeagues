@@ -14,7 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TrainingAssignment"
 include ':app'
-include ':sports_data'
-include ':sports_domain'
-include ':sports_presentation'
+include ':data'
+include ':domain'
+include ':presentation'
 include ':common'

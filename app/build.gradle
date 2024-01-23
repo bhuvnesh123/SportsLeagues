@@ -43,8 +43,8 @@ android {
 }
 
 dependencies {
-    implementation project(':sports_data')
-    implementation project(':sports_presentation')
+    implementation project(':data')
+    implementation project(':presentation')
     implementation project(':common')
 
     //sub module
