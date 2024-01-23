@@ -81,7 +81,6 @@ internal class CountryListViewModelTest {
         runTest {
             val countryName = "India"
             countryListViewModel.sendIntent(CountryListContract.ViewIntent.OnCountryClicked(countryName = countryName))
-            advanceUntilIdle()
             assertEquals(
                 CountryListContract.SideEffect.NavigateToDetails(countryName),
                 countryListViewModel.sideEffect.first(),
