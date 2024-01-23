@@ -23,7 +23,7 @@ import com.example.sports_presentation.screens.countryleagues.CountryLeaguesView
 @Composable
 fun LeaguesScreenContent(countryName: String) {
     val viewModel: CountryLeaguesViewModel = hiltViewModel()
-    val leaguesViewState = viewModel.viewState.collectAsState()
+    val leaguesViewState by viewModel.viewState.collectAsState()
     var initialApiCalled by rememberSaveable { mutableStateOf(false) }
     if (initialApiCalled.not()) {
         LaunchedEffect(Unit) {
@@ -31,7 +31,7 @@ fun LeaguesScreenContent(countryName: String) {
             initialApiCalled = true
         }
     }
-    LeaguesViewState(viewState = leaguesViewState.value)
+    LeaguesViewState(viewState = leaguesViewState)
 }
 
 @Composable
@@ -54,7 +54,11 @@ fun LeaguesViewState(viewState: CountryLeaguesContract.ViewState) {
             )
         }
         is CountryLeaguesContract.ViewState.NoDataFound -> {
-            MessageScreen(message = stringResource(id = R.string.no_leagues_found))
+            MessageScreen(
+                message = stringResource(
+                    id = R.string.no_leagues_found,
+                ),
+            )
         }
     }
 }

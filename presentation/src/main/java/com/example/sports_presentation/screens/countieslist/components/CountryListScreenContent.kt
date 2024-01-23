@@ -3,6 +3,7 @@ package com.example.sports_presentation.screens.countieslist.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.common.UIText
@@ -17,7 +18,7 @@ import com.example.sports_presentation.screens.countieslist.CountryListViewModel
 @Composable
 fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
     val viewModel: CountryListViewModel = hiltViewModel()
-    val countryListViewState = viewModel.viewState.collectAsState()
+    val countryListViewState by viewModel.viewState.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
@@ -27,7 +28,7 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
             }
         }
     }
-    CountryListViewState(viewState = countryListViewState.value, callback = { countryName ->
+    CountryListViewState(viewState = countryListViewState, callback = { countryName ->
         viewModel.sendIntent(
             CountryListContract.ViewIntent.OnCountryClicked(
                 countryName = countryName,
