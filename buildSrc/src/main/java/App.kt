@@ -1,5 +1,5 @@
 object App {
-    val id = "com.example.trainingassignment"
-    val versionCode = 1
-    val versionName = "1.0"
+    const val id = "com.example.trainingassignment"
+    const val versionCode = 1
+    const val versionName = "1.0"
 }
