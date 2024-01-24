@@ -20,10 +20,7 @@ object Dependencies {
     const val compose_ui = "androidx.compose.ui:ui"
     const val compose_preview = "androidx.compose.ui:ui-tooling-preview"
     const val compose_tooling = "androidx.compose.ui:ui-tooling"
-    const val compose_livedata = "androidx.compose.runtime:runtime-livedata"
     const val compose_material = "androidx.compose.material3:material3"
-    const val coil_compose = "io.coil-kt:coil-compose:${Versions.coil_compose}"
-    const val coil_svg = "io.coil-kt:coil-svg:${Versions.coil_svg}"
     const val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
     const val navigation_compose = "androidx.navigation:navigation-compose:${Versions.navigation_compose}"
 }

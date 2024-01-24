@@ -18,8 +18,6 @@ object Versions {
     const val coroutines_test = "1.7.3"
     const val compose_bom = "2023.04.00"
     const val hilt_navigation_compos = "1.0.0"
-    const val coil_compose = "2.4.0"
-    const val coil_svg = "2.0.0"
     const val logging_interceptor = "4.11.0"
     const val navigation_compose = "2.5.0"
 }
