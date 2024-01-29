@@ -21,6 +21,7 @@ object Dependencies {
     const val compose_preview = "androidx.compose.ui:ui-tooling-preview"
     const val compose_tooling = "androidx.compose.ui:ui-tooling"
     const val compose_material = "androidx.compose.material3:material3"
+    const val compose_lifecycle = "androidx.lifecycle:lifecycle-runtime-compose"
     const val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
     const val navigation_compose = "androidx.navigation:navigation-compose:${Versions.navigation_compose}"
 }

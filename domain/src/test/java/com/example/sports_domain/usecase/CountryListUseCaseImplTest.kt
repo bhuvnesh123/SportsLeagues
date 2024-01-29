@@ -26,7 +26,7 @@ internal class CountryListUseCaseImplTest {
         coEvery { sportsRepository.getAllCountries() } returns
             ApiResult.Success(value = mockk())
 
-        countryListUseCaseImpl.invoke()
+        countryListUseCaseImpl()
 
         coVerify {
             sportsRepository.getAllCountries()

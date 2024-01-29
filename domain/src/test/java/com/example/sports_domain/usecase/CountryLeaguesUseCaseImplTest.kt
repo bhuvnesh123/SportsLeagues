@@ -30,7 +30,7 @@ internal class CountryLeaguesUseCaseImplTest {
                 value = mockk(),
             )
 
-        countryLeaguesUseCaseImpl.invoke(countryName = countryName)
+        countryLeaguesUseCaseImpl(countryName = countryName)
 
         coVerify {
             sportsRepository.searchLeaguesByCountry(countryName = countryName)

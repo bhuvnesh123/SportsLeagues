@@ -76,6 +76,7 @@ dependencies {
     implementation Dependencies.compose_tooling
     implementation Dependencies.compose_material
     implementation Dependencies.navigation_compose
+    implementation Dependencies.compose_lifecycle
 
     // Test dependencies
     testImplementation TestDependencies.junit

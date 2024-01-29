@@ -2,10 +2,10 @@ package com.example.sports_presentation.screens.countieslist.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.common.UIText
 import com.example.sports_presentation.customcomposables.CircularProgressBarIndicator
 import com.example.sports_presentation.customcomposables.MessageScreen
@@ -18,7 +18,7 @@ import com.example.sports_presentation.screens.countieslist.CountryListViewModel
 @Composable
 fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
     val viewModel: CountryListViewModel = hiltViewModel()
-    val countryListViewState by viewModel.viewState.collectAsState()
+    val countryListViewState by viewModel.viewState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {

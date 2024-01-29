@@ -2,7 +2,6 @@ package com.example.sports_presentation.screens.countryleagues.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -10,6 +9,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.common.UIText
 import com.example.sports_presentation.R
 import com.example.sports_presentation.customcomposables.CircularProgressBarIndicator
@@ -23,7 +23,7 @@ import com.example.sports_presentation.screens.countryleagues.CountryLeaguesView
 @Composable
 fun LeaguesScreenContent(countryName: String) {
     val viewModel: CountryLeaguesViewModel = hiltViewModel()
-    val leaguesViewState by viewModel.viewState.collectAsState()
+    val leaguesViewState by viewModel.viewState.collectAsStateWithLifecycle()
     var initialApiCalled by rememberSaveable { mutableStateOf(false) }
     if (initialApiCalled.not()) {
         LaunchedEffect(Unit) {

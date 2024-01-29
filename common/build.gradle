@@ -42,9 +42,6 @@ dependencies {
     implementation Dependencies.core_ktx
     implementation Dependencies.kotlin_standard_library
     implementation Dependencies.kotlin_reflect
-    implementation Dependencies.kotlin_coroutines_core
-    implementation Dependencies.kotlin_coroutines_android
-    implementation Dependencies.viewmodel_ktx
 
 
 }
