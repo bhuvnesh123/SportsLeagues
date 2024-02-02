@@ -1,11 +1,7 @@
 package com.example.sports_presentation.screens.countryleagues.components
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -21,16 +17,9 @@ import com.example.sports_presentation.screens.countryleagues.CountryLeaguesView
  * This composable represents the screen content, which collects the view state of the view model to load the appropriate composable based on the view state.
  */
 @Composable
-fun LeaguesScreenContent(countryName: String) {
+fun LeaguesScreenContent() {
     val viewModel: CountryLeaguesViewModel = hiltViewModel()
     val leaguesViewState by viewModel.viewState.collectAsStateWithLifecycle()
-    var initialApiCalled by rememberSaveable { mutableStateOf(false) }
-    if (initialApiCalled.not()) {
-        LaunchedEffect(Unit) {
-            viewModel.sendIntent(CountryLeaguesContract.ViewIntent.LoadData(countryName = countryName))
-            initialApiCalled = true
-        }
-    }
     LeaguesViewState(viewState = leaguesViewState)
 }
 

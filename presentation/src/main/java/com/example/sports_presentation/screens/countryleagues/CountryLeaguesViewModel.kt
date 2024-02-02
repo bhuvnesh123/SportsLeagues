@@ -1,5 +1,6 @@
 package com.example.sports_presentation.screens.countryleagues
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.UIText
@@ -7,6 +8,7 @@ import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
+import com.example.sports_presentation.navigation.NavigationScreens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +23,13 @@ import javax.inject.Inject
 class CountryLeaguesViewModel @Inject constructor(
     private val countryLeaguesUseCase: CountryLeaguesUseCase,
     private val leaguesListPresentationMapper: LeaguesListPresentationMapper,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel(), CountryLeaguesContract {
+
+    init {
+        val countryName = checkNotNull(savedStateHandle.get<String>(NavigationScreens.COUNTRY_NAME_ARG))
+        sendIntent(CountryLeaguesContract.ViewIntent.LoadData(countryName = countryName))
+    }
 
     override fun createInitialState(): CountryLeaguesContract.ViewState =
         CountryLeaguesContract.ViewState.Loading

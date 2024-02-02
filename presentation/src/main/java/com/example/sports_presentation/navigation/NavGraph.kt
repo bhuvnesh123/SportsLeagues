@@ -47,13 +47,11 @@ fun NavGraph(navController: NavHostController, onBackFromHome: () -> Unit) {
                     name = COUNTRY_NAME_ARG,
                 ) { type = NavType.StringType },
             ),
-        ) { backStackEntry ->
+        ) {
             ProvideDimens(dimensions = dimensions) {
-                backStackEntry.arguments?.getString(COUNTRY_NAME_ARG)?.let {
-                    LeaguesScreenLayout(it, onBack = {
-                        navController.popBackStack()
-                    })
-                }
+                LeaguesScreenLayout(onBack = {
+                    navController.popBackStack()
+                })
             }
         }
     }
