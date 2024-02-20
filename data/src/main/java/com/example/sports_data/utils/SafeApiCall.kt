@@ -54,12 +54,15 @@ suspend fun <T, R> safeApiCall(
             is HttpException -> {
                 val code = throwable.code()
                 val errorResponse = convertErrorBody(throwable = throwable)
+                val errorMessage = if (errorResponse != null) {
+                    UIText.DynamicString(input = errorResponse)
+                } else {
+                    UIText.StringResource(id = com.example.common.R.string.unknown_error)
+                }
+
                 ApiResult.GenericError(
                     code = code,
-                    errorMessage = errorResponse?.let {
-                        UIText.DynamicString(input = it)
-                    }
-                        ?: run { UIText.StringResource(id = com.example.common.R.string.unknown_error) },
+                    errorMessage = errorMessage,
                 )
             }
             else -> {
