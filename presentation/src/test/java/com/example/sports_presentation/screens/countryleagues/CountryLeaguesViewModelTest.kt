@@ -41,7 +41,7 @@ internal class CountryLeaguesViewModelTest {
     fun `GIVEN query country WHEN LoadData ViewIntent sent THEN viewState contains expected state`(
         input: String,
     ) = runTest {
-        countryLeaguesViewModel.sendIntent(vi = CountryLeaguesContract.ViewIntent.LoadData(input))
+        countryLeaguesViewModel.sendIntent(viewIntent = CountryLeaguesContract.ViewIntent.LoadData(input))
         advanceUntilIdle()
         expectedViewStateForInput(input = input)
     }

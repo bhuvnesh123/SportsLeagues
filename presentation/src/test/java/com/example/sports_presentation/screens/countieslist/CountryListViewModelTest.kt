@@ -39,7 +39,7 @@ internal class CountryListViewModelTest {
     fun `GIVEN Country list data WHEN LoadData ViewIntent sent THEN viewState contains list of countries`() =
         runTest {
             fakeCountryListUseCase.setShouldEmitError(isError = false)
-            countryListViewModel.sendIntent(CountryListContract.ViewIntent.LoadData)
+            countryListViewModel.sendIntent(viewIntent = CountryListContract.ViewIntent.LoadData)
             advanceUntilIdle()
             assertEquals(
                 CountryListContract.ViewState.Success(
@@ -64,7 +64,7 @@ internal class CountryListViewModelTest {
                 isError = true,
                 apiResult = apiResult,
             )
-            countryListViewModel.sendIntent(CountryListContract.ViewIntent.LoadData)
+            countryListViewModel.sendIntent(viewIntent = CountryListContract.ViewIntent.LoadData)
             advanceUntilIdle()
             assertEquals(
                 CountryListContract.ViewState.Error(
@@ -80,7 +80,7 @@ internal class CountryListViewModelTest {
     fun `GIVEN Country name clicked WHEN OnCountryClicked ViewIntent sent THEN sideEffect contains NavigateToDetails(countryName)`() =
         runTest {
             val countryName = "India"
-            countryListViewModel.sendIntent(CountryListContract.ViewIntent.OnCountryClicked(countryName = countryName))
+            countryListViewModel.sendIntent(viewIntent = CountryListContract.ViewIntent.OnCountryClicked(countryName = countryName))
             assertEquals(
                 CountryListContract.SideEffect.NavigateToDetails(countryName),
                 countryListViewModel.sideEffect.first(),

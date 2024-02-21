@@ -7,15 +7,11 @@ import com.example.common.UIText
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
+import com.example.sports_presentation.base.MVIContract
+import com.example.sports_presentation.base.MVIDelegate
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
 import com.example.sports_presentation.navigation.NavigationScreens
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,54 +20,43 @@ class CountryLeaguesViewModel @Inject constructor(
     private val countryLeaguesUseCase: CountryLeaguesUseCase,
     private val leaguesListPresentationMapper: LeaguesListPresentationMapper,
     savedStateHandle: SavedStateHandle,
-) : ViewModel(), CountryLeaguesContract {
+) : ViewModel(), MVIContract<CountryLeaguesContract.ViewState, CountryLeaguesContract.ViewIntent, CountryLeaguesContract.SideEffect> by MVIDelegate(initialViewState = CountryLeaguesContract.ViewState.Loading) {
 
     init {
         val countryName = checkNotNull(savedStateHandle.get<String>(NavigationScreens.COUNTRY_NAME_ARG))
-        sendIntent(CountryLeaguesContract.ViewIntent.LoadData(countryName = countryName))
+        sendIntent(viewIntent = CountryLeaguesContract.ViewIntent.LoadData(countryName = countryName))
     }
-
-    override fun createInitialState(): CountryLeaguesContract.ViewState =
-        CountryLeaguesContract.ViewState.Loading
-
-    private val _state = MutableStateFlow(value = createInitialState())
-    private val _sideEffect = MutableSharedFlow<CountryLeaguesContract.SideEffect>()
-
-    override val viewState: StateFlow<CountryLeaguesContract.ViewState>
-        get() = _state.asStateFlow()
-
-    override val sideEffect: SharedFlow<CountryLeaguesContract.SideEffect>
-        get() = _sideEffect.asSharedFlow()
 
     private fun getCountryLeagues(countryName: String) {
         viewModelScope.launch {
-            when (val result = countryLeaguesUseCase(countryName = countryName)) {
-                is ApiResult.Success -> onResponse(response = result.value)
-                is ApiResult.GenericError -> result.errorMessage?.let { onFailure(message = it) }
-                is ApiResult.NetworkError -> onFailure(message = result.errorMessage)
+            when (val apiResult = countryLeaguesUseCase(countryName = countryName)) {
+                is ApiResult.Success -> onSuccess(response = apiResult.value)
+                is ApiResult.GenericError -> apiResult.errorMessage?.let { onFailure(message = it) }
+                is ApiResult.NetworkError -> onFailure(message = apiResult.errorMessage)
             }
         }
     }
 
     private fun onFailure(message: UIText) {
-        _state.value = CountryLeaguesContract.ViewState.Error(errorMessage = message)
+        updateViewState(viewState = CountryLeaguesContract.ViewState.Error(errorMessage = message))
     }
 
-    private fun onResponse(response: LeagueListModel) {
+    private fun onSuccess(response: LeagueListModel) {
         val mappedResponse = leaguesListPresentationMapper.map(input = response)
-        _state.value =
-            if (mappedResponse.countries.isEmpty()) {
+        updateViewState(
+            viewState = if (mappedResponse.countries.isEmpty()) {
                 CountryLeaguesContract.ViewState.NoDataFound
             } else {
                 CountryLeaguesContract.ViewState.Success(
                     leaguesList = mappedResponse.countries,
                 )
-            }
+            },
+        )
     }
 
-    override fun sendIntent(vi: CountryLeaguesContract.ViewIntent) {
-        when (vi) {
-            is CountryLeaguesContract.ViewIntent.LoadData -> getCountryLeagues(countryName = vi.countryName)
+    override fun sendIntent(viewIntent: CountryLeaguesContract.ViewIntent) {
+        when (viewIntent) {
+            is CountryLeaguesContract.ViewIntent.LoadData -> getCountryLeagues(countryName = viewIntent.countryName)
         }
     }
 }
