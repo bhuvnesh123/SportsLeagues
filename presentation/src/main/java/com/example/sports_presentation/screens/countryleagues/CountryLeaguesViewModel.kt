@@ -31,6 +31,11 @@ class CountryLeaguesViewModel @Inject constructor(
         viewModelScope.launch {
             when (val apiResult = countryLeaguesUseCase(countryName = countryName)) {
                 is ApiResult.Success -> onSuccess(response = apiResult.value)
+                is ApiResult.ErrorResponse -> onFailure(
+                    message = UIText.DynamicString(
+                        apiResult.errorModel.message,
+                    ),
+                )
                 is ApiResult.GenericError -> apiResult.errorMessage?.let { onFailure(message = it) }
                 is ApiResult.NetworkError -> onFailure(message = apiResult.errorMessage)
             }
