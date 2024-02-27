@@ -30,6 +30,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
+        languageVersion = Versions.kotlin_language
+    }
+    kotlin.sourceSets.configureEach {
+        it.languageSettings.enableLanguageFeature("DataObjects")
     }
     buildFeatures {
         compose = true

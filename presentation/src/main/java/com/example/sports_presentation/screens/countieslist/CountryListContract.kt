@@ -6,7 +6,7 @@ import com.example.sports_presentation.models.allcountries.CountryPresentationMo
 interface CountryListContract :
     MVIContract<CountryListContract.ViewState, CountryListContract.ViewIntent, CountryListContract.SideEffect> {
     sealed interface ViewState {
-        object Loading :
+        data object Loading :
             ViewState // An object is a singleton instance of a class, and in this case, it represents the loading state of the view. Since loading is a single state and doesn't require any additional data, it can be represented as an object.
 
         data class Success(val countriesList: List<CountryPresentationModel>) :
@@ -16,7 +16,7 @@ interface CountryListContract :
     }
 
     sealed interface ViewIntent {
-        object LoadData : ViewIntent
+        data object LoadData : ViewIntent
         data class OnCountryClicked(val countryName: String) : ViewIntent
     }
 

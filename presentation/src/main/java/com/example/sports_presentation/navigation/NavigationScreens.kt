@@ -5,9 +5,9 @@ private const val COUNTRY_LEAGUES_ROUTE = "country_leagues"
 
 sealed class NavigationScreens(val route: String) {
 
-    object CountryListScreen : NavigationScreens(route = COUNTRY_LIST_ROUTE)
+    data object CountryListScreen : NavigationScreens(route = COUNTRY_LIST_ROUTE)
 
-    object CountryLeaguesScreen : NavigationScreens(route = COUNTRY_LEAGUES_ROUTE)
+    data object CountryLeaguesScreen : NavigationScreens(route = COUNTRY_LEAGUES_ROUTE)
 
     companion object {
         const val COUNTRY_NAME_ARG = "countryName"

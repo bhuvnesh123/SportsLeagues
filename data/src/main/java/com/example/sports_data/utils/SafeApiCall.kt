@@ -73,6 +73,5 @@ private fun convertErrorBody(throwable: HttpException): String? = try {
     null
 }
 
-private fun getErrorResponse(response: String): ErrorResponseDTO {
-    return Gson().fromJson(response, ErrorResponseDTO::class.java)
-}
+private fun getErrorResponse(response: String): ErrorResponseDTO =
+    Gson().fromJson(response, ErrorResponseDTO::class.java)

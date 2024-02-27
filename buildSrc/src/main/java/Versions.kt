@@ -4,6 +4,7 @@ object Versions {
     const val minsdk = 21
     const val targetsdk = 33
     const val kotlin = "1.8.0"
+    const val kotlin_language = "1.9"
     const val kotlinCompilerExtensionVersion = "1.4.1"
     const val core_ktx = "1.7.0"
     const val appcompat = "1.6.1"
