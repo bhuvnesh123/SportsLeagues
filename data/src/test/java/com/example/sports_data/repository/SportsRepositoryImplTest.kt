@@ -1,6 +1,5 @@
 package com.example.sports_data.repository
 
-import com.example.common.UIText
 import com.example.sports_data.common.MainCoroutineRule
 import com.example.sports_data.repository.fakes.FakeSportsService
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
@@ -97,12 +96,10 @@ internal class SportsRepositoryImplTest {
         fun countryListErrorResult() = listOf(
             ApiResult.GenericError(
                 code = 400,
-                errorMessage = UIText.DynamicString(
-                    input = BAD_REQUEST,
-                ),
+                errorMessage = BAD_REQUEST,
             ),
             ApiResult.NetworkError(
-                UIText.DynamicString(input = CHECK_INTERNET_CONNECTION),
+                errorMessage = CHECK_INTERNET_CONNECTION,
             ),
 
         )
@@ -111,14 +108,10 @@ internal class SportsRepositoryImplTest {
         fun searchLeaguesErrorResult() = listOf(
             ApiResult.GenericError(
                 code = 400,
-                errorMessage = UIText.DynamicString(
-                    input = BAD_REQUEST,
-                ),
+                errorMessage = BAD_REQUEST,
             ),
             ApiResult.NetworkError(
-                errorMessage = UIText.DynamicString(
-                    input = CHECK_INTERNET_CONNECTION,
-                ),
+                errorMessage = CHECK_INTERNET_CONNECTION,
             ),
         )
     }

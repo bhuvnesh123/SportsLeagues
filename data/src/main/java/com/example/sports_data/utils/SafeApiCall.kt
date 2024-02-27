@@ -1,6 +1,5 @@
 package com.example.sports_data.utils
 
-import com.example.common.UIText
 import com.example.sports_data.dto.error.ErrorResponseDTO
 import com.example.sports_data.utils.NetworkConstants.NETWORK_TIMEOUT
 import com.example.sports_domain.domainmodels.error.ErrorModel
@@ -25,17 +24,15 @@ suspend fun <T, R> safeApiCall(
 ): ApiResult<R> = try {
     // throws TimeoutCancellationException
     withTimeout(timeMillis = NETWORK_TIMEOUT) {
-        val errorMessage =
-            UIText.StringResource(id = com.example.common.R.string.error_retrieving_data)
         val response = apiCall()
         if (response.isSuccessful) {
             response.body()?.let { ApiResult.Success(value = mapper(it)) }
-                ?: ApiResult.GenericError(errorMessage = errorMessage)
+                ?: ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
         } else {
             response.errorBody()?.let {
                 val errorBody = getErrorResponse(it.string())
                 ApiResult.ErrorResponse(code = response.code(), errorModel = errorMapper(errorBody))
-            } ?: ApiResult.GenericError(errorMessage = errorMessage)
+            } ?: ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
         }
     }
 } catch (throwable: Throwable) {
@@ -44,24 +41,18 @@ suspend fun <T, R> safeApiCall(
             val code = TIMEOUT_ERROR_CODE // timeout error code
             ApiResult.GenericError(
                 code = code,
-                errorMessage = UIText.StringResource(id = com.example.common.R.string.network_timeout),
+                errorMessage = NetworkConstants.NETWORK_TIMEOUT_TEXT,
             )
         }
         is IOException -> {
             ApiResult.NetworkError(
-                errorMessage = UIText.StringResource(
-                    id = com.example.common.R.string.network_error,
-                ),
+                errorMessage = NetworkConstants.NETWORK_ERROR,
             )
         }
         is HttpException -> {
             val code = throwable.code()
             val errorResponse = convertErrorBody(throwable = throwable)
-            val errorMessage = if (errorResponse != null) {
-                UIText.DynamicString(input = errorResponse)
-            } else {
-                UIText.StringResource(id = com.example.common.R.string.unknown_error)
-            }
+            val errorMessage = errorResponse ?: NetworkConstants.UNKNOWN_ERROR
 
             ApiResult.GenericError(
                 code = code,
@@ -70,9 +61,7 @@ suspend fun <T, R> safeApiCall(
         }
         else -> {
             ApiResult.GenericError(
-                errorMessage = UIText.StringResource(
-                    id = com.example.common.R.string.unknown_network_error,
-                ),
+                errorMessage = NetworkConstants.UNKNOWN_NETWORK_ERROR,
             )
         }
     }

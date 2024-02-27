@@ -1,6 +1,5 @@
 package com.example.sports_data.repository.fakes
 
-import com.example.common.UIText
 import com.example.sports_data.service.SportsService
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.allcountries.CountryModel
@@ -36,9 +35,7 @@ class FakeSportsService : SportsService {
     fun <T : Any> setShouldEmitError(
         apiResult: ApiResult<T> = ApiResult.GenericError(
             code = BAD_REQUEST_CODE,
-            errorMessage = UIText.DynamicString(
-                input = BAD_REQUEST,
-            ),
+            errorMessage = BAD_REQUEST,
         ),
     ) {
         apiError = apiResult

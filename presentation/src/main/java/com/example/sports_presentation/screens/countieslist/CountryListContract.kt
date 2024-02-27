@@ -1,6 +1,5 @@
 package com.example.sports_presentation.screens.countieslist
 
-import com.example.common.UIText
 import com.example.sports_presentation.base.MVIContract
 import com.example.sports_presentation.models.allcountries.CountryPresentationModel
 
@@ -13,7 +12,7 @@ interface CountryListContract :
         data class Success(val countriesList: List<CountryPresentationModel>) :
             ViewState // This class represent the success state of the view. It can hold additional data such as the list of countries in the case of Success .
 
-        data class Error(val errorMessage: UIText) : ViewState
+        data class Error(val errorMessage: String) : ViewState
     }
 
     sealed interface ViewIntent {

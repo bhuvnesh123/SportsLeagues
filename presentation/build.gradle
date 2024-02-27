@@ -48,7 +48,6 @@ android {
 
 dependencies {
 
-    implementation project(':common')
     implementation project(':domain')
 
     //Android Dependencies

@@ -40,8 +40,6 @@ android {
 
 dependencies {
 
-    implementation project(':common')
-
     //Android Dependencies
     implementation Dependencies.appcompat
     implementation Dependencies.google_material

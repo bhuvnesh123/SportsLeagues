@@ -1,7 +1,6 @@
 package com.example.sports_presentation.screens.countryleagues
 
 import androidx.lifecycle.SavedStateHandle
-import com.example.common.UIText
 import com.example.sports_presentation.common.MainCoroutineRule
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
 import com.example.sports_presentation.mappers.countryleagues.LeaguesPresentationMapper
@@ -85,10 +84,9 @@ internal class CountryLeaguesViewModelTest {
                 ),
             ),
             "Antartica" to CountryLeaguesContract.ViewState.NoDataFound,
-            "xyz" to CountryLeaguesContract.ViewState.Error(UIText.DynamicString(input = BAD_REQUEST)),
+            "xyz" to CountryLeaguesContract.ViewState.Error(errorMessage = BAD_REQUEST),
             "NetworkError" to CountryLeaguesContract.ViewState.Error(
-                errorMessage =
-                UIText.DynamicString(input = "Please check your internet connection"),
+                errorMessage = "Please check your internet connection",
             ),
         )
         val expectedViewState = expectedViewStateMap[input]

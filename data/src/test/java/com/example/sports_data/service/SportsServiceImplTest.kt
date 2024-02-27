@@ -1,6 +1,5 @@
 package com.example.sports_data.service
 
-import com.example.common.UIText
 import com.example.sports_data.common.MainCoroutineRule
 import com.example.sports_data.dto.allcountries.CountriesResponseDTO
 import com.example.sports_data.dto.countryleagues.LeagueResponseDTO
@@ -10,6 +9,7 @@ import com.example.sports_data.mappers.countryleagues.LeaguesListMapper
 import com.example.sports_data.mappers.countryleagues.LeaguesMapper
 import com.example.sports_data.mappers.error.ErrorMapper
 import com.example.sports_data.service.fakes.FakeSportsApi
+import com.example.sports_data.utils.NetworkConstants
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.error.ErrorModel
@@ -145,12 +145,12 @@ internal class SportsServiceImplTest {
             arrayOf(
                 Exception(),
                 ApiResult.GenericError(
-                    errorMessage = UIText.StringResource(id = com.example.common.R.string.unknown_network_error),
+                    errorMessage = NetworkConstants.UNKNOWN_NETWORK_ERROR,
                 ),
             ),
             arrayOf(
                 IOException(),
-                ApiResult.NetworkError(errorMessage = UIText.StringResource(id = com.example.common.R.string.network_error)),
+                ApiResult.NetworkError(errorMessage = NetworkConstants.NETWORK_ERROR),
             ),
             arrayOf(
                 HttpException(
@@ -161,7 +161,7 @@ internal class SportsServiceImplTest {
                 ),
                 ApiResult.GenericError(
                     code = 404,
-                    errorMessage = UIText.DynamicString(input = ERROR_MESSAGE),
+                    errorMessage = ERROR_MESSAGE,
                 ),
             ),
         )

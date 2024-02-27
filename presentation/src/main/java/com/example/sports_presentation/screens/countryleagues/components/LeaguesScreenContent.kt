@@ -2,11 +2,9 @@ package com.example.sports_presentation.screens.countryleagues.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.common.UIText
 import com.example.sports_presentation.R
 import com.example.sports_presentation.customcomposables.CircularProgressBarIndicator
 import com.example.sports_presentation.customcomposables.MessageScreen
@@ -36,10 +34,7 @@ fun LeaguesViewState(viewState: CountryLeaguesContract.ViewState) {
         is CountryLeaguesContract.ViewState.Error -> {
             val errorMessage = viewState.errorMessage
             MessageScreen(
-                message = UIText.getText(
-                    uiText = errorMessage,
-                    context = LocalContext.current,
-                ),
+                message = errorMessage,
             )
         }
         is CountryLeaguesContract.ViewState.NoDataFound -> {

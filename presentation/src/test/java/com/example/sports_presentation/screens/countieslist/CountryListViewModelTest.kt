@@ -1,6 +1,5 @@
 package com.example.sports_presentation.screens.countieslist
 
-import com.example.common.UIText
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_presentation.common.MainCoroutineRule
@@ -69,9 +68,7 @@ internal class CountryListViewModelTest {
             advanceUntilIdle()
             assertEquals(
                 CountryListContract.ViewState.Error(
-                    errorMessage = UIText.DynamicString(
-                        input = message,
-                    ),
+                    errorMessage = message,
                 ),
                 countryListViewModel.viewState.value,
             )
@@ -98,15 +95,13 @@ internal class CountryListViewModelTest {
             arrayOf(
                 ApiResult.GenericError(
                     code = BAD_REQUEST_CODE,
-                    errorMessage = UIText.DynamicString(
-                        input = BAD_REQUEST,
-                    ),
+                    errorMessage = BAD_REQUEST,
                 ),
                 BAD_REQUEST,
             ),
             arrayOf(
                 ApiResult.NetworkError(
-                    UIText.DynamicString(input = CHECK_INTERNET_CONNECTION),
+                    CHECK_INTERNET_CONNECTION,
                 ),
                 CHECK_INTERNET_CONNECTION,
             ),

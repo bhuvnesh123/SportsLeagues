@@ -2,7 +2,6 @@ package com.example.sports_presentation.screens.countieslist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.common.UIText
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryListUseCase
@@ -38,17 +37,15 @@ class CountryListViewModel @Inject constructor(
             when (val apiResult = countryListUseCase()) {
                 is ApiResult.Success -> onSuccess(response = apiResult.value)
                 is ApiResult.ErrorResponse -> onFailure(
-                    message = UIText.DynamicString(
-                        apiResult.errorModel.message,
-                    ),
+                    message = apiResult.errorModel.message,
                 )
-                is ApiResult.GenericError -> apiResult.errorMessage?.let { onFailure(message = it) }
+                is ApiResult.GenericError -> onFailure(message = apiResult.errorMessage)
                 is ApiResult.NetworkError -> onFailure(message = apiResult.errorMessage)
             }
         }
     }
 
-    private suspend fun onFailure(message: UIText) {
+    private suspend fun onFailure(message: String) {
         withContext(mainDispatcher) {
             updateViewState(viewState = CountryListContract.ViewState.Error(errorMessage = message))
         }

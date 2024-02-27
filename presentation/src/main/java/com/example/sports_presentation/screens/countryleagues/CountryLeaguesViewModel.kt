@@ -3,7 +3,6 @@ package com.example.sports_presentation.screens.countryleagues
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.common.UIText
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_domain.usecase.CountryLeaguesUseCase
@@ -41,17 +40,15 @@ class CountryLeaguesViewModel @Inject constructor(
             when (val apiResult = countryLeaguesUseCase(countryName = countryName)) {
                 is ApiResult.Success -> onSuccess(response = apiResult.value)
                 is ApiResult.ErrorResponse -> onFailure(
-                    message = UIText.DynamicString(
-                        apiResult.errorModel.message,
-                    ),
+                    message = apiResult.errorModel.message,
                 )
-                is ApiResult.GenericError -> apiResult.errorMessage?.let { onFailure(message = it) }
+                is ApiResult.GenericError -> onFailure(message = apiResult.errorMessage)
                 is ApiResult.NetworkError -> onFailure(message = apiResult.errorMessage)
             }
         }
     }
 
-    private suspend fun onFailure(message: UIText) {
+    private suspend fun onFailure(message: String) {
         withContext(context = mainDispatcher) {
             updateViewState(viewState = CountryLeaguesContract.ViewState.Error(errorMessage = message))
         }

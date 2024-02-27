@@ -3,10 +3,8 @@ package com.example.sports_presentation.screens.countieslist.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.common.UIText
 import com.example.sports_presentation.customcomposables.CircularProgressBarIndicator
 import com.example.sports_presentation.customcomposables.MessageScreen
 import com.example.sports_presentation.screens.countieslist.CountryListContract
@@ -56,10 +54,7 @@ fun CountryListViewState(
         is CountryListContract.ViewState.Error -> {
             val errorMessage = viewState.errorMessage
             MessageScreen(
-                message = UIText.getText(
-                    uiText = errorMessage,
-                    context = LocalContext.current,
-                ),
+                message = errorMessage,
             )
         }
     }

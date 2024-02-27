@@ -1,6 +1,5 @@
 package com.example.sports_presentation.screens.countieslist.fakes
 
-import com.example.common.UIText
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.allcountries.CountryModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
@@ -29,9 +28,7 @@ class FakeCountryListUseCase : CountryListUseCase {
     fun setShouldEmitError(
         apiResult: ApiResult<CountriesListModel> = ApiResult.GenericError(
             code = 400,
-            errorMessage = UIText.DynamicString(
-                input = BAD_REQUEST,
-            ),
+            errorMessage = BAD_REQUEST,
         ),
     ) {
         apiError = apiResult

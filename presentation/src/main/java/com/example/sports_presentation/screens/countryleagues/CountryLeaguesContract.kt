@@ -1,6 +1,5 @@
 package com.example.sports_presentation.screens.countryleagues
 
-import com.example.common.UIText
 import com.example.sports_presentation.base.MVIContract
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
 
@@ -13,7 +12,7 @@ interface CountryLeaguesContract :
         data class Success(val leaguesList: List<LeaguesPresentationModel>) :
             ViewState // This class represent the success state of the view. It can hold additional data such as the list of leagues in the case of Success .
 
-        data class Error(val errorMessage: UIText) : ViewState
+        data class Error(val errorMessage: String) : ViewState
 
         object NoDataFound : ViewState
     }
