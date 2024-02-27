@@ -29,8 +29,6 @@ internal class SportsRepositoryImplTest {
     @Test
     fun `GIVEN service's success response WHEN getAllCountries called THEN emit expected result`() =
         runTest {
-            sportsService.setShouldEmitError<CountriesListModel>(isError = false)
-
             val result = sportsRepositoryImpl.getAllCountries()
 
             coVerify(exactly = 1) { sportsService.getAllCountries() }
@@ -47,7 +45,6 @@ internal class SportsRepositoryImplTest {
     ) =
         runTest {
             sportsService.setShouldEmitError(
-                isError = true,
                 apiResult = apiResult,
             )
 
@@ -63,8 +60,6 @@ internal class SportsRepositoryImplTest {
     @Test
     fun `GIVEN a country name and service's success response WHEN repository's searchLeaguesByCountry called THEN emit expected result`() =
         runTest {
-            sportsService.setShouldEmitError<LeagueListModel>(isError = false)
-
             val result = sportsRepositoryImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME)
 
             coVerify(exactly = 1) { sportsService.searchLeaguesByCountry(countryName = COUNTRY_NAME) }
@@ -81,7 +76,6 @@ internal class SportsRepositoryImplTest {
     ) =
         runTest {
             sportsService.setShouldEmitError(
-                isError = true,
                 apiResult = apiResult,
             )
 

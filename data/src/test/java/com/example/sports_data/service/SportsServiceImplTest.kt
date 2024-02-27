@@ -14,7 +14,6 @@ import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.error.ErrorModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -25,11 +24,10 @@ import org.junit.jupiter.params.provider.MethodSource
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
-@OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MainCoroutineRule::class)
 internal class SportsServiceImplTest {
 
-    private lateinit var fakeSportsApi: FakeSportsApi
+    private val fakeSportsApi = FakeSportsApi()
     private val countriesListMapper = CountriesListMapper(countryMapper = CountryMapper())
     private val leaguesListMapper = LeaguesListMapper(leaguesMapper = LeaguesMapper())
     private val errorMapper = ErrorMapper()
@@ -38,7 +36,6 @@ internal class SportsServiceImplTest {
 
     @BeforeEach
     fun setup() {
-        fakeSportsApi = FakeSportsApi()
         sportsServiceImpl = SportsServiceImpl(
             sportsApi = fakeSportsApi,
             countriesListMapper = countriesListMapper,

@@ -27,7 +27,6 @@ class FakeCountryListUseCase : CountryListUseCase {
     }
 
     fun setShouldEmitError(
-        isError: Boolean,
         apiResult: ApiResult<CountriesListModel> = ApiResult.GenericError(
             code = 400,
             errorMessage = UIText.DynamicString(
@@ -35,7 +34,7 @@ class FakeCountryListUseCase : CountryListUseCase {
             ),
         ),
     ) {
-        apiError = if (isError) apiResult else null
+        apiError = apiResult
     }
 
     private companion object {

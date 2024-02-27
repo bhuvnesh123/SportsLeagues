@@ -34,7 +34,6 @@ class FakeSportsService : SportsService {
     }
 
     fun <T : Any> setShouldEmitError(
-        isError: Boolean,
         apiResult: ApiResult<T> = ApiResult.GenericError(
             code = BAD_REQUEST_CODE,
             errorMessage = UIText.DynamicString(
@@ -42,7 +41,7 @@ class FakeSportsService : SportsService {
             ),
         ),
     ) {
-        apiError = if (isError) apiResult else null
+        apiError = apiResult
     }
 
     fun getCountryList() = CountriesListModel(

@@ -41,7 +41,6 @@ internal class CountryListViewModelTest {
     @Test
     fun `GIVEN Country list data WHEN LoadData ViewIntent sent THEN viewState contains list of countries`() =
         runTest {
-            fakeCountryListUseCase.setShouldEmitError(isError = false)
             countryListViewModel.sendIntent(viewIntent = CountryListContract.ViewIntent.LoadData)
             advanceUntilIdle()
             assertEquals(
@@ -64,7 +63,6 @@ internal class CountryListViewModelTest {
     ) =
         runTest {
             fakeCountryListUseCase.setShouldEmitError(
-                isError = true,
                 apiResult = apiResult,
             )
             countryListViewModel.sendIntent(viewIntent = CountryListContract.ViewIntent.LoadData)
