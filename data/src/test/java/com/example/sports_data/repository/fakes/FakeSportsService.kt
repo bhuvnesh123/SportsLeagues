@@ -7,12 +7,11 @@ import com.example.sports_domain.domainmodels.allcountries.CountryModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import kotlinx.coroutines.CoroutineDispatcher
 
 class FakeSportsService : SportsService {
     private var apiError: ApiResult<Any>? = null
 
-    override suspend fun getAllCountries(dispatcher: CoroutineDispatcher): ApiResult<CountriesListModel> {
+    override suspend fun getAllCountries(): ApiResult<CountriesListModel> {
         return apiError?.let {
             it as ApiResult<CountriesListModel>
         } ?: run {
@@ -23,7 +22,6 @@ class FakeSportsService : SportsService {
     }
 
     override suspend fun searchLeaguesByCountry(
-        dispatcher: CoroutineDispatcher,
         countryName: String,
     ): ApiResult<LeagueListModel> {
         return apiError?.let {

@@ -8,7 +8,6 @@ import com.example.sports_data.utils.safeApiCall
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 class SportsServiceImpl @Inject constructor(
@@ -18,18 +17,14 @@ class SportsServiceImpl @Inject constructor(
     private val errorMapper: ErrorMapper,
 ) : SportsService {
 
-    override suspend fun getAllCountries(dispatcher: CoroutineDispatcher): ApiResult<CountriesListModel> =
+    override suspend fun getAllCountries(): ApiResult<CountriesListModel> =
         safeApiCall(
             apiCall = { sportsApi.getAllCountries() },
             mapper = countriesListMapper::map,
-            dispatcher = dispatcher,
             errorMapper = errorMapper::map,
         )
 
-    override suspend fun searchLeaguesByCountry(
-        dispatcher: CoroutineDispatcher,
-        countryName: String,
-    ): ApiResult<LeagueListModel> =
+    override suspend fun searchLeaguesByCountry(countryName: String): ApiResult<LeagueListModel> =
         safeApiCall(
             apiCall = {
                 sportsApi.searchLeaguesByCountry(
@@ -37,7 +32,6 @@ class SportsServiceImpl @Inject constructor(
                 )
             },
             mapper = leaguesListMapper::map,
-            dispatcher = dispatcher,
             errorMapper = errorMapper::map,
         )
 }

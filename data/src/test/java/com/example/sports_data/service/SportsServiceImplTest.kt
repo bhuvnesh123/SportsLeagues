@@ -15,7 +15,6 @@ import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.error.ErrorModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -51,7 +50,7 @@ internal class SportsServiceImplTest {
     @Test
     fun `GIVEN all_countries api success response WHEN service getAllCountries called THEN emit expected mapped ApiResult`() =
         runTest {
-            val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher())
+            val result = sportsServiceImpl.getAllCountries()
 
             val expectedResponse =
                 CountriesResponseDTO(countries = fakeSportsApi.getCountriesList())
@@ -70,7 +69,7 @@ internal class SportsServiceImplTest {
             val responseCode = ERROR_RESPONSE_CODE
             fakeSportsApi.setJsonError(jsonString = errorJsonString, responseCode = responseCode)
 
-            val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher())
+            val result = sportsServiceImpl.getAllCountries()
 
             val errorModel = ErrorModel(cause = "No matched country found", message = "Please try with different country")
             val expectedApiResult = ApiResult.ErrorResponse(code = responseCode, errorModel = errorModel)
@@ -87,7 +86,7 @@ internal class SportsServiceImplTest {
             exception = exception,
         )
 
-        val result = sportsServiceImpl.getAllCountries(dispatcher = UnconfinedTestDispatcher())
+        val result = sportsServiceImpl.getAllCountries()
 
         assertEquals(apiResult, result)
     }
@@ -97,7 +96,6 @@ internal class SportsServiceImplTest {
         runTest {
             val result = sportsServiceImpl.searchLeaguesByCountry(
                 countryName = COUNTRY_NAME,
-                dispatcher = UnconfinedTestDispatcher(),
             )
 
             val expectedResponse = LeagueResponseDTO(countries = fakeSportsApi.getLeaguesList())
@@ -118,7 +116,6 @@ internal class SportsServiceImplTest {
 
             val result = sportsServiceImpl.searchLeaguesByCountry(
                 countryName = COUNTRY_NAME,
-                dispatcher = UnconfinedTestDispatcher(),
             )
 
             val errorModel = ErrorModel(cause = "No matched country found", message = "Please try with different country")
@@ -136,7 +133,6 @@ internal class SportsServiceImplTest {
 
         val result = sportsServiceImpl.searchLeaguesByCountry(
             countryName = COUNTRY_NAME,
-            dispatcher = UnconfinedTestDispatcher(),
         )
 
         assertEquals(apiResult, result)

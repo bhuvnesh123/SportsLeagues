@@ -8,8 +8,6 @@ import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import io.mockk.coVerify
 import io.mockk.spyk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -17,7 +15,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-@OptIn(ExperimentalCoroutinesApi::class)
+
 @ExtendWith(MainCoroutineRule::class)
 internal class SportsRepositoryImplTest {
     private val sportsService = spyk(FakeSportsService())
@@ -25,7 +23,7 @@ internal class SportsRepositoryImplTest {
 
     @BeforeEach
     fun setUp() {
-        sportsRepositoryImpl = SportsRepositoryImpl(sportsService = sportsService, ioDispatcher = UnconfinedTestDispatcher())
+        sportsRepositoryImpl = SportsRepositoryImpl(sportsService = sportsService)
     }
 
     @Test
@@ -35,7 +33,7 @@ internal class SportsRepositoryImplTest {
 
             val result = sportsRepositoryImpl.getAllCountries()
 
-            coVerify(exactly = 1) { sportsService.getAllCountries(dispatcher = any()) }
+            coVerify(exactly = 1) { sportsService.getAllCountries() }
             assertEquals(
                 ApiResult.Success(value = sportsService.getCountryList()),
                 result,
@@ -55,7 +53,7 @@ internal class SportsRepositoryImplTest {
 
             val result = sportsRepositoryImpl.getAllCountries()
 
-            coVerify(exactly = 1) { sportsService.getAllCountries(dispatcher = any()) }
+            coVerify(exactly = 1) { sportsService.getAllCountries() }
             assertEquals(
                 apiResult,
                 result,
@@ -69,7 +67,7 @@ internal class SportsRepositoryImplTest {
 
             val result = sportsRepositoryImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME)
 
-            coVerify(exactly = 1) { sportsService.searchLeaguesByCountry(dispatcher = any(), countryName = COUNTRY_NAME) }
+            coVerify(exactly = 1) { sportsService.searchLeaguesByCountry(countryName = COUNTRY_NAME) }
             assertEquals(
                 ApiResult.Success(value = sportsService.getLeagues()),
                 result,
@@ -89,7 +87,7 @@ internal class SportsRepositoryImplTest {
 
             val result = sportsRepositoryImpl.searchLeaguesByCountry(countryName = COUNTRY_NAME)
 
-            coVerify(exactly = 1) { sportsService.searchLeaguesByCountry(dispatcher = any(), countryName = COUNTRY_NAME) }
+            coVerify(exactly = 1) { sportsService.searchLeaguesByCountry(countryName = COUNTRY_NAME) }
             assertEquals(
                 apiResult,
                 result,

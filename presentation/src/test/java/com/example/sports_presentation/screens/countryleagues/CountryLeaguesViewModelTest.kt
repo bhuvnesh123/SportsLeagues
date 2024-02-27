@@ -11,6 +11,7 @@ import com.example.sports_presentation.screens.countryleagues.fakes.FakesCountry
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -33,6 +34,8 @@ internal class CountryLeaguesViewModelTest {
                 leaguesPresentationMapper = LeaguesPresentationMapper(),
             ),
             savedStateHandle = savedStateHandle,
+            ioDispatcher = StandardTestDispatcher(),
+            mainDispatcher = StandardTestDispatcher(),
         )
     }
 

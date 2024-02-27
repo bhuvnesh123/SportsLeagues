@@ -10,6 +10,7 @@ import com.example.sports_presentation.models.allcountries.CountryPresentationMo
 import com.example.sports_presentation.screens.countieslist.fakes.FakeCountryListUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -32,6 +33,8 @@ internal class CountryListViewModelTest {
             countryPresentationListMapper = CountryPresentationListMapper(
                 countryPresentationMapper = CountryPresentationMapper(),
             ),
+            ioDispatcher = StandardTestDispatcher(),
+            mainDispatcher = StandardTestDispatcher(),
         )
     }
 
