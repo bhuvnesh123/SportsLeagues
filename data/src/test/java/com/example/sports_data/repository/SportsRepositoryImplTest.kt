@@ -91,11 +91,12 @@ internal class SportsRepositoryImplTest {
         const val CHECK_INTERNET_CONNECTION = "Please check your internet connection"
         const val BAD_REQUEST = "Bad Request"
         const val COUNTRY_NAME = "India"
+        const val BAD_REQUEST_CODE = 400
 
         @JvmStatic
         fun countryListErrorResult() = listOf(
             ApiResult.GenericError(
-                code = 400,
+                code = BAD_REQUEST_CODE,
                 errorMessage = BAD_REQUEST,
             ),
             ApiResult.NetworkError(
@@ -107,7 +108,7 @@ internal class SportsRepositoryImplTest {
         @JvmStatic
         fun searchLeaguesErrorResult() = listOf(
             ApiResult.GenericError(
-                code = 400,
+                code = BAD_REQUEST_CODE,
                 errorMessage = BAD_REQUEST,
             ),
             ApiResult.NetworkError(

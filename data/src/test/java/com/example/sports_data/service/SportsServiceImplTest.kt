@@ -57,7 +57,7 @@ internal class SportsServiceImplTest {
         }
 
     @Test
-    fun `GIVEN all_countries api json error response WHEN service getAllCountries called THEN emit expected JsonError ApiResult`() =
+    fun `GIVEN all_countries api json error response WHEN service getAllCountries called THEN emit expected ErrorModel ApiResult`() =
         runTest {
             val errorJsonString = "{\n" +
                 " \"cause\": \"No matched country found\" ,\n" +
@@ -89,6 +89,33 @@ internal class SportsServiceImplTest {
     }
 
     @Test
+    fun `GIVEN all_countries api timeout WHEN service getAllCountries called THEN emit expected ApiResult with NETWORK_TIMEOUT_TEXT`() =
+        runTest {
+            fakeSportsApi.setTimeOut()
+
+            val result = sportsServiceImpl.getAllCountries()
+
+            val expectedApiResult =
+                ApiResult.GenericError(
+                    code = TIMEOUT_ERROR_CODE,
+                    errorMessage = NetworkConstants.NETWORK_TIMEOUT_TEXT,
+                )
+            assertEquals(expectedApiResult, result)
+        }
+
+    @Test
+    fun `GIVEN all_countries api returns success with null body WHEN service getAllCountries called THEN emit expected ApiResult with ERROR_RETRIEVING_DATA`() =
+        runTest {
+            fakeSportsApi.setSuccessBodyNull()
+
+            val result = sportsServiceImpl.getAllCountries()
+
+            val expectedApiResult =
+                ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
+            assertEquals(expectedApiResult, result)
+        }
+
+    @Test
     fun `GIVEN search_all_leagues api success response WHEN service searchLeaguesByCountry called THEN emit expected mapped ApiResult`() =
         runTest {
             val result = sportsServiceImpl.searchLeaguesByCountry(
@@ -102,7 +129,7 @@ internal class SportsServiceImplTest {
         }
 
     @Test
-    fun `GIVEN search_all_leagues api json error response WHEN service searchLeaguesByCountry called THEN emit expected JsonError ApiResult`() =
+    fun `GIVEN search_all_leagues api json error response WHEN service searchLeaguesByCountry called THEN emit expected ErrorModel ApiResult`() =
         runTest {
             val errorJsonString = "{\n" +
                 " \"cause\": \"No matched country found\" ,\n" +
@@ -135,10 +162,42 @@ internal class SportsServiceImplTest {
         assertEquals(apiResult, result)
     }
 
+    @Test
+    fun `GIVEN search_all_leagues api timeout WHEN service searchLeaguesByCountry called THEN emit expected ApiResult with NETWORK_TIMEOUT_TEXT`() =
+        runTest {
+            fakeSportsApi.setTimeOut()
+
+            val result = sportsServiceImpl.searchLeaguesByCountry(
+                countryName = COUNTRY_NAME,
+            )
+
+            val expectedApiResult =
+                ApiResult.GenericError(
+                    code = TIMEOUT_ERROR_CODE,
+                    errorMessage = NetworkConstants.NETWORK_TIMEOUT_TEXT,
+                )
+            assertEquals(expectedApiResult, result)
+        }
+
+    @Test
+    fun `GIVEN search_all_leagues api returns success with null body WHEN service searchLeaguesByCountry called THEN emit expected ApiResult with ERROR_RETRIEVING_DATA`() =
+        runTest {
+            fakeSportsApi.setSuccessBodyNull()
+
+            val result = sportsServiceImpl.searchLeaguesByCountry(
+                countryName = COUNTRY_NAME,
+            )
+
+            val expectedApiResult =
+                ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
+            assertEquals(expectedApiResult, result)
+        }
+
     private companion object {
         const val ERROR_MESSAGE = "Page Not Found"
         const val COUNTRY_NAME = "India"
         const val ERROR_RESPONSE_CODE = 410
+        const val TIMEOUT_ERROR_CODE = 408
 
         @JvmStatic
         fun apiThrowsException() = listOf(

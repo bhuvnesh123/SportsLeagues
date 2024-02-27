@@ -38,9 +38,8 @@ suspend fun <T, R> safeApiCall(
 } catch (throwable: Throwable) {
     when (throwable) {
         is TimeoutCancellationException -> {
-            val code = TIMEOUT_ERROR_CODE // timeout error code
             ApiResult.GenericError(
-                code = code,
+                code = TIMEOUT_ERROR_CODE,
                 errorMessage = NetworkConstants.NETWORK_TIMEOUT_TEXT,
             )
         }
