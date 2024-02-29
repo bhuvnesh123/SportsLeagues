@@ -15,7 +15,8 @@ import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
 import com.example.sports_domain.domainmodels.error.ErrorModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
+import okhttp3.ResponseBody.Companion.toResponseBody
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -64,12 +65,22 @@ internal class SportsServiceImplTest {
                 " \"message\": \"Please try with different country\"\n" +
                 "}"
             val responseCode = ERROR_RESPONSE_CODE
-            fakeSportsApi.setJsonError(jsonString = errorJsonString, responseCode = responseCode)
+            fakeSportsApi.setJsonError(
+                jsonString = errorJsonString,
+                responseCode = responseCode,
+            )
 
             val result = sportsServiceImpl.getAllCountries()
 
-            val errorModel = ErrorModel(cause = "No matched country found", message = "Please try with different country")
-            val expectedApiResult = ApiResult.ErrorResponse(code = responseCode, errorModel = errorModel)
+            val errorModel = ErrorModel(
+                cause = "No matched country found",
+                message = "Please try with different country",
+            )
+            val expectedApiResult =
+                ApiResult.ErrorResponse(
+                    code = responseCode,
+                    errorModel = errorModel,
+                )
             assertEquals(expectedApiResult, result)
         }
 
@@ -142,8 +153,15 @@ internal class SportsServiceImplTest {
                 countryName = COUNTRY_NAME,
             )
 
-            val errorModel = ErrorModel(cause = "No matched country found", message = "Please try with different country")
-            val expectedApiResult = ApiResult.ErrorResponse(code = responseCode, errorModel = errorModel)
+            val errorModel = ErrorModel(
+                cause = "No matched country found",
+                message = "Please try with different country",
+            )
+            val expectedApiResult =
+                ApiResult.ErrorResponse(
+                    code = responseCode,
+                    errorModel = errorModel,
+                )
             assertEquals(expectedApiResult, result)
         }
 
@@ -198,6 +216,7 @@ internal class SportsServiceImplTest {
         const val COUNTRY_NAME = "India"
         const val ERROR_RESPONSE_CODE = 410
         const val TIMEOUT_ERROR_CODE = 408
+        const val NOT_FOUND_CODE = 404
 
         @JvmStatic
         fun apiThrowsException() = listOf(
@@ -214,13 +233,25 @@ internal class SportsServiceImplTest {
             arrayOf(
                 HttpException(
                     Response.error<Any>(
-                        404,
-                        okhttp3.ResponseBody.create(null, ERROR_MESSAGE),
+                        NOT_FOUND_CODE,
+                        ERROR_MESSAGE.toResponseBody(),
                     ),
                 ),
                 ApiResult.GenericError(
-                    code = 404,
+                    code = NOT_FOUND_CODE,
                     errorMessage = ERROR_MESSAGE,
+                ),
+            ),
+            arrayOf(
+                HttpException(
+                    Response.error<Any>(
+                        NOT_FOUND_CODE,
+                        "".toResponseBody(),
+                    ),
+                ),
+                ApiResult.GenericError(
+                    code = NOT_FOUND_CODE,
+                    errorMessage = NetworkConstants.UNKNOWN_ERROR,
                 ),
             ),
         )

@@ -51,7 +51,7 @@ suspend fun <T, R> safeApiCall(
         is HttpException -> {
             val code = throwable.code()
             val errorResponse = convertErrorBody(throwable = throwable)
-            val errorMessage = errorResponse ?: NetworkConstants.UNKNOWN_ERROR
+            val errorMessage = if (errorResponse.isNullOrEmpty()) NetworkConstants.UNKNOWN_ERROR else errorResponse
 
             ApiResult.GenericError(
                 code = code,
