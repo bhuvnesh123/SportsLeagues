@@ -7,12 +7,10 @@ import com.example.sports_data.mappers.allcountries.CountriesListMapper
 import com.example.sports_data.mappers.allcountries.CountryMapper
 import com.example.sports_data.mappers.countryleagues.LeaguesListMapper
 import com.example.sports_data.mappers.countryleagues.LeaguesMapper
-import com.example.sports_data.mappers.error.ErrorMapper
 import com.example.sports_data.service.fakes.FakeSportsApi
 import com.example.sports_data.utils.NetworkConstants
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
-import com.example.sports_domain.domainmodels.error.ErrorModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -31,7 +29,6 @@ internal class SportsServiceImplTest {
     private val fakeSportsApi = FakeSportsApi()
     private val countriesListMapper = CountriesListMapper(countryMapper = CountryMapper())
     private val leaguesListMapper = LeaguesListMapper(leaguesMapper = LeaguesMapper())
-    private val errorMapper = ErrorMapper()
 
     private lateinit var sportsServiceImpl: SportsServiceImpl
 
@@ -41,7 +38,6 @@ internal class SportsServiceImplTest {
             sportsApi = fakeSportsApi,
             countriesListMapper = countriesListMapper,
             leaguesListMapper = leaguesListMapper,
-            errorMapper = errorMapper,
         )
     }
 
@@ -54,33 +50,6 @@ internal class SportsServiceImplTest {
                 CountriesResponseDTO(countries = fakeSportsApi.getCountriesList())
             val expectedApiResult =
                 ApiResult.Success(value = countriesListMapper.map(expectedResponse))
-            assertEquals(expectedApiResult, result)
-        }
-
-    @Test
-    fun `GIVEN all_countries api json error response WHEN service getAllCountries called THEN emit expected ErrorModel ApiResult`() =
-        runTest {
-            val errorJsonString = "{\n" +
-                " \"cause\": \"No matched country found\" ,\n" +
-                " \"message\": \"Please try with different country\"\n" +
-                "}"
-            val responseCode = ERROR_RESPONSE_CODE
-            fakeSportsApi.setJsonError(
-                jsonString = errorJsonString,
-                responseCode = responseCode,
-            )
-
-            val result = sportsServiceImpl.getAllCountries()
-
-            val errorModel = ErrorModel(
-                cause = "No matched country found",
-                message = "Please try with different country",
-            )
-            val expectedApiResult =
-                ApiResult.ErrorResponse(
-                    code = responseCode,
-                    errorModel = errorModel,
-                )
             assertEquals(expectedApiResult, result)
         }
 
@@ -115,18 +84,6 @@ internal class SportsServiceImplTest {
         }
 
     @Test
-    fun `GIVEN all_countries api returns success with null body WHEN service getAllCountries called THEN emit expected ApiResult with ERROR_RETRIEVING_DATA`() =
-        runTest {
-            fakeSportsApi.setSuccessBodyNull()
-
-            val result = sportsServiceImpl.getAllCountries()
-
-            val expectedApiResult =
-                ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
-            assertEquals(expectedApiResult, result)
-        }
-
-    @Test
     fun `GIVEN search_all_leagues api success response WHEN service searchLeaguesByCountry called THEN emit expected mapped ApiResult`() =
         runTest {
             val result = sportsServiceImpl.searchLeaguesByCountry(
@@ -136,32 +93,6 @@ internal class SportsServiceImplTest {
             val expectedResponse = LeagueResponseDTO(countries = fakeSportsApi.getLeaguesList())
             val expectedApiResult =
                 ApiResult.Success(value = leaguesListMapper.map(expectedResponse))
-            assertEquals(expectedApiResult, result)
-        }
-
-    @Test
-    fun `GIVEN search_all_leagues api json error response WHEN service searchLeaguesByCountry called THEN emit expected ErrorModel ApiResult`() =
-        runTest {
-            val errorJsonString = "{\n" +
-                " \"cause\": \"No matched country found\" ,\n" +
-                " \"message\": \"Please try with different country\"\n" +
-                "}"
-            val responseCode = ERROR_RESPONSE_CODE
-            fakeSportsApi.setJsonError(jsonString = errorJsonString, responseCode = responseCode)
-
-            val result = sportsServiceImpl.searchLeaguesByCountry(
-                countryName = COUNTRY_NAME,
-            )
-
-            val errorModel = ErrorModel(
-                cause = "No matched country found",
-                message = "Please try with different country",
-            )
-            val expectedApiResult =
-                ApiResult.ErrorResponse(
-                    code = responseCode,
-                    errorModel = errorModel,
-                )
             assertEquals(expectedApiResult, result)
         }
 
@@ -197,24 +128,9 @@ internal class SportsServiceImplTest {
             assertEquals(expectedApiResult, result)
         }
 
-    @Test
-    fun `GIVEN search_all_leagues api returns success with null body WHEN service searchLeaguesByCountry called THEN emit expected ApiResult with ERROR_RETRIEVING_DATA`() =
-        runTest {
-            fakeSportsApi.setSuccessBodyNull()
-
-            val result = sportsServiceImpl.searchLeaguesByCountry(
-                countryName = COUNTRY_NAME,
-            )
-
-            val expectedApiResult =
-                ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
-            assertEquals(expectedApiResult, result)
-        }
-
     private companion object {
         const val ERROR_MESSAGE = "Page Not Found"
         const val COUNTRY_NAME = "India"
-        const val ERROR_RESPONSE_CODE = 410
         const val TIMEOUT_ERROR_CODE = 408
         const val NOT_FOUND_CODE = 404
 

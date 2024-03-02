@@ -1,14 +1,10 @@
 package com.example.sports_data.utils
 
-import com.example.sports_data.dto.error.ErrorResponseDTO
 import com.example.sports_data.utils.NetworkConstants.NETWORK_TIMEOUT
-import com.example.sports_domain.domainmodels.error.ErrorModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
-import com.google.gson.Gson
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withTimeout
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 
 /**
@@ -18,22 +14,14 @@ import java.io.IOException
 private const val TIMEOUT_ERROR_CODE = 408
 
 suspend fun <T, R> safeApiCall(
-    apiCall: suspend () -> Response<T>,
+    apiCall: suspend () -> T,
     mapper: (T) -> R,
-    errorMapper: (ErrorResponseDTO) -> ErrorModel,
 ): ApiResult<R> = try {
     // throws TimeoutCancellationException
     withTimeout(timeMillis = NETWORK_TIMEOUT) {
         val response = apiCall()
-        if (response.isSuccessful) {
-            response.body()?.let { ApiResult.Success(value = mapper(it)) }
-                ?: ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
-        } else {
-            response.errorBody()?.let {
-                val errorBody = getErrorResponse(it.string())
-                ApiResult.ErrorResponse(code = response.code(), errorModel = errorMapper(errorBody))
-            } ?: ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
-        }
+        response?.let { ApiResult.Success(value = mapper(it)) }
+            ?: ApiResult.GenericError(errorMessage = NetworkConstants.ERROR_RETRIEVING_DATA)
     }
 } catch (throwable: Throwable) {
     when (throwable) {
@@ -71,6 +59,3 @@ private fun convertErrorBody(throwable: HttpException): String? = try {
 } catch (exception: Exception) {
     null
 }
-
-private fun getErrorResponse(response: String): ErrorResponseDTO =
-    Gson().fromJson(response, ErrorResponseDTO::class.java)

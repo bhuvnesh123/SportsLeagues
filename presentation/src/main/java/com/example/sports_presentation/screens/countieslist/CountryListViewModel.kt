@@ -36,9 +36,6 @@ class CountryListViewModel @Inject constructor(
         viewModelScope.launch(context = ioDispatcher) {
             when (val apiResult = countryListUseCase()) {
                 is ApiResult.Success -> onSuccess(response = apiResult.value)
-                is ApiResult.ErrorResponse -> onFailure(
-                    message = apiResult.errorModel.message,
-                )
                 is ApiResult.GenericError -> onFailure(message = apiResult.errorMessage)
                 is ApiResult.NetworkError -> onFailure(message = apiResult.errorMessage)
             }

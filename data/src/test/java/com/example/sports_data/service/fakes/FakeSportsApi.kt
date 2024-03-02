@@ -6,55 +6,32 @@ import com.example.sports_data.dto.allcountries.CountryDTO
 import com.example.sports_data.dto.countryleagues.LeagueDTO
 import com.example.sports_data.dto.countryleagues.LeagueResponseDTO
 import kotlinx.coroutines.delay
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.ResponseBody
-import okhttp3.ResponseBody.Companion.toResponseBody
-import retrofit2.Response
 
 class FakeSportsApi : SportsApi {
 
     private var apiException: Exception? = null
-    private var jsonErrorString: String? = null
-    private var errorCode: Int = 410
     private var isTimeout: Boolean = false
-    private var isNullSuccessBody: Boolean = false
 
-    override suspend fun getAllCountries(): Response<CountriesResponseDTO> {
+    override suspend fun getAllCountries(): CountriesResponseDTO {
         return when {
             apiException != null -> throw apiException!!
-            jsonErrorString != null -> {
-                val errorResponseBody: ResponseBody =
-                    jsonErrorString!!.toResponseBody("application/json".toMediaTypeOrNull())
-                Response.error(errorCode, errorResponseBody)
-            }
             isTimeout -> {
                 delay(DELAY)
-                Response.success(CountriesResponseDTO(countries = getCountriesList()))
+                CountriesResponseDTO(countries = getCountriesList())
             }
-            isNullSuccessBody -> {
-                Response.success(null)
-            }
-            else -> Response.success(CountriesResponseDTO(countries = getCountriesList()))
+            else -> CountriesResponseDTO(countries = getCountriesList())
         }
     }
 
-    override suspend fun searchLeaguesByCountry(countryName: String): Response<LeagueResponseDTO> {
+    override suspend fun searchLeaguesByCountry(countryName: String): LeagueResponseDTO {
         return when {
             apiException != null -> throw apiException!!
-            jsonErrorString != null -> {
-                val errorResponseBody: ResponseBody =
-                    jsonErrorString!!.toResponseBody("application/json".toMediaTypeOrNull())
-                Response.error(errorCode, errorResponseBody)
-            }
             isTimeout -> {
                 delay(DELAY)
-                Response.success(LeagueResponseDTO(countries = getLeaguesList()))
-            }
-            isNullSuccessBody -> {
-                Response.success(null)
+                LeagueResponseDTO(countries = getLeaguesList())
             }
             else -> {
-                Response.success(LeagueResponseDTO(countries = getLeaguesList()))
+                LeagueResponseDTO(countries = getLeaguesList())
             }
         }
     }
@@ -62,15 +39,8 @@ class FakeSportsApi : SportsApi {
     fun setShouldThrowException(exception: Exception = Exception()) {
         apiException = exception
     }
-    fun setJsonError(jsonString: String, responseCode: Int) {
-        jsonErrorString = jsonString
-        errorCode = responseCode
-    }
     fun setTimeOut() {
         isTimeout = true
-    }
-    fun setSuccessBodyNull() {
-        isNullSuccessBody = true
     }
     fun getCountriesList() = listOf(
         CountryDTO(name = "Country 1"),

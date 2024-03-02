@@ -4,7 +4,6 @@ import com.example.sports_data.dto.allcountries.CountriesResponseDTO
 import com.example.sports_data.dto.allcountries.CountryDTO
 import com.example.sports_data.dto.countryleagues.LeagueDTO
 import com.example.sports_data.dto.countryleagues.LeagueResponseDTO
-import com.example.sports_data.dto.error.ErrorResponseDTO
 
 object ResponseDTOFake {
 
@@ -35,10 +34,5 @@ object ResponseDTOFake {
                 strTvRights = "TV rights for League 2",
             ),
         ),
-    )
-
-    fun getErrorResponseDTO(): ErrorResponseDTO = ErrorResponseDTO(
-        cause = "No matched country found",
-        message = "Please try with different country",
     )
 }

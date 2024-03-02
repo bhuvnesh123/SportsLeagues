@@ -3,7 +3,6 @@ package com.example.sports_data.service
 import com.example.sports_data.api.SportsApi
 import com.example.sports_data.mappers.allcountries.CountriesListMapper
 import com.example.sports_data.mappers.countryleagues.LeaguesListMapper
-import com.example.sports_data.mappers.error.ErrorMapper
 import com.example.sports_data.utils.safeApiCall
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.countryleagues.LeagueListModel
@@ -14,14 +13,12 @@ class SportsServiceImpl @Inject constructor(
     private val sportsApi: SportsApi,
     private val countriesListMapper: CountriesListMapper,
     private val leaguesListMapper: LeaguesListMapper,
-    private val errorMapper: ErrorMapper,
 ) : SportsService {
 
     override suspend fun getAllCountries(): ApiResult<CountriesListModel> =
         safeApiCall(
             apiCall = { sportsApi.getAllCountries() },
             mapper = countriesListMapper::map,
-            errorMapper = errorMapper::map,
         )
 
     override suspend fun searchLeaguesByCountry(countryName: String): ApiResult<LeagueListModel> =
@@ -32,6 +29,5 @@ class SportsServiceImpl @Inject constructor(
                 )
             },
             mapper = leaguesListMapper::map,
-            errorMapper = errorMapper::map,
         )
 }
