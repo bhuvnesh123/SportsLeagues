@@ -9,7 +9,7 @@ import com.example.sports_presentation.base.MVIContract
 import com.example.sports_presentation.base.MVIDelegate
 import com.example.sports_presentation.di.IODispatcher
 import com.example.sports_presentation.di.MainDispatcher
-import com.example.sports_presentation.mappers.allcountries.CountryPresentationListMapper
+import com.example.sports_presentation.mappers.allcountries.CountryListPresentationMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CountryListViewModel @Inject constructor(
     private val countryListUseCase: CountryListUseCase,
-    private val countryPresentationListMapper: CountryPresentationListMapper,
+    private val countryListPresentationMapper: CountryListPresentationMapper,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
 ) :
@@ -53,7 +53,7 @@ class CountryListViewModel @Inject constructor(
     }
 
     private suspend fun onSuccess(response: CountriesListModel) {
-        val mappedResponse = countryPresentationListMapper.map(input = response)
+        val mappedResponse = countryListPresentationMapper.map(input = response)
         withContext(mainDispatcher) {
             updateViewState(
                 viewState = CountryListContract.ViewState.Success(

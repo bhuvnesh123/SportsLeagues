@@ -3,7 +3,7 @@ package com.example.sports_presentation.screens.countieslist
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
 import com.example.sports_domain.domainmodels.wrapper.ApiResult
 import com.example.sports_presentation.common.MainCoroutineRule
-import com.example.sports_presentation.mappers.allcountries.CountryPresentationListMapper
+import com.example.sports_presentation.mappers.allcountries.CountryListPresentationMapper
 import com.example.sports_presentation.models.allcountries.CountryPresentationModel
 import com.example.sports_presentation.screens.countieslist.fakes.FakeCountryListUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,7 +28,7 @@ internal class CountryListViewModelTest {
     fun setUp() {
         countryListViewModel = CountryListViewModel(
             countryListUseCase = fakeCountryListUseCase,
-            countryPresentationListMapper = CountryPresentationListMapper(),
+            countryListPresentationMapper = CountryListPresentationMapper(),
             ioDispatcher = StandardTestDispatcher(),
             mainDispatcher = StandardTestDispatcher(),
         )
