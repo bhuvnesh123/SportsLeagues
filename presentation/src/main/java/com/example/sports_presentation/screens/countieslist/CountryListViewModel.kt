@@ -47,14 +47,22 @@ class CountryListViewModel @Inject constructor(
 
     private suspend fun onFailure(message: String) {
         withContext(mainDispatcher) {
-            updateViewState(viewState = CountryListContract.ViewState.Error(errorMessage = message))
+            updateViewState(
+                viewState = CountryListContract.ViewState.Error(
+                    errorMessage = message,
+                ),
+            )
         }
     }
 
     private suspend fun onSuccess(response: CountriesListModel) {
         val mappedResponse = countryPresentationListMapper.map(input = response)
         withContext(mainDispatcher) {
-            updateViewState(viewState = CountryListContract.ViewState.Success(countriesList = mappedResponse.countries))
+            updateViewState(
+                viewState = CountryListContract.ViewState.Success(
+                    countriesList = mappedResponse,
+                ),
+            )
         }
     }
 

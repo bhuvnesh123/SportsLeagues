@@ -1,12 +1,9 @@
 package com.example.sports_presentation.mappers.allcountries
 
 import com.example.sports_domain.domainmodels.allcountries.CountriesListModel
-import com.example.sports_presentation.models.allcountries.CountriesListPresentationModel
+import com.example.sports_presentation.models.allcountries.CountryPresentationModel
 import javax.inject.Inject
 
-class CountryPresentationListMapper @Inject constructor(private val countryPresentationMapper: CountryPresentationMapper) {
-    fun map(input: CountriesListModel): CountriesListPresentationModel = with(input) {
-        val countriesList = countries.map { countryPresentationMapper.map(it) }
-        CountriesListPresentationModel(countries = countriesList)
-    }
+class CountryPresentationListMapper @Inject constructor() {
+    fun map(input: CountriesListModel) = input.countries.map { CountryPresentationModel(countryName = it.name) }
 }

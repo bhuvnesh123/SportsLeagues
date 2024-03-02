@@ -32,7 +32,11 @@ class CountryLeaguesViewModel @Inject constructor(
 
     init {
         val countryName = checkNotNull(savedStateHandle.get<String>(NavigationScreens.COUNTRY_NAME_ARG))
-        sendIntent(viewIntent = CountryLeaguesContract.ViewIntent.LoadData(countryName = countryName))
+        sendIntent(
+            viewIntent = CountryLeaguesContract.ViewIntent.LoadData(
+                countryName = countryName,
+            ),
+        )
     }
 
     private fun getCountryLeagues(countryName: String) {
@@ -50,7 +54,11 @@ class CountryLeaguesViewModel @Inject constructor(
 
     private suspend fun onFailure(message: String) {
         withContext(context = mainDispatcher) {
-            updateViewState(viewState = CountryLeaguesContract.ViewState.Error(errorMessage = message))
+            updateViewState(
+                viewState = CountryLeaguesContract.ViewState.Error(
+                    errorMessage = message,
+                ),
+            )
         }
     }
 
@@ -58,11 +66,11 @@ class CountryLeaguesViewModel @Inject constructor(
         val mappedResponse = leaguesListPresentationMapper.map(input = response)
         withContext(context = mainDispatcher) {
             updateViewState(
-                viewState = if (mappedResponse.countries.isEmpty()) {
+                viewState = if (mappedResponse.isEmpty()) {
                     CountryLeaguesContract.ViewState.NoDataFound
                 } else {
                     CountryLeaguesContract.ViewState.Success(
-                        leaguesList = mappedResponse.countries,
+                        leaguesList = mappedResponse,
                     )
                 },
             )

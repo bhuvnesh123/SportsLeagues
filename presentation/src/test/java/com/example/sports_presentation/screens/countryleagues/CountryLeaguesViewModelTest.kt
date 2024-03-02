@@ -3,7 +3,6 @@ package com.example.sports_presentation.screens.countryleagues
 import androidx.lifecycle.SavedStateHandle
 import com.example.sports_presentation.common.MainCoroutineRule
 import com.example.sports_presentation.mappers.countryleagues.LeaguesListPresentationMapper
-import com.example.sports_presentation.mappers.countryleagues.LeaguesPresentationMapper
 import com.example.sports_presentation.models.countryleagues.LeaguesPresentationModel
 import com.example.sports_presentation.navigation.NavigationScreens
 import com.example.sports_presentation.screens.countryleagues.fakes.FakesCountryLeaguesUseCase
@@ -29,9 +28,7 @@ internal class CountryLeaguesViewModelTest {
         every { savedStateHandle.get<String>(NavigationScreens.COUNTRY_NAME_ARG) } returns " "
         countryLeaguesViewModel = CountryLeaguesViewModel(
             countryLeaguesUseCase = FakesCountryLeaguesUseCase(),
-            leaguesListPresentationMapper = LeaguesListPresentationMapper(
-                leaguesPresentationMapper = LeaguesPresentationMapper(),
-            ),
+            leaguesListPresentationMapper = LeaguesListPresentationMapper(),
             savedStateHandle = savedStateHandle,
             ioDispatcher = StandardTestDispatcher(),
             mainDispatcher = StandardTestDispatcher(),
