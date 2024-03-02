@@ -3,11 +3,12 @@ package com.example.sports_presentation.navigation
 private const val COUNTRY_LIST_ROUTE = " country_list"
 private const val COUNTRY_LEAGUES_ROUTE = "country_leagues"
 
-sealed class NavigationScreens(val route: String) {
+enum class NavigationScreens(val route: String) {
 
-    data object CountryListScreen : NavigationScreens(route = COUNTRY_LIST_ROUTE)
+    CountryListScreen(route = COUNTRY_LIST_ROUTE),
 
-    data object CountryLeaguesScreen : NavigationScreens(route = COUNTRY_LEAGUES_ROUTE)
+    CountryLeaguesScreen(route = COUNTRY_LEAGUES_ROUTE),
+    ;
 
     companion object {
         const val COUNTRY_NAME_ARG = "countryName"
