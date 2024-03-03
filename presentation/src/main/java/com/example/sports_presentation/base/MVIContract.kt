@@ -1,6 +1,6 @@
 package com.example.sports_presentation.base
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 /**
  * Defines the contract for a Model-View-Intent (MVI) architecture component.
@@ -15,7 +15,7 @@ interface MVIContract<VS, VI, SI> {
 
     val viewState: StateFlow<VS>
 
-    val sideEffect: Flow<SI>
+    val sideEffect: SharedFlow<SI>
 
     fun updateViewState(viewState: VS)
 
