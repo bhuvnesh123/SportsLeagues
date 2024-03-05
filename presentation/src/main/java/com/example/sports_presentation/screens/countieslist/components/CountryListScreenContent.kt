@@ -19,10 +19,12 @@ fun CountryListScreenContent(callback: (countryName: String) -> Unit) {
     val countryListViewState by viewModel.viewState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect {
-            if (it is CountryListContract.SideEffect.NavigateToDetails) {
-                val countryName = it.countryName
-                callback(countryName)
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                is CountryListContract.SideEffect.NavigateToDetails -> {
+                    val countryName = sideEffect.countryName
+                    callback(countryName)
+                }
             }
         }
     }
@@ -44,6 +46,7 @@ fun CountryListViewState(
         is CountryListContract.ViewState.Loading -> {
             CircularProgressBarIndicator()
         }
+
         is CountryListContract.ViewState.Success -> {
             val countriesList = viewState.countriesList
             CountriesListContainer(
@@ -51,6 +54,7 @@ fun CountryListViewState(
                 callback = callback,
             )
         }
+
         is CountryListContract.ViewState.Error -> {
             val errorMessage = viewState.errorMessage
             MessageScreen(

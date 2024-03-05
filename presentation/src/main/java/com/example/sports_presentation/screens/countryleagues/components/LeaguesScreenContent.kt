@@ -27,16 +27,19 @@ fun LeaguesViewState(viewState: CountryLeaguesContract.ViewState) {
         is CountryLeaguesContract.ViewState.Loading -> {
             CircularProgressBarIndicator()
         }
+
         is CountryLeaguesContract.ViewState.Success -> {
             val leaguesList = viewState.leaguesList
             LeaguesContainer(leaguesList = leaguesList)
         }
+
         is CountryLeaguesContract.ViewState.Error -> {
             val errorMessage = viewState.errorMessage
             MessageScreen(
                 message = errorMessage,
             )
         }
+
         is CountryLeaguesContract.ViewState.NoDataFound -> {
             MessageScreen(
                 message = stringResource(
